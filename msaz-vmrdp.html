@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仮想マシンにリモートデスクトップ接続する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>仮想マシンにリモートデスクトップ接続する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
+      <p>この演習では、ローカル PC から Azure の仮想マシンにリモートデスクトップ接続します。</p>
+      <p><strong>所要時間:</strong> 約 5 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-vm1.html">仮想マシンを作成する</a> を完了してください。</p>
+
+      <h2>リモートデスクトップ</h2>
+      <p>リモートデスクトップ（RDP）は、クライアント PC からネットワーク経由で サーバー や別の Windows マシンに接続し、相手の画面を表示して遠隔操作する仕組みです。<br>
+        接続先ではリモートデスクトップの サービス が待ち受けており、通常は 3389 番ポートでクライアントからの接続を受け付けます。</p>
+      <img src="./data/msazure/port.png">
+
+      <h2>リモートデスクトップのデフォルトポート</h2>
+
+      <p>リモートデスクトップ接続では、接続先のポート番号を省略した場合、デフォルトの 3389 番ポートが接続に使用されます。
+        例えば <code>20.89.249.119</code> は <code>20.89.249.119:3389</code> を省略した指定方法です。<br>
+        <img src="./data/msazure/win-rdp.png"><br>
+        省略せずに <code>20.89.249.119:3389</code> と指定しても接続が可能です。
+        <img src="./data/msazure/win-rdp-port.png"><br>
+        接続先がリモートデスクトップ接続を デフォルトのポート以外で待ち受けている場合は、接続するポート番号を指定する必要があります。<br>
+        例えば 接続先が <code>50000</code> 番ポートで待ち受けている場合は、 <code>20.89.249.119:50000</code> と指定してリモートデスクトップ接続します。
+        <img src="./data/msazure/win-rdp-port2.png">
+      </p>
+
+      <h2>タスク 1: 仮想マシンにリモートデスクトップ接続</h2>
+      <p>仮想マシンにリモートデスクトップ接続します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><code>msaz-vm</code> などを選択します。</li>
+        <li>コマンドバーで <strong>[️🔄 最新の情報に更新]</strong> を選択します。
+          <img src="./data/msazure/vm-status.png">
+        </li>
+        <li>プライマリ NIC パブリック IP の右または下の表示を確認します。表示がないように見える場合は画面を大きくするなどして調整します。</li>
+        <li>プライマリ NIC パブリック IP の <code>xxx.xxx.xxx.xxx</code> の右の <strong>[クリップボードにコピー]</strong> を選択します
+          <img src="./data/msazure/ip-clip.png">
+        </li>
+        <li>ローカル PC でリモートデスクトップ接続を起動します。</li>
+        <li>リモートデスクトップ接続の コンピューター にコピーした IP アドレスを入力して接続します。
+          <img src="./data/msazure/win-rdp.png">
+          <img src="./data/msazure/win-rdp-confirm.png">
+        </li>
+        <li>仮想マシンの作成時に指定したユーザー名とパスワードを入力して <strong>[OK]</strong> を選択します。
+          <img src="./data/msazure/win-account.png">
+        </li>
+        <li>仮想マシンにリモートデスクトップ接続できることを確認します。<br>
+          Windows Server の場合は サーバーマネージャー が起動します。
+          <img src="./data/msazure/server-manager.png">
+        </li>
+
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータル で BLOB を作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータル で BLOB を作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ ストレージ アカウント</span></p>
+      <p>この演習では、Azure ポータル を使用して BLOB を作成します。</p>
+
+      <p><strong>所要時間:</strong> 約 15 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-blob-storage-1.html">コンテナー を作成する</a> を完了してください。</p>
+
+
+      <h2>BLOB ＜ コンテナー ＜ ストレージ アカウント</h2>
+      <p>Blob Storage は BLOB（Binary Large Object）を保存するサービスです。<br>
+      BLOB はコンテナーに保存し、コンテナーは用途に応じて複数作成できます。</p>
+      <img src="./data/msazure/storage-container.png">
+
+
+      <h2>タスク 1: 仮想ディレクトリ の作成</h2>
+      <p>仮想ディレクトリが単独で存在できないことを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。</li>
+        <li><code>storage-container</code> を選択します。
+        </li>
+        <li><strong>[＋ ディレクトリの追加]</strong> を選択します。
+          <img src="./data/msazure/container-command.png">
+        </li>
+        <li><code>directory</code> を入力して、<strong>[OK]</strong> を選択します。
+          <img src="./data/msazure/storage-container-directory.png">
+        </li>
+        <li><strong>[..]</strong> を選択します。
+          <img src="./data/msazure/storage-container-directory-empty-1.png">
+        </li>
+        <li>項目が見つかりませんでした を確認します。
+          <img src="./data/msazure/storage-container-directory-empty-2.png">
+        </li>
+        <li>作成したディレクトリが消失しました。</li>
+      </ol>
+
+
+      <h3>ストレージアカウントは、通常はフラットな名前空間で BLOB を管理します。</h3>
+      <img src="./data/msazure/namespace.png">
+      <p>フラットな名前空間では、仮想ディレクトリは本物のディレクトリではなく、BLOB 名の先頭部分をディレクトリっぽく見せているだけです。
+        そのため、その名前で始まる BLOB が 1 つもなければ、表示する材料がなくなり、仮想ディレクトリだけを単独では置いておけません。</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>フラットな名前空間</th>
+              <th>階層型名前空間　　　　　　　　</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>データをディレクトリ階層ではなく、平らな名前の集合として扱う方式。<br>名前に / を含んでいても実体としてのディレクトリではない。</td>
+              <td>データをファイルシステムのように、ディレクトリ階層で管理できる方式。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h2>タスク 2: BLOB の作成</h2>
+      <p>BLOB を作成します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。</li>
+        <li><code>storage-container</code> を選択します。
+        </li>
+        <li><strong>[↑ アップロード]</strong> を選択します。
+          <img src="./data/msazure/container-command.png">
+        </li>
+        <li><strong>[▽ 詳細]</strong> を選択します。
+          <img src="./data/msazure/storage-container-upload.png">
+        </li>
+        <li>BLOB の種類 で <strong>[ブロック BLOB]</strong> を選択します。
+          <img src="./data/msazure/upload-blob-type.png">
+        </li>
+        <li>アクセス層 で <strong>[ホット (推定)]</strong> を選択します。
+          <img src="./data/msazure/upload-access-tier.png">
+          選べる選択肢は変動します。クール / コールド / アーカイブは BLOB をすぐに削除してもコストが発生します（最低利用料金のようなもの）。
+        </li>
+        <li>アップロード先のフォルダー で <code>virtual-directory</code> を入力します。</li>
+        <li><strong>[ファイルの参照]</strong> を選択します。</li>
+        <li><strong>任意の画像ファイル</strong> を選択して <strong>[開く]</strong> を選択します。</li>
+        <li><strong>[ファイルが既に存在する場合は上書きする]</strong> のチェックボックスにチェックを入れます。
+          <img src="./data/msazure/storage-container-upload-2.png">
+        </li>
+        <li><strong>[アップロード]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+        <li><code>virtual-directory</code> が一覧に表示されることを確認します。
+          <img src="./data/msazure/uploaded-directory.png">
+        </li>
+        <li><code>virtual-directory</code> を選択します。
+        </li>
+        <li>アップロードしたファイルのファイル名 が一覧に表示されることを確認します。
+          <img src="./data/msazure/uploaded-blob.png">
+        </li>
+        <li>BLOB の種類 と アクセス層 を確認します。</li>
+      </ol>
+
+      
+      <h2>タスク 3: 作成されたリソースの確認</h2>
+      <p>BLOB にインターネット経由でアクセスできないことを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。</li>
+        <li><code>storage-container</code> を選択します。</li>
+        <li>前のタスクで <code>アップロードしたファイル</code> を選択します。</li>
+        <li>URLの 右端の <strong>[コピー]</strong> ボタン を選択します。
+          <img src="./data/msazure/blob-url.png">
+          https://storagev2msaz1.blob.core.windows.net/storage-container/virtual-directory/azure-geo-vm.png
+        </li>
+        <li>ブラウザで新しいタブを開いてコピーしたURLをアドレスバーに貼り付けます。</li>
+        <li>アップロードした画像ファイルが表示されないことを確認します。（BLOB 匿名アクセスの許可 が 無効 のためです）
+          <img src="./data/msazure/not-permitted.png">
+        </li>
+      </ol>
+
+      <h3>匿名アクセス マトリクス表</h3>
+      <p>ストレージアカウントの設定が コンテナーの設定よりも優先されます。<br>
+        - ストレージアカウントが 匿名アクセスを無効にする場合、すべてのコンテナーは 匿名アクセス無効<br>
+        - ストレージアカウントが 匿名アクセスを有効にする場合、コンテナーごとに 匿名アクセスレベルを選択可能<br>
+      <img src="./data/msazure/storage-account-container.png">
+
+        <br>この演習では ストレージアカウント と コンテナー を設定して、BLOB に匿名アクセスができるように変更します。<br>
+      <img src="./data/msazure/storage-account-container-edit.png">
+      </p>
+
+      <h2>タスク 4: BLOB 匿名アクセスの許可</h2>
+      <p>ストレージ アカウントで BLOB への 匿名アクセスを許可します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>サービスメニューから 設定 ＞ <strong>[構成]</strong> を選択します。</li>
+        <li>BLOB 匿名アクセスを許可する で <strong>[有効]</strong> を選択します。
+          <img src="./data/msazure/storage-menu-2.png">
+        </li> 
+        <li>コマンドバーで <strong>[💾 保存]</strong> を選択します。</li>
+      </ol>
+
+      <h2>タスク 5: 匿名アクセスレベルの変更</h2>
+      <p>コンテナーで 匿名アクセスレベルを プライベート から BLOB に変更します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。</li>
+        <li><strong>[🔄 最新の情報に更新]</strong> を選択します。</li>
+        <li><code>storage-container</code> のチェックボックスにチェックを入れます。
+          <img src="./data/msazure/access-level.png">
+        </li>
+        <li>コマンドバーで <strong>[🔒 アクセス レベルの変更]</strong> を選択します。</li>
+        <li>匿名アクセスレベルで <strong>[BLOB (BLOB 専用の匿名読み取りアクセス)]</strong> を選択します。
+          <img src="./data/msazure/access-level-anno.png">
+          <img src="./data/msazure/access-level-change.png">
+        </li>
+        <li><strong>[OK]</strong> を選択します。</li>
+      </ol>
+
+      <h2>タスク 6: 変更されたリソースの確認</h2>
+      <p>BLOB にインターネット経由でアクセスできることを確認します。</p>
+      <ol>
+        <li><strong>[🔄 最新の情報に更新]</strong> を選択します。</li>
+        <li><code>storage-container</code> の 匿名アクセスレベル が BLOB に変更されていることを確認します。
+          <img src="./data/msazure/access-level-after.png">
+        </li>
+        <li><code>storage-container</code> を選択します。</li>
+        <li>前のタスクで <strong>アップロードしたファイル</strong> を選択します。</li>
+        <li>URLの 右端の <strong>[コピー]</strong> ボタン を選択します。</li>
+        <li>ブラウザで新しいタブを開いてコピーしたURLをアドレスバーに貼り付けます。</li>
+        <li>アップロードした画像ファイルが表示されることを確認します。</br>
+          BLOB の匿名アクセスレベルが 変更されました。
+        </li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

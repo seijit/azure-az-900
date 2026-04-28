@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータルで パブリックロードバランサー（インバウンド NAT 規則）を作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータルで パブリックロードバランサー（インバウンド NAT 規則）を作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ ロードバランサー</span></p>
+      <p>この演習では、Azure ポータルを使用して パブリックロードバランサー（インバウンド NAT 規則）を作成します。</p>
+      <p><strong>所要時間:</strong> 約 10 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-lb.html">パブリックロードバランサを作成する</a> を完了してください。</p>
+          
+      <h2>タスク 1: インバウンド NAT 規則の追加</h2>
+      <p>ロードバランサーに インバウンド NAT 規則を追加します。<br>
+        インバウンド NAT 規則 は 負荷分散のための設定ではありません。<br>
+        ここでの インバウンド NAT 規則 は、ロードバランサー経由で仮想マシンにリモートデスクトップ接続するための設定です。<br>
+        仮想マシンへの接続を ロードバランサー経由の接続に限定したい などの目的です。<br>
+        下図では、ロードバランサーの 50000 番ポートに接続があった場合、仮想マシンの 3389 番ポートに接続を転送（フォワーディング）しています。
+      </p>
+      <img src="./data/msazure/lb-inbound-nat-v2.png"><br>
+
+      <ol>
+        <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+        <li><strong>[ロードバランサー]</strong> を選択します。</li>
+        <li><strong>[msaz-lb]</strong> を選択します。
+        <li>サービスメニューから 設定 ＞ <strong>[インバウンド NAT 規則]</strong> を選択します。</li>
+        <li><strong>[＋ 追加]</strong> を選択します。</li>
+
+        <div class="table-container">
+        <caption><strong>インバウンド NAT 規則 V2</strong></caption>
+          <table>
+            <thead>
+              <tr>
+                <th>設定</th>
+                <th>値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>名前</td>
+                <td><code>vm-rdp</code></td>
+              </tr>
+              <tr>
+                <td>種類</td>
+                <td>バックエンド プール</td>
+              </tr>
+              <tr>
+                <td>ターゲットのバックエンド プール</td>
+                <td><code>backend</code></td>
+              </tr>
+              <tr>
+                <td>フロントエンド IP アドレス</td>
+                <td><code>frontend</code> (xxx.xxx.xxx.xxx)</td>
+              </tr>
+              <tr>
+                <td>フロントエンド ポート範囲の始点</td>
+                <td><code>50000</code></td>
+              </tr>
+              <tr>
+                <td>バックエンド プール内にあるマシンの現在の数</td>
+                <td>2</td>
+              </tr>
+              <tr>
+                <td>バックエンド プール内のマシンの最大数</td>
+                <td><code>10</code></td>
+              </tr>
+              <tr>
+                <td>バックエンド ポート</td>
+                <td><code>3389</code></td>
+              </tr>
+              <tr>
+                <td>プロトコル</td>
+                <td>TCP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <li><strong>[保存]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+      </ol>
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>仮想マシンにリモートデスクトップ接続するための接続先のアドレスを確認します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+        <li><strong>[ロードバランサー]</strong> を選択します。</li>
+        <li><code>msaz-lb</code> を選択します。</li>
+        <li>サービスメニューから 設定 ＞ <strong>[インバウンド NAT 規則]</strong> を選択します。<br>
+          フロントエンド IP アドレスは、実際の値で読み替えてください。
+          <img src="./data/msazure/lb-nat-created.png"><br>
+        </li>
+
+        <li><code>vm-rdp</code> を選択します。</li>
+        <li>ポート マッピング を確認します。<br>
+          この画面では 番号の小さいポートが <code>msaz-vm-02</code> に、番号の大きいポートが <code>msaz-vm-01</code> にマッピングされています。<br>
+          <img src="./data/msazure/lb-inbound-nat-created.png">
+          <div class="table-flex-row">
+
+            <div class="table-flex-item">
+              <p><strong>転送元</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>フロントエンド IP</th>
+                      <th>フロントエンド ポート</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>135.149.193.144</code></td>
+                      <td><code>50000</code></td>
+                    </tr>
+                    <tr>
+                      <td><code>135.149.193.144</code></td>
+                      <td><code>50001</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-flex-item">
+              <p>転送先</p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>バックエンド 仮想マシン</th>
+                      <th>バックエンド ポート</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td><code>msaz-vm-02</code></td>
+                      <td><code>3389</code></td>
+                    </tr>
+                    <tr>
+                      <td><code>msaz-vm-01</code></td>
+                      <td><code>3389</code></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+            必ずこのようにマッピングされるわけではありません、実際のマッピングを確認してください。
+            タスクを行う際は 実際のマッピングで読み替えてください。
+          </div>
+          <img src="./data/msazure/lb-inbound-nat.png">
+        </li>
+
+      <li>仮想マシン毎のリモートデスクトップ接続の <strong>宛先アドレス:宛先ポート</strong> を確認します。<br>
+        実際の <strong>宛先アドレス:宛先ポート</strong> で読み替えてください。
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>仮想マシン</th>
+              <th>宛先アドレス:宛先ポート</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>msaz-vm-01</code></td>
+              <td><code>xxx.xxx.xxx.xxx:50001</code></td>
+            </tr>
+            <tr>
+              <td><code>msaz-vm-02</code></td>
+              <td><code>xxx.xxx.xxx.xxx:50000</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      </ol>
+
+      <h2>通信の振り分け比較</h2>
+      <p>通信の振り分け規則を比較します。</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>宛先アドレス</th>
+                <th>宛先ポート</th>
+                <th>適用される規則</th>
+                <th>振り分け方式</th>
+                <th>転送先アドレス</th>
+                <th>転送先ポート</th>
+                <th>サービス</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>フロントエンド<br>ロードバランサー</td>
+                <td>80</td>
+                <td>負荷分散規則</td>
+                <td>5タプルハッシュ<br>（セッション永続化：なし）</td>
+                <td>バックエンド<br>仮想マシン</td>
+                <td>80</td>
+                <td>HTTP</td>
+              </tr>
+              <tr>
+                <td>フロントエンド<br>ロードバランサー</td>
+                <td>50000 ~ 50009</td>
+                <td>インバウンド NAT 規則</td>
+                <td>ポートフォワーディング</td>
+                <td>バックエンド<br>仮想マシン</td>
+                <td>3389</td>
+                <td>RDP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <h2>タスク 3: 作成されたリソースの確認</h2>
+      <p>インバウンド NAT 規則 での接続を確認します。<br>
+        接続を転送（フォワーディング）する規則が 意図した通りに機能することを確認します。<br>
+        リモートデスクトップ接続して、仮想マシンのコンピューター名を確認します。<br>
+        仮想マシン 2台に同じ手順を繰り返します。</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>1台目の仮想マシン</th>
+                <th>2台目の仮想マシン</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>msaz-vm-01</code></td>
+                <td><code>msaz-vm-02</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <ol>
+        <li>仮想マシンに <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。<br>
+          接続には インバウンド NAT 規則 で確認した ロードバランサーの <strong>宛先アドレス:宛先ポート</strong> を使用します。</li>
+        <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
+        <li>スタートメニューを選択して <strong>[Server Manager]</strong> を選択します。
+          <img src="./data/msazure/rdp-start-menu.png"><br>
+          <img src="./data/msazure/server-manager-2.png"><br>
+        </li>
+        <li><strong>[Local Server]</strong> を選択します。
+          <img src="./data/msazure/server-manager-3.png"><br>
+        </li>
+        <li>Computer name が 意図したコンピューター名であることを確認します。
+        </li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

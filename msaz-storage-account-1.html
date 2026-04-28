@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータル で ストレージ アカウント を作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータル で ストレージ アカウント を作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ ストレージ アカウント</span></p>
+      <p>この演習では、Azure ポータル を使用して ストレージ アカウント を作成します。</p>
+
+      <p><strong>所要時間:</strong> 約 10 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-rg.html">リソースグループを作成する</a> を完了してください。</p>
+
+
+      <h2>Azure ストレージ</h2>
+      <p>Azure ストレージは、さまざまなデータを保存するための クラウド ストレージ基盤です。<br>
+        いくつかのストレージ サービスを、用途に応じて使い分けます。<br>
+      </p>
+      <img src="./data/msazure/azure-storage.png">
+
+
+      <h2>ストレージ サービス</h2>
+      <p>ストレージ サービス は、Azure ストレージで利用するデータ保存サービスの総称です。<br>
+        Azure ポータルのメニューから 個々のストレージ サービスを利用できます。
+      </p>
+      <img src="./data/msazure/storage-menu.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ポータルでの メニュー</th>
+              <th>サービス / 拡張機能</th>
+              <th>概要・主な特徴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>コンテナー</td>
+              <td>Blob Storage</td>
+              <td>画像やログなどを保存する汎用的なオブジェクト ストレージ（フラットな名前空間）</td>
+            </tr>
+            <tr>
+              <td>テーブル</td>
+              <td>Table Storage</td>
+              <td>非リレーショナルな構造化データ向け NoSQL データストア</td>
+            </tr>
+            <tr>
+              <td>キュー</td>
+              <td>Queue Storage</td>
+              <td>アプリケーション間で非同期メッセージをやり取りするためのキューサービス</td>
+            </tr>
+            <tr>
+              <td>ファイル共有</td>
+              <td>Azure Files</td>
+              <td>ファイル共有プロトコル(SMB/NFS)に対応したファイルストレージ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h2>タスク 1: ストレージ アカウント の作成</h2>
+      <p>ストレージ アカウント を作成します。<br>
+        ストレージ アカウントは、ストレージサービスを利用・管理するための管理単位です。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>ストレージ アカウント</code> と入力します。</li>
+        <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><strong>[＋ 作成]</strong> を選択します。</li>
+        <li>使用する サブスクリプション を選択します。</li>
+        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
+        <li>ストレージ アカウント名に <code>storagev2msaz1</code> と入力します。<br>ストレージ アカウント名は既に使用されています。 と表示された場合は、任意の別の名前を入力してください。</li>
+        <li>利用可能な リージョン を選択します。</li>
+        <li>パフォーマンスで <strong>[Standard]</strong> を選択します。</li>
+        <li>冗長性で <strong>[geo ゾーン冗長ストレージ (GZRS)]</strong> を選択します。</li>
+        <li><strong>[次へ]</strong> を選択します。</li>
+        <li><strong>[詳細]</strong> タブで、設定項目を一通り確認します。</li>
+        <li>階層型名前空間を有効にする が 無効 であることを確認します。<br>
+          この設定は、フラットな名前空間 を維持するか、<br>
+          階層型名前空間 に拡張するか を選択します。<br>
+          階層型名前空間が 有効 の場合、このストレージ アカウント内のすべてのBLOBが 階層型名前空間で管理されるようになります。<br>
+          ここでは 通常の BLOB を利用するストレージ アカウントなので、階層型名前空間を 無効 の状態で進めます。
+          <img src="./data/msazure/account-hns-off.png">
+        </li>
+        <li>アクセス層 が <strong>[ホット]</strong> であることを確認します。<br>
+        </li>
+        <li><strong>[詳細]</strong> タブ または <strong>[セキュリティ]</strong> タブで、<strong>個々のコンテナーで匿名アクセスの有効化を許可する</strong> が 無効 を選択します。<br>
+          この設定は、各コンテナーで 匿名アクセスを設定できるようにするかどうかを選択します。<br>
+          ここでは 匿名アクセスを許可しない設定で進めます。
+          <img src="./data/msazure/account-public-access-off.png">
+        </li>
+        <li><strong>[レビューと作成]</strong> を選択します。</li>
+        <li>設定が反映されていることを確認します。
+          <img src="./data/msazure/storage-account-confirm.png">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>カテゴリ</th>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>詳細</strong></td>
+                  <td>階層型名前空間を有効にする</td>
+                  <td><code>無効</code></td>
+                </tr>
+                <tr>
+                  <td><strong>セキュリティ</strong></td>
+                  <td>BLOB 匿名アクセス</td>
+                  <td><code>無効</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>内容を一通り確認し、<strong>[作成]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+      </ol>
+
+
+      <h2>匿名アクセス</h2>
+      <p>匿名アクセスは、サインインや認証なしで BLOB を読める設定です。<br>
+        匿名アクセスは ストレージアカウント単位で設定します。
+      </p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"> </th>
+              <th scope="col">ストレージ アカウント</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">名称</th>
+              <td>匿名アクセス<br>（BLOB 匿名アクセス）</td>
+            </tr>
+            <tr>
+              <th scope="row">役割</th>
+              <td>匿名アクセスを許可するかどうか</td>
+            </tr>
+            <tr>
+              <th scope="row">対象範囲</th>
+              <td>アカウント内の すべてのコンテナー<br>（大元の設定）<br>（コンテナーの設定よりも優先される）</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>ストレージ アカウントが作成されていることを確認します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>ストレージ アカウント</code> と入力します。</li>
+        <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>アカウントの種類 が <code>StorageV2 (汎用 v2)</code> であることを確認します。</li>
+      </ol>
+
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+    </main>
+  </div>
+</body>
+</html>

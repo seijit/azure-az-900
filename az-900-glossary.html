@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure AZ-900 用語集 (語源で覚える)</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --surface-color: #1e1e1e;
+      --text-main: #e0e0e0;
+      --text-muted: #b0b0b0;
+      --azure-blue: #0078d4;
+      --azure-light: #379ae6;
+      --border-color: #333333;
+      --code-bg: #2d2d2d;
+      --alert-info-bg: #332b00;
+      --alert-info-border: #ffb900;
+      --alert-error-bg: #2b0000;
+      --alert-error-border: #d13438;
+      --spacing-base: 1.5rem;
+    }
+
+    body {
+      font-family: "Segoe UI", "Meiryo", system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      color: var(--text-main);
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1200px;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #ffffff;
+      border-bottom: 4px solid var(--azure-blue);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--azure-light);
+      border-bottom: 1px solid var(--border-color);
+      margin-top: 3rem;
+      padding-bottom: 0.3rem;
+    }
+
+    p { margin-bottom: 1rem; }
+    strong { color: #ffffff; }
+
+    .table-container {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--surface-color);
+      min-width: 900px;
+    }
+
+    th, td {
+      border: 1px solid var(--border-color);
+      padding: 12px 15px;
+      text-align: left;
+    }
+
+    th {
+      background-color: var(--code-bg);
+      color: var(--text-main);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    tr:hover {
+      background-color: #252525;
+    }
+
+    a {
+      color: #4dabf7;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      text-decoration: underline;
+      color: #74c0fc;
+    }
+
+    /* 検索ボックスのスタイル */
+    .search-box {
+      margin: 2rem 0;
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+    }
+
+    #term-search {
+      width: 100%;
+      padding: 12px 20px;
+      font-size: 1rem;
+      background-color: var(--code-bg);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      outline: none;
+      box-sizing: border-box;
+      transition: border-color 0.2s;
+    }
+
+    #term-search:focus {
+      border-color: var(--azure-light);
+    }
+
+    #term-search::placeholder {
+      color: var(--text-muted);
+    }
+
+    /* 列幅とテキストスタイルの調整 */
+    .col-ja { width: 15%; }
+    .col-en { width: 15%; }
+    .col-etymology { width: 25%; min-width: 250px; }
+    .col-meaning { width: 30%; font-size: 0.95rem; }
+    .col-related { width: 15%; }
+
+    .term-ja { font-weight: bold; color: var(--azure-light); }
+    .term-en { 
+      font-family: Consolas, "Courier New", monospace; 
+      background-color: transparent;
+      padding: 0;
+    }
+    .etymology { color: var(--text-muted); }
+    .related { font-size: 0.9em; }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure AZ-900 用語集</h1>
+      <p><strong>カタカナ語の原義・語源から IT 用語を深く理解する</strong></p>
+
+      <div class="search-box">
+          <input type="text" id="term-search" placeholder="用語を検索... (例: スケール, IaaS, 冗長)">
+      </div>
+
+      <section class="term-section">
+        <h2>☁️ クラウドの概念 (Cloud Concepts)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-ja">カタカナ用語</th>
+                        <th class="col-en">英語表記</th>
+                        <th class="col-etymology">英単語の原義・語源</th>
+                        <th class="col-meaning">IT用語[Azure]としての意味</th>
+                        <th class="col-related">派生・複合・関連</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="term-ja">インフラストラクチャ</span></td><td><span class="term-en">Infrastructure</span></td><td class="etymology">Infra (下部) ＋ Structure (構造) ＝ 基盤</td><td class="col-meaning">システムを動かすための土台となるサーバーやネットワークなどの物理/仮想設備。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">プラットフォーム</span></td><td><span class="term-en">Platform</span></td><td class="etymology">Plat (平らな) ＋ Form (形) ＝ 土台、基盤</td><td class="col-meaning">アプリケーションを動かすための土台（OSやミドルウェア等）。PaaSの"P"。</td><td class="related">クロスプラットフォーム</td></tr>
+                    <tr><td><span class="term-ja">オンプレミス</span></td><td><span class="term-en">On-premises</span></td><td class="etymology">On (〜の上に) ＋ Premises (敷地・建物)</td><td class="col-meaning">自社の建物内にサーバー等の機器を設置し、自前で運用する形態。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ハイブリッド</span></td><td><span class="term-en">Hybrid</span></td><td class="etymology">異なる種類のものを組み合わせたもの</td><td class="col-meaning">オンプレミスとクラウドなど、複数の環境を組み合わせて使う形態。</td><td class="related">ハイブリッドクラウド</td></tr>
+                    <tr><td><span class="term-ja">オンデマンド</span></td><td><span class="term-en">On-demand</span></td><td class="etymology">On (〜の時に) ＋ Demand (要求・需要)</td><td class="col-meaning">ユーザーが欲しい時に、必要な分だけすぐにITリソースを利用できる仕組み。</td><td class="related">オンデマンドセルフサービス</td></tr>
+                    <tr><td><span class="term-ja">サービス</span></td><td><span class="term-en">Service</span></td><td class="etymology">Serve (仕える、提供する) ＋ ice (名詞化)</td><td class="col-meaning">クラウド事業者が提供する機能。インフラ管理をAzureが代行するものをマネージドサービスと呼ぶ。</td><td class="related">マネージドサービス</td></tr>
+                    <tr><td><span class="term-ja">アベイラビリティ</span></td><td><span class="term-en">Availability</span></td><td class="etymology">Avail (利用できる) ＋ ability (能力)</td><td class="col-meaning">システムが停止せず、継続して稼働し応答できる度合い。可用性。</td><td class="related">ハイアベイラビリティ</td></tr>
+                    <tr><td><span class="term-ja">フォールトトレランス</span></td><td><span class="term-en">Fault Tolerance</span></td><td class="etymology">Fault (障害) ＋ Tolerance (許容・忍耐)</td><td class="col-meaning">一部の部品が故障しても、全体を停止させずに稼働し続ける能力。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ディザスタリカバリ</span></td><td><span class="term-en">Disaster Recovery</span></td><td class="etymology">Disaster (災害) ＋ Recovery (回復・復旧)</td><td class="col-meaning">大規模災害時に、別の場所でシステムを復旧させる仕組みや計画。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">スケール</span></td><td><span class="term-en">Scale</span></td><td class="etymology">規模、物差し、登る・拡大する</td><td class="col-meaning">システムの処理能力を増減させること。</td><td class="related">スケーラビリティ</td></tr>
+                    <tr><td><span class="term-ja">エラスティック</span></td><td><span class="term-en">Elastic</span></td><td class="etymology">ゴムのように「弾力性のある」「伸縮自在な」</td><td class="col-meaning">需要の増減に合わせて、システムが自動的に規模を拡大・縮小できること。</td><td class="related">エラスティシティ</td></tr>
+                    <tr><td><span class="term-ja">アジャイル</span></td><td><span class="term-en">Agile</span></td><td class="etymology">敏捷（びんしょう）な、素早い</td><td class="col-meaning">ビジネスの変化に対して、システム開発や対応を迅速かつ柔軟に行えること。</td><td class="related">アジリティ</td></tr>
+                    <tr><td><span class="term-ja">アグリーメント</span></td><td><span class="term-en">Agreement</span></td><td class="etymology">Agree (同意する) ＋ ment (名詞化)</td><td class="col-meaning">当事者間での約束や契約。稼働率の契約などに使われる。</td><td class="related">SLA (Service Level Agreement)</td></tr>
+                    <tr><td><span class="term-ja">CapEx</span></td><td><span class="term-en">Capital Expenditure</span></td><td class="etymology">Capital (資本) ＋ Expenditure (支出)</td><td class="col-meaning">資本的支出。サーバー購入など、初期にかかるまとまった設備投資。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">OpEx</span></td><td><span class="term-en">Operational Expenditure</span></td><td class="etymology">Operational (運用の) ＋ Expenditure (支出)</td><td class="col-meaning">業務執行費用。使った分だけ毎月支払う運用費や維持費。</td><td class="related">-</td></tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
+
+      <section class="term-section">
+        <h2>🏛️ コアアーキテクチャコンポーネント (Core Architecture)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-ja">カタカナ用語</th>
+                        <th class="col-en">英語表記</th>
+                        <th class="col-etymology">英単語の原義・語源</th>
+                        <th class="col-meaning">IT用語[Azure]としての意味</th>
+                        <th class="col-related">派生・複合・関連</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="term-ja">コンポーネント</span></td><td><span class="term-en">Component</span></td><td class="etymology">Com (共に) ＋ ponent (置く) ＝ 構成要素</td><td class="col-meaning">アーキテクチャを成り立たせている個々の部品や要素のこと。</td><td class="related">コアアーキテクチャコンポーネント</td></tr>
+                    <tr><td><span class="term-ja">ジオ</span></td><td><span class="term-en">Geo</span></td><td class="etymology">「地球の」「土地の」を意味する接頭辞</td><td class="col-meaning">地理的な境界。データ主権を定義する大きなエリア。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">リージョン</span></td><td><span class="term-en">Region</span></td><td class="etymology">地域、地方、領域</td><td class="col-meaning">複数のデータセンターが集まっている、世界各地の地理的な拠点。</td><td class="related">リージョンペア, ソブリンリージョン</td></tr>
+                    <tr><td><span class="term-ja">ゾーン</span></td><td><span class="term-en">Zone</span></td><td class="etymology">（特定の目的・特徴を持つ）地帯、区域</td><td class="col-meaning">リージョン内で独立した電源・冷却網を持つ物理的な場所。</td><td class="related">可用性ゾーン</td></tr>
+                    <tr><td><span class="term-ja">ドメイン</span></td><td><span class="term-en">Domain</span></td><td class="etymology">領土、領域、範囲</td><td class="col-meaning">障害ドメインなど、影響範囲を分割する概念。</td><td class="related">障害ドメイン</td></tr>
+                    <tr><td><span class="term-ja">ラック</span></td><td><span class="term-en">Rack</span></td><td class="etymology">網棚、棚</td><td class="col-meaning">機器を物理的に収納する棚。障害ドメインの単位になる。</td><td class="related">サーバラック</td></tr>
+                    <tr><td><span class="term-ja">セット</span></td><td><span class="term-en">Set</span></td><td class="etymology">一揃い、ひとまとめ</td><td class="col-meaning">（可用性セットとして）VMを異なるラックに分散配置する仕組み。</td><td class="related">可用性セット</td></tr>
+                    <tr><td><span class="term-ja">テナント</span></td><td><span class="term-en">Tenant</span></td><td class="etymology">Tenere（保持する）＋ ant（人）＝ 店借人</td><td class="col-meaning">Entra IDの専用インスタンス。「組織」を指す境界線。</td><td class="related">マルチテナント</td></tr>
+                    <tr><td><span class="term-ja">サブスクリプション</span></td><td><span class="term-en">Subscription</span></td><td class="etymology">Subscribe (下に署名する) ＋ tion ＝ 契約</td><td class="col-meaning">サービスを利用し、料金を支払うための「課金・契約の境界」。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">リソース</span></td><td><span class="term-en">Resource</span></td><td class="etymology">Re (再び) ＋ source (湧き出る元) ＝ 資源</td><td class="col-meaning">仮想マシンなど、Azure上で作成・管理するIT要素の1つ1つ。</td><td class="related">リソースグループ</td></tr>
+                    <tr><td><span class="term-ja">インスタンス</span></td><td><span class="term-en">Instance</span></td><td class="etymology">事例、実例、（実体化されたもの）</td><td class="col-meaning">設計図を元に実際に作成されて稼働しているリソースの実体。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ライフサイクル</span></td><td><span class="term-en">Lifecycle</span></td><td class="etymology">誕生から廃棄までの周期</td><td class="col-meaning">リソースが作成され、運用され、最終的に削除されるまでの一連の流れ。</td><td class="related">-</td></tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
+
+      <section class="term-section">
+        <h2>💻 コンピューティングサービス (Compute Services)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-ja">カタカナ用語</th>
+                        <th class="col-en">英語表記</th>
+                        <th class="col-etymology">英単語の原義・語源</th>
+                        <th class="col-meaning">IT用語[Azure]としての意味</th>
+                        <th class="col-related">派生・複合・関連</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="term-ja">コンピューティング</span></td><td><span class="term-en">Computing</span></td><td class="etymology">Compute (計算する) ＋ ing</td><td class="col-meaning">CPUやメモリを使って計算処理を実行すること。</td><td class="related">コンピューティングサービス</td></tr>
+                    <tr><td><span class="term-ja">SKU</span></td><td><span class="term-en">Stock Keeping Unit</span></td><td class="etymology">在庫管理の最小単位</td><td class="col-meaning">リソースの「型番」。価格、性能、グレードを表す。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">プロビジョニング</span></td><td><span class="term-en">Provisioning</span></td><td class="etymology">Provision (供給する・準備する)</td><td class="col-meaning">必要なインフラを割り当てて、使える状態に準備すること。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">デプロイ</span></td><td><span class="term-en">Deploy</span></td><td class="etymology">配置する、展開する</td><td class="col-meaning">アプリやサービスを、実際の環境に配置して動かせる状態にすること。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ハイパーバイザー</span></td><td><span class="term-en">Hypervisor</span></td><td class="etymology">Hyper (上の) ＋ visor (見る人)</td><td class="col-meaning">1台の物理サーバー上で、複数の仮想マシン(VM)を動かす土台。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">コンテナ</span></td><td><span class="term-en">Container</span></td><td class="etymology">Contain (含む) ＋ er ＝ 容器</td><td class="col-meaning">アプリとその動作環境をひとまとめにした軽量な仮想化技術。</td><td class="related">ACI, AKS</td></tr>
+                    <tr><td><span class="term-ja">ポータビリティ</span></td><td><span class="term-en">Portability</span></td><td class="etymology">Portable (持ち運べる) ＋ ity ＝ 移植性</td><td class="col-meaning">作ったシステムを、別の環境へ簡単に持ち運んで動かせる度合い。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">クラスター</span></td><td><span class="term-en">Cluster</span></td><td class="etymology">房（ふさ）、群れ</td><td class="col-meaning">複数のコンピュータを束ねて、全体で1つのシステムとして扱う仕組み。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">オーケストレーション</span></td><td><span class="term-en">Orchestration</span></td><td class="etymology">指揮・統括する</td><td class="col-meaning">多数のコンテナを「自動的に指揮・管理」すること。</td><td class="related">AKS</td></tr>
+                    <tr><td><span class="term-ja">サーバレス</span></td><td><span class="term-en">Serverless</span></td><td class="etymology">Server ＋ less (〜がない)</td><td class="col-meaning">開発者がサーバーの存在を意識せずにコードを実行できる仕組み。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ファンクション</span></td><td><span class="term-en">Function</span></td><td class="etymology">機能、関数</td><td class="col-meaning">特定の処理（プログラムの関数）だけを実行する単位。</td><td class="related">Azure Functions</td></tr>
+                    <tr><td><span class="term-ja">トリガー</span></td><td><span class="term-en">Trigger</span></td><td class="etymology">引き金</td><td class="col-meaning">処理を自動で開始させるための「きっかけ」。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ランタイム</span></td><td><span class="term-en">Runtime</span></td><td class="etymology">Run (実行する) ＋ time (時間/環境)</td><td class="col-meaning">プログラムを動かすための実行環境。</td><td class="related">ランタイムスタック</td></tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
+
+      <section class="term-section">
+        <h2>💾 ストレージサービス (Storage Services)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-ja">カタカナ用語</th>
+                        <th class="col-en">英語表記</th>
+                        <th class="col-etymology">英単語の原義・語源</th>
+                        <th class="col-meaning">IT用語[Azure]としての意味</th>
+                        <th class="col-related">派生・複合・関連</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="term-ja">IOPS</span></td><td><span class="term-en">Input/Output Operations Per Second</span></td><td class="etymology">1秒あたりの入出力操作数</td><td class="col-meaning">ストレージが1秒間に何回データの読み書きができるかの性能指標。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">スループット</span></td><td><span class="term-en">Throughput</span></td><td class="etymology">Through (通り抜ける) ＋ put (置く)</td><td class="col-meaning">単位時間あたりに転送できるデータ量。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ローカル</span></td><td><span class="term-en">Local</span></td><td class="etymology">局所的な、地元の</td><td class="col-meaning">物理サーバーに直接付いている「一時的な」ストレージ。</td><td class="related">ローカルストレージ</td></tr>
+                    <tr><td><span class="term-ja">マネージド</span></td><td><span class="term-en">Managed</span></td><td class="etymology">Manage (管理する) ＋ ed (された)</td><td class="col-meaning">保守・管理を「Azure側が代行してくれる」サービス形態。</td><td class="related">マネージドディスク</td></tr>
+                    <tr><td><span class="term-ja">アカウント</span></td><td><span class="term-en">Account</span></td><td class="etymology">計算/帳簿、利用の権利</td><td class="col-meaning">ストレージ全体を管理するための最上位の枠組み。</td><td class="related">ストレージアカウント</td></tr>
+                    <tr><td><span class="term-ja">テーブル</span></td><td><span class="term-en">Table</span></td><td class="etymology">表</td><td class="col-meaning">行と列で整理された構造化データを大量に保存するNoSQL。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">キュー</span></td><td><span class="term-en">Queue</span></td><td class="etymology">待ち行列</td><td class="col-meaning">メッセージを一時的に貯め、順番に非同期で処理するためのサービス。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">BLOB</span></td><td><span class="term-en">Binary Large Object</span></td><td class="etymology">大きなバイナリデータの塊</td><td class="col-meaning">画像や動画などの非構造化データを大量に保存する。</td><td class="related">Blob Storage</td></tr>
+                    <tr><td><span class="term-ja">アーカイブ</span></td><td><span class="term-en">Archive</span></td><td class="etymology">古文書、記録保管所</td><td class="col-meaning">めったにアクセスしないデータを安価に長期保存する層。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">リハイドレート</span></td><td><span class="term-en">Rehydrate</span></td><td class="etymology">Re (再び) ＋ hydrate (水分を与える)</td><td class="col-meaning">アーカイブ層からデータを取り出せる状態に戻す処理。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">リダンダント</span></td><td><span class="term-en">Redundant</span></td><td class="etymology">余分な、冗長な</td><td class="col-meaning">障害に備えて、データを複数の場所に「コピーして持つ」こと。</td><td class="related">冗長性</td></tr>
+                    <tr><td><span class="term-ja">レプリケーション</span></td><td><span class="term-en">Replication</span></td><td class="etymology">Re（再び）＋ Plicare（重ねる）</td><td class="col-meaning">データを別の場所に同期・複製すること。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">マイグレート</span></td><td><span class="term-en">Migrate</span></td><td class="etymology">移住する、移動する</td><td class="col-meaning">システムやデータを、Azureの環境へお引越し（移行）すること。</td><td class="related">Azure Migrate</td></tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
+
+      <section class="term-section">
+        <h2>🌐 ネットワーキングサービス (Networking Services)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-ja">カタカナ用語</th>
+                        <th class="col-en">英語表記</th>
+                        <th class="col-etymology">英単語の原義・語源</th>
+                        <th class="col-meaning">IT用語[Azure]としての意味</th>
+                        <th class="col-related">派生・複合・関連</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="term-ja">プロトコル</span></td><td><span class="term-en">Protocol</span></td><td class="etymology">外交儀礼、議事録</td><td class="col-meaning">コンピュータ同士が通信を行うための「共通の約束事」。</td><td class="related">TCP, HTTP</td></tr>
+                    <tr><td><span class="term-ja">ソース</span></td><td><span class="term-en">Source</span></td><td class="etymology">水源、発生源、元</td><td class="col-meaning">通信を発信した送信元（ソースIPアドレス）。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ポート</span></td><td><span class="term-en">Port</span></td><td class="etymology">港</td><td class="col-meaning">アプリ宛の通信を識別するための番号。</td><td class="related">宛先ポート</td></tr>
+                    <tr><td><span class="term-ja">フォワード</span></td><td><span class="term-en">Forward</span></td><td class="etymology">前へ、転送する</td><td class="col-meaning">受け取ったデータを、次の目的地へ送り出すこと。</td><td class="related">フォワーディング</td></tr>
+                    <tr><td><span class="term-ja">エンドポイント</span></td><td><span class="term-en">Endpoint</span></td><td class="etymology">終点、端</td><td class="col-meaning">通信の目的地となる「接続口」のURLやIPアドレス。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">サブネット</span></td><td><span class="term-en">Subnet</span></td><td class="etymology">Sub (下位の) ＋ Network</td><td class="col-meaning">仮想ネットワークを論理的に分割した小さな区画。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">ピアリング</span></td><td><span class="term-en">Peering</span></td><td class="etymology">Peer (同等の者) ＋ ing</td><td class="col-meaning">独立した仮想ネットワーク（VNet）同士を直接繋ぐ機能。</td><td class="related">VNetピアリング</td></tr>
+                    <tr><td><span class="term-ja">ゲートウェイ</span></td><td><span class="term-en">Gateway</span></td><td class="etymology">門、出入り口</td><td class="col-meaning">異なるネットワークを安全に繋ぐための関所。</td><td class="related">VPNゲートウェイ</td></tr>
+                    <tr><td><span class="term-ja">ルート</span></td><td><span class="term-en">Route</span></td><td class="etymology">道、経路</td><td class="col-meaning">データが目的地まで通る道筋。制御をルーティングと呼ぶ。</td><td class="related">システムルート</td></tr>
+                    <tr><td><span class="term-ja">インバウンド</span></td><td><span class="term-en">Inbound</span></td><td class="etymology">In (内へ) ＋ bound (向かう)</td><td class="col-meaning">外から自分のネットワークに入ってくる通信。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">アウトバウンド</span></td><td><span class="term-en">Outbound</span></td><td class="etymology">Out (外へ) ＋ bound (向かう)</td><td class="col-meaning">内から外へ出ていく通信。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">アロウ / デナイ</span></td><td><span class="term-en">Allow / Deny</span></td><td class="etymology">許可する / 拒否する</td><td class="col-meaning">通信を「通す(Allow)」か「弾く(Deny)」かのルール。</td><td class="related">NSGルール</td></tr>
+                    <tr><td><span class="term-ja">ロード</span></td><td><span class="term-en">Load</span></td><td class="etymology">荷物、負荷</td><td class="col-meaning">通信の負担を複数のサーバーに振り分ける装置。</td><td class="related">ロードバランサ</td></tr>
+                    <tr><td><span class="term-ja">プローブ</span></td><td><span class="term-en">Probe</span></td><td class="etymology">探査機、調査する</td><td class="col-meaning">サーバーが正常に動いているか定期的に確認する通信。</td><td class="related">正常性プローブ</td></tr>
+                    <tr><td><span class="term-ja">ハッシュ</span></td><td><span class="term-en">Hash</span></td><td class="etymology">切り刻む、寄せ集め</td><td class="col-meaning">通信の特徴から計算し、振り分け先を決める仕組み。</td><td class="related">5タプルハッシュ</td></tr>
+                    <tr><td><span class="term-ja">リゾルバ</span></td><td><span class="term-en">Resolver</span></td><td class="etymology">Resolve (解決する) ＋ er</td><td class="col-meaning">URLからIPアドレスを割り出すサーバー。</td><td class="related">名前解決</td></tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
+
+      <section class="term-section">
+        <h2>🔐 ID、アクセス、およびセキュリティ (Security)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-ja">カタカナ用語</th>
+                        <th class="col-en">英語表記</th>
+                        <th class="col-etymology">英単語の原義・語源</th>
+                        <th class="col-meaning">IT用語[Azure]としての意味</th>
+                        <th class="col-related">派生・複合・関連</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="term-ja">ポリシー</span></td><td><span class="term-en">Policy</span></td><td class="etymology">方針、規定、ルール</td><td class="col-meaning">リソースの設定に関する「ルールを強制」する仕組み。</td><td class="related">Azure Policy</td></tr>
+                    <tr><td><span class="term-ja">ロール</span></td><td><span class="term-en">Role</span></td><td class="etymology">役割、役目</td><td class="col-meaning">「誰が何に対して何ができるか」という権限のまとまり。</td><td class="related">RBAC</td></tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
+
+      <section class="term-section">
+        <h2>⚙️ 一般IT・システム管理用語 (Management & Operations)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th class="col-ja">カタカナ用語</th>
+                        <th class="col-en">英語表記</th>
+                        <th class="col-etymology">英単語の原義・語源</th>
+                        <th class="col-meaning">IT用語[Azure]としての意味</th>
+                        <th class="col-related">派生・複合・関連</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="term-ja">ファンダメンタル</span></td><td><span class="term-en">Fundamental</span></td><td class="etymology">基礎、根幹</td><td class="col-meaning">基本的な概念や原則。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">オープンソース</span></td><td><span class="term-en">Open Source</span></td><td class="etymology">公開された設計図</td><td class="col-meaning">設計図が公開され、誰でも自由に利用・変更できるソフト。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">デファクト</span></td><td><span class="term-en">De facto</span></td><td class="etymology">（ラテン語）事実上の</td><td class="col-meaning">公的規格ではないが、広く使われ事実上の標準となったもの。</td><td class="related">標準</td></tr>
+                    <tr><td><span class="term-ja">デフォルト</span></td><td><span class="term-en">Default</span></td><td class="etymology">怠慢、不履行</td><td class="col-meaning">何も設定を変更しなかったときの「初期設定」のこと。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">デフィニション</span></td><td><span class="term-en">Definition</span></td><td class="etymology">定義、明確にすること</td><td class="col-meaning">構成や権限のルール内容をまとめた定義ファイル。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">セッション</span></td><td><span class="term-en">Session</span></td><td class="etymology">会議、集まり、期間</td><td class="col-meaning">接続開始してから切断するまでの一連の通信のまとまり。</td><td class="related">マルチセッション</td></tr>
+                    <tr><td><span class="term-ja">キャッシュ</span></td><td><span class="term-en">Cache</span></td><td class="etymology">隠し場所、貯蔵所</td><td class="col-meaning">よく使うデータを一時的に保存し、読み出しを速くする仕組み。</td><td class="related">キャッシュサーバ</td></tr>
+                    <tr><td><span class="term-ja">コンテンツ</span></td><td><span class="term-en">Content</span></td><td class="etymology">中身、内容物</td><td class="col-meaning">画像や動画など、ストレージに保存される実データ。</td><td class="related">-</td></tr>
+                    <tr><td><span class="term-ja">マーケットプレイス</span></td><td><span class="term-en">Marketplace</span></td><td class="etymology">市場、取引所</td><td class="col-meaning">他社製のソフトやサービスの販売所。</td><td class="related">-</td></tr>
+                </tbody>
+            </table>
+        </div>
+      </section>
+
+      <p><a href="index.html">← 目次に戻る</a></p>
+      
+    </main>
+  </div>
+
+  <script>
+    // リアルタイム検索機能 (新しいDOM構造に適合)
+    document.getElementById('term-search').addEventListener('input', function(e) {
+        const query = e.target.value.toLowerCase();
+        const rows = document.querySelectorAll('tbody tr');
+        
+        rows.forEach(row => {
+            const text = row.textContent.toLowerCase();
+            if (text.includes(query)) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        document.querySelectorAll('.term-section').forEach(section => {
+            const visibleRows = section.querySelectorAll('tbody tr[style=""]');
+            const allRows = section.querySelectorAll('tbody tr');
+            if (allRows.length > 0 && visibleRows.length === 0) {
+                section.style.display = 'none';
+            } else {
+                section.style.display = '';
+            }
+        });
+    });
+  </script>
+</body>
+</html>

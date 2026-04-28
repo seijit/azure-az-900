@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仮想マシンのディスク構成を確認する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>仮想マシンのディスク構成を確認する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
+      <p>この演習では、Azure ポータルを使用して 仮想マシンのディスク構成を確認します。</p>
+      <p><strong>所要時間:</strong> 約 5 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-vmrdp.html">仮想マシンにリモートデスクトップ接続する</a> を完了してください。</p>
+
+      <h2>タスク 1: エクスプローラーの確認</h2>
+      <p>エクスプローラーで 仮想マシンのディスク構成を確認します。</p>
+      <ol>
+        <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
+        <li>スタートメニューを選択して <strong>[File Explorer]</strong> を選択します。
+          <img src="./data/msazure/rdp-start-menu.png">
+        </li>
+        <li>エクスプローラーで 仮想マシンのディスク構成を確認します。
+          <img src="./data/msazure/rdp-file-explorer.png">
+        </li>
+      </ol>
+
+      <h2>タスク 2: ディスクの管理の確認</h2>
+      <p>ディスクの管理で 仮想マシンのディスク構成を確認します。</p>
+      <ol>
+        <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
+        <li>スタートメニューを右クリックして <strong>[Computer Management]</strong> を選択します。</li>
+        <li>Storage ＞ <strong>[Disk Management]</strong> を選択します。</li>
+        <li>ディスクの管理で 仮想マシンのディスク構成を確認します。
+          <img src="./data/msazure/rdp-disk-management.png">
+        </li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

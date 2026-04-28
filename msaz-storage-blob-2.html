@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータル で BLOB（ADLS Gen2） を作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータル で BLOB（ADLS Gen2） を作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ ストレージ アカウント</span></p>
+      <p>この演習では、Azure ポータル を使用して ADLS Gen2 の BLOB を作成します。</p>
+
+      <p><strong>所要時間:</strong> 約 15 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-storage-container-2.html">コンテナー（ADLS Gen2） を作成する</a> を完了してください。</p>
+
+
+      <h2>タスク 1: ディレクトリ の作成</h2>
+      <p>ディレクトリが単独で存在できることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz2</code> を選択します。</li>
+        <li>サービスメニューから ストレージ ブラウザー ＞ <strong>[BLOB コンテナー]</strong> を選択します。
+        <li><code>datalake</code> を選択します。
+        </li>
+        <li><strong>[＋ ディレクトリの追加]</strong> を選択します。
+        </li>
+        <li><code>sales</code> を入力して、<strong>[保存]</strong> を選択します。
+        </li>
+        <li><strong>[sales]</strong> を選択します。
+        </li>
+        <li><strong>[＋ ディレクトリの追加]</strong> を選択します。
+        </li>
+        <li><code>raw</code> を入力して、<strong>[保存]</strong> を選択します。
+        </li>
+        <li>🔘（raw の左横） を選択します。
+        </li>
+        <li>コマンドバーで <strong>[名前の変更]</strong> を選択します。
+          <img src="./data/msazure/browser-checked-raw.png">
+        </li>
+        <li><code>bronze</code> を入力して、<strong>[保存]</strong> を選択します。
+        </li>
+        <li>作成したディレクトリが消失しませんでした。
+          <img src="./data/msazure/container-tree.png">
+        </li>
+      </ol>
+
+
+      <h3>ストレージアカウントは、ADLS Gen2 では 階層型名前空間 で BLOB を管理します。</h3>
+      <img src="./data/msazure/namespace.png">
+      <p>フラットな名前空間ではディレクトリは本物のディレクトリではなく、BLOB 名の先頭部分をディレクトリっぽく見せているだけでした。
+        一方、ADLS Gen2 ではディレクトリが実体として存在するため、空のディレクトリも保持できます。</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>フラットな名前空間</th>
+              <th>階層型名前空間　　　　　　　　</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>データをディレクトリ階層ではなく、平らな名前の集合として扱う方式。<br>名前に / を含んでいても実体としてのディレクトリではない。</td>
+              <td>データをファイルシステムのように、ディレクトリ階層で管理できる方式。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h2>タスク 2: BLOB の作成</h2>
+      <p>データ分析用 BLOB を模擬的に作成します。</p>
+      <ol>
+        <li>模擬のデータ分析用データをローカルにダウンロードします。<br>
+          <a href="./data/msazure/202301.csv">202301.csv</a>
+        </li>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz2</code> を選択します。</li>
+        <li>サービスメニューから ストレージ ブラウザー ＞ <strong>[BLOB コンテナー]</strong> を選択します。
+        </li>
+        <li><code>datalake</code> を選択します。
+        </li>
+        <li><strong>[↑ アップロード]</strong> を選択します。
+        </li>
+        <li><strong>[▽ 詳細]</strong> を選択します。
+          <img src="./data/msazure/storage-container-upload.png">
+        </li>
+        <li>BLOB の種類 で <strong>[ブロック BLOB]</strong> を選択します。
+          <img src="./data/msazure/upload-blob-type-gen2.png">
+        </li>
+        <li>アクセス層 で <strong>[ホット (推定)]</strong> を選択します。
+          <img src="./data/msazure/upload-access-tier-gen2.png">
+          選べる選択肢は変動します。クール / コールド / アーカイブは BLOB をすぐに削除してもコストが発生します（最低利用料金のようなもの）。
+        </li>
+        <li>アップロード先のフォルダー で <code>sales/bronze</code> を入力します。</li>
+
+        <li><strong>[ファイルの参照]</strong> を選択します。</li>
+        <li>ダウンロードした <code>202301.csv</code> を選択して <strong>[開く]</strong> を選択します。</li>
+        <li><strong>[ファイルが既に存在する場合は上書きする]</strong> のチェックボックスにチェックを入れます。
+          <img src="./data/msazure/storage-container-upload-gen2.png">
+        </li>
+        <li><strong>[アップロード]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+        <li><strong>[sales]</strong> を選択します。
+        <li><strong>[bronze]</strong> を選択します。
+        <li><code>202301.csv</code> が一覧に表示されます。
+        </li>
+        <li>アップロードしたファイルのファイル名 が一覧に表示されます。
+          <img src="./data/msazure/uploaded-blob-gen2.png">
+        </li>
+        <li>BLOB の種類 と アクセス層 を確認します。</li>
+      </ol>
+
+
+      <h2>タスク 3: BLOB のコピー</h2>
+      <p>データ分析用 BLOB を模擬的にコピーします。<br>
+        Silver は Bronze の生データを検証、クレンジング、変換した中間層として作成するのが一般的であり、今回はあくまで模擬体験です。
+      </p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz2</code> を選択します。</li>
+        <li>サービスメニューから ストレージ ブラウザー ＞ <strong>[BLOB コンテナー]</strong> を選択します。
+        <li><code>datalake</code> を選択します。
+        </li>
+        <li><code>sales</code> を選択します。
+        </li>
+        <li><strong>[＋ ディレクトリの追加]</strong> を選択します。
+        </li>
+        <li><code>silver</code> を入力して、<strong>[保存]</strong> を選択します。
+        </li>
+        <li><code>bronze</code> を選択します。
+        </li>
+        <li>🔘（202301.csv の左横） を選択します。
+        </li>
+        <li>コマンドバーで <strong>[コピー]</strong> を選択します。
+        </li>
+        <li><code>[..]</code> を選択します（一つ上のディレクトリに移動）。
+        </li>
+        <li><code>silver</code> を選択します。
+        </li>
+        <li>コマンドバーで <strong>[貼り付け]</strong> を選択します。
+        </li>
+        <li><code>sales/silver/202301.csv</code> が存在することを確認します。
+          <img src="./data/msazure/uploaded-blob-silver-gen2.png">
+        </li>
+      </ol>
+
+      <h2>タスク 4: 作成されたリソースの確認</h2>
+      <p>データ分析用 BLOB をインターネット経由でダウンロードできることを確認します（匿名アクセスが許可されているため）。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz2</code> を選択します。</li>
+        <li>サービスメニューから ストレージ ブラウザー ＞ <strong>[BLOB コンテナー]</strong> を選択します。
+        </li>
+        <li><code>datalake</code> を選択します。</li>
+        <li>前のタスクでコピーしたファイル <code>sales/silver/202301.csv</code> を選択します。</li>
+        <li>URLの 右端の <strong>[コピー]</strong> ボタン を選択します。
+          https://storagev2msaz2.blob.core.windows.net/datalake/sales/silver/202301.csv
+        </li>
+        <li>ブラウザで新しいタブを開いてコピーしたURLをアドレスバーに貼り付けます。</li>
+        <li>ブラウザで <code>202301.csv</code> のダウンロードが開始されることを確認します。
+        </li>
+      </ol>
+
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+    </main>
+  </div>
+</body>
+</html>

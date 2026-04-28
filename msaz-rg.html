@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータル で リソース グループを作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータル で リソース グループを作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ リソース グループ</span></p>
+      <p>この演習では、Azure ポータル を使用して リソース グループ を作成します。</p>
+      <p><strong>所要時間:</strong> 約 5 分</p>
+
+      <h2>Azure ポータル サインイン</h2>
+      <p><a href="https://portal.azure.com/">Azure ポータル</a> にサインインします。<br>
+      この演習を完了するには、十分な権限を持つ Azure サブスクリプションが必要です。</p>
+
+      <h2>リソース グループ</h2>
+      <p>リソース グループは リソースをまとめる論理的な入れ物です。<br>
+        すべてのリソースは、どれか1つのリソース グループに必ず所属します。
+        <img src="./data/msazure/resource-group.png">
+      </p>
+
+      <h2>リソース</h2>
+      <p>オンプレミスで使っていたサーバー、ネットワーク、ディスクに相当する機能を、<br>
+        Azure では 仮想マシン、仮想ネットワーク、マネージド ディスク などのリソースとして作成・更新・削除します。
+      </p>
+      <img src="./data/msazure/resource.png">
+
+      <h2>タスク 1: リソース グループの作成</h2>
+      <p>リソース グループを作成します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><strong>[＋ 作成]</strong> を選択します。</li>
+        <li>使用する <strong>[サブスクリプション]</strong> を選択します。</li>
+        <li>リソース グループ名に <code>msaz-rg</code> と入力します。</li>
+        <li><strong>[(Asia Pacific) Japan West]</strong> などを選択します。</li>
+        <li><strong>[レビューと作成]</strong> を選択します。</li>
+        <li>内容を一通り確認し、<strong>[作成]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+      </ol>
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>リソース グループが作成されていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> が作成されていることを確認します。</li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3 id="cleanup">リソース グループを削除する</h3>
+      <p>必要がなくなったら、リソース グループを 含まれているすべてのリソースごと削除できます。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li>コマンドバーで <strong>[リソース グループの削除]</strong> を選択します。</li>
+        <li>削除を確認するために、リソース グループ の名前を入力してください。 の下部に、リソース グループ の名前（<code>msaz-rg</code>）を入力します。</li>
+        <li><strong>[削除]</strong> を選択します。</li>
+        <li>削除の確認 が表示されますので <strong>[削除]</strong> を選択して、リソースとリソース グループの削除を完了します。</li>
+      </ol>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

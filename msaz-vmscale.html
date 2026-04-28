@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仮想マシンをスケールアップする</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>仮想マシンをスケールアップする</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
+      <p>この演習では、Azure ポータルを使用して 仮想マシンを手動でスケールアップします。</p>
+      <p><strong>所要時間:</strong> 約 5 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-vm1.html">仮想マシンを作成する</a> を完了してください。</p>
+
+      <h2>スケールダウン・スケールイン</h2>
+      <p>
+        <img src="./data/msazure/scale-down.png">
+      </p>
+
+      <h2>スケールアップ・スケールアウト</h2>
+      <p>
+        <img src="./data/msazure/scale-up.png"><br>
+        スケールアップ<br>
+        　DBサーバのように排他的に書き込み要求を処理する必要がある場合など<br>
+        スケールアウト<br>
+        　Webサーバのように同時並行で大量の読み取り要求を処理する場合など<br>
+        <br>
+        仮想マシンのスケールアウト・スケールインを自動化する場合は、仮想マシン スケール セットを利用します。
+      </p>
+
+      <h2>タスク 1: 仮想マシンのスケールアップ</h2>
+      <p>仮想マシンを手動でスケールアップします。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><code>msaz-vm</code> などを選択します。</li>
+        <li>サービスメニューから 可用性とスケール ＞ <strong>[サイズ]</strong> を選択します。</li>
+        <li>現在の VM サイズ を確認します。
+          <img src="./data/msazure/size-current.png">
+        </li>
+        <li>仮想マシンが実行中の場合、サイズを変更すると仮想マシンが再起動されます。<br>
+          ここでは再起動されても問題ないので、実行中であった場合もそのまま続行します。
+          <img src="./data/msazure/size-info.png">
+        </li>
+        <li>現在の vCPU 数、RAM (GiB) よりも大きな VM サイズ を選択します。
+          <img src="./data/msazure/size-select.png">
+        </li>
+        <li><strong>[サイズの変更]</strong> を選択します。</li>
+        <li><strong>[サイズの変更]</strong> を選択します。
+          <img src="./data/msazure/size-confirm.png">
+        </li>
+        <li>完了を待ちます。</li>
+      </ol>
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>仮想マシンの VM サイズ が変更されていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><code>msaz-vm</code> などを選択します。</li>
+        <li>サービスメニューから <strong>[概要]</strong> を選択します。</li>
+        <li>サイズ が変更されていることを確認します。
+          <img src="./data/msazure/size-changed.png">
+        </li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

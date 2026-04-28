@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータルで 仮想マシンを作成する（Windows 可用性セット）</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータルで 仮想マシンを作成する（Windows 可用性セット）</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
+      <p>この演習では、Azure ポータルを使用して 仮想マシンを可用性セットに作成します。</p>
+      <p><strong>所要時間:</strong> 約 15 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-avl.html">可用性セットを作成する</a> を完了してください。</p>
+
+      <h2>仮想マシンと可用性セットの関連付け</h2>
+      <p>仮想マシンを可用性セットに関連付けするには、仮想マシンの作成時に可用性セットを指定する必要があります。後から可用性セットに関連付けすることはできません。
+        <img src="./data/msazure/system-architecture-2xvm.png">
+      </p>
+
+      <h2>タスク 1: 仮想マシンの作成</h2>
+      <p>仮想マシンを2台作成します。<br>関連付けする可用性セットを指定して作成します。<br>仮想マシン2台に同じ手順を繰り返します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><strong>[＋ 作成]</strong> を選択します。</li>
+        <li><strong>[仮想マシン]</strong> を選択します。</li>
+        <li>
+          基本 タブで、以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+          <img src="./data/msazure/vm-tab.png">
+
+          <div class="table-flex-row">
+            <div class="table-flex-item">
+              <p><strong>1台目 仮想マシン の設定</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>設定</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>サブスクリプション</td>
+                      <td>任意</td>
+                    </tr>
+                    <tr>
+                      <td>リソース グループ</td>
+                      <td><code>msaz-rg</code></td>
+                    </tr>
+                    <tr>
+                      <td>仮想マシン名</td>
+                      <td><code>msaz-vm-01</code></td>
+                    </tr>
+                    <tr>
+                      <td>リージョン</td>
+                      <td><strong>[(Asia Pacific) Japan West]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>可用性オプション</td>
+                      <td><strong>[可用性セット]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>可用性セット</td>
+                      <td><code>msaz-avl</code></td>
+                    </tr>
+                    <tr>
+                      <td>セキュリティの種類</td>
+                      <td><strong>[Standard]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>イメージ</td>
+                      <td><strong>[[smalldisk] Windows Server 2022 Datacenter: Azure Edition - x64 Gen 2]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>サイズ</td>
+                      <td><strong>[Standard_D2als_v6 ...]</strong> など</td>
+                    </tr>
+                    <tr>
+                      <td>ユーザー名</td>
+                      <td><code>azureuser</code></td>
+                    </tr>
+                    <tr>
+                      <td>パスワード</td>
+                      <td><code>Password123!</code> など</td>
+                    </tr>
+                    <tr>
+                      <td>パブリック受信ポート</td>
+                      <td><strong>[なし] ※</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-flex-item">
+              <p><strong>2台目 仮想マシン の設定</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>設定</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>サブスクリプション</td>
+                      <td>任意</td>
+                    </tr>
+                    <tr>
+                      <td>リソース グループ</td>
+                      <td><code>msaz-rg</code></td>
+                    </tr>
+                    <tr>
+                      <td>仮想マシン名</td>
+                      <td><code>msaz-vm-02</code></td>
+                    </tr>
+                    <tr>
+                      <td>リージョン</td>
+                      <td><strong>[(Asia Pacific) Japan West]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>可用性オプション</td>
+                      <td><strong>[可用性セット]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>可用性セット</td>
+                      <td><code>msaz-avl</code></td>
+                    </tr>
+                    <tr>
+                      <td>セキュリティの種類</td>
+                      <td><strong>[Standard]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>イメージ</td>
+                      <td><strong>[[smalldisk] Windows Server 2022 Datacenter: Azure Edition - x64 Gen 2]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>サイズ</td>
+                      <td><strong>[Standard_D2als_v6 ...]</strong> など</td>
+                    </tr>
+                    <tr>
+                      <td>ユーザー名</td>
+                      <td><code>azureuser</code></td>
+                    </tr>
+                    <tr>
+                      <td>パスワード</td>
+                      <td><code>Password123!</code> など</td>
+                    </tr>
+                    <tr>
+                      <td>パブリック受信ポート</td>
+                      <td><strong>[なし]</strong> ※</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+          ※ パブリック受信ポート では、パブリック インターネットから仮想マシンに 受信を許可するポートを選択します。<br>
+          ここでは、サブネットに関連付けされたネットワーク セキュリティ グループ（NSG）で受信を許可するため、パブリック受信ポートは［なし］を選択します。
+        </li>
+
+        <li><strong>[次： ディスク ＞]</strong> を選択します。</li>
+        <li>ディスク タブで、以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+
+          <div class="table-flex-row">
+            <div class="table-flex-item">
+              <p><strong>1台目 仮想マシン の設定</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>設定</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>OS ディスク サイズ</td>
+                      <td><strong>[イメージの規定値 (30 GiB)]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>OS ディスクの種類</td>
+                      <td><strong>[Standard SSD (ローカル冗長ストレージ)]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>VM と共に削除</td>
+                      <td><strong>[☑️]</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-flex-item">
+              <p><strong>2台目 仮想マシン の設定</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>設定</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>OS ディスク サイズ</td>
+                      <td><strong>[イメージの規定値 (30 GiB)]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>OS ディスクの種類</td>
+                      <td><strong>[Standard SSD (ローカル冗長ストレージ)]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>VM と共に削除</td>
+                      <td><strong>[☑️]</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </li>
+
+        <li><strong>[次： ネットワーク ＞]</strong> を選択します。</li>
+        <li>ネットワーク タブで、ネットワーク インターフェイスを以下のように設定します。指定のない項目はデフォルトのままにします。<br>
+          ネットワーク インターフェイスは仮想マシンの作成中に、同時に作成されます。<br>
+          ネットワーク インターフェイスを作成しないで、仮想マシンを作成することはできません。
+          <div class="table-flex-row">
+
+            <div class="table-flex-item">
+              <p><strong>1台目 仮想マシン の設定</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>設定</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>仮想ネットワーク</td>
+                      <td><code>msaz-vnet</code></td>
+                    </tr>
+                    <tr>
+                      <td>サブネット</td>
+                      <td><code>web-subnet</code></td>
+                    </tr>
+                    <tr>
+                      <td>パブリック IP</td>
+                      <td><strong>[(新規) msaz-vm-01-ip]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>NIC ネットワーク セキュリティ グループ</td>
+                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'web-subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。</td>
+                    </tr>
+                    <tr>
+                      <td>VM が削除されたときにパブリック IP と NIC を削除する</td>
+                      <td><strong>[☑️]</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-flex-item">
+              <p><strong>2台目 仮想マシン の設定</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>設定</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>仮想ネットワーク</td>
+                      <td><code>msaz-vnet</code></td>
+                    </tr>
+                    <tr>
+                      <td>サブネット</td>
+                      <td><code>web-subnet</code></td>
+                    </tr>
+                    <tr>
+                      <td>パブリック IP</td>
+                      <td><strong>[(新規) msaz-vm-02-ip]</strong></td>
+                    </tr>
+                    <tr>
+                      <td>NIC ネットワーク セキュリティ グループ</td>
+                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'web-subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。</td>
+                    </tr>
+                    <tr>
+                      <td>VM が削除されたときにパブリック IP と NIC を削除する</td>
+                      <td><strong>[☑️]</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </li>
+
+        <li><strong>[次： 管理 ＞]</strong> を選択します。</li>
+        <li>管理 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+
+        <li><strong>[次： 監視 ＞]</strong> を選択します。</li>
+        <li>監視 タブで、以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。<br>
+          ブート診断は、仮想マシンのブート(起動)時のスクリーンショットをストレージアカウントに保存して、ブート(起動)に問題がないか診断するための機能です。
+          <div class="table-flex-row">
+            <div class="table-flex-item">
+              <p><strong>1台目 仮想マシン の設定</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>設定</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ブート診断</td>
+                      <td><strong>[マネージド ストレージ アカウントで有効にする (推奨)]<br>ℹ️ マネージド ストレージ アカウントには通常の料金がかかります。</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <div class="table-flex-item">
+              <p><strong>2台目 仮想マシン の設定</strong></p>
+              <div class="table-container">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>設定</th>
+                      <th>値</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>ブート診断</td>
+                      <td><strong>[マネージド ストレージ アカウントで有効にする (推奨)]<br>ℹ️ マネージド ストレージ アカウントには通常の料金がかかります。</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+            </div>
+          </div>
+        </li>
+
+        <li><strong>[次： 詳細 ＞]</strong> を選択します。</li>
+        <li>詳細 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[次： タグ ＞]</strong> を選択します。</li>
+        <li>タグ タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[確認および作成]</strong> を選択します。</li>
+        <li>設定項目を一通り確認します。</li>
+        <li><strong>[作成]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+      </ol>
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>仮想マシンだけでなく、仮想マシンに関連するリソースも同時に作成されていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li>リソースの一覧が表示されます。<br>仮想マシンだけでなく ディスク・ネットワーク インターフェイス・パブリック IP アドレスが 2台分作成されたことを確認します。
+          <img src="./data/msazure/created-vmx2.png">
+        </li>
+      </ol>
+
+      <h2>タスク 3: 作成されたリソースの確認</h2>
+      <p>可用性セットに 仮想マシンが2台 関連付けされていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li><code>msaz-avl</code> を選択します。</li>
+        <li>仮想マシン2台が 別々の 障害ドメイン 更新ドメイン に分散配置されていることを確認します。
+          <img src="./data/msazure/avl-set-vmx2.png">
+        </li>
+      </ol>
+
+      <h2>タスク 4: 作成されたリソースの確認</h2>
+      <p>作成されたリソースがどのように関連付けされているかを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li>サービスメニューから <strong>[リソース ビジュアライザー]</strong> を選択します。</li>
+        <li>仮想マシンに関連する複数のリソースがどのように関連付けされているか確認します。<br>
+          <img src="./data/msazure/resource-visualizer-vmx2.png">
+          - 仮想マシン01  ➝  可用性セット<br>
+          - 仮想マシン02  ➝  可用性セット<br>
+        </li>
+      </ol>
+
+      <h2>タスク 5: ブート診断の確認</h2>
+      <p>ブート診断を確認します。<br>ブート診断は、仮想マシンのブート(起動)時のスクリーンショットをストレージアカウントに保存して、ブート(起動)に問題がないか診断するための機能です。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li><code>msaz-vm-01</code> を選択します。</li>
+        <li>サービスメニューから ヘルプ ＞ <strong>[ブート診断]</strong> を選択します。</li>
+        <li>仮想マシンのブート(起動)時のスクリーンショットが表示されます。<br>仮想マシンのWindowsがブート(起動)したことが確認できます。
+          <img src="./data/msazure/boot-diagnostics.png">
+        </li>
+        取得中にエラーが発生しました。 と表示された場合は、少し時間をおいてから再度確認してください。<br>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

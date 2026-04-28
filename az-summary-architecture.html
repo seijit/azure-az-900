@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure アーキテクチャ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+
+      <h2>Azure グローバル基盤</h2>
+      <img src="./data/msazure/azure-geo-vm.png">
+
+      <h2>geo ＞ リージョン</h2>
+      <img src="./data/msazure/portal-region.png">
+      <img src="./data/msazure/region.png">
+
+      <h2>リージョン ＞ ゾーン</h2>
+      <p>リージョン：通常 3つのゾーンがあります（可用性ゾーンをサポートするリージョンの場合）</p>
+      <img src="./data/msazure/azure-region.png">
+
+      <h2>ゾーン ＞ データセンター</h2>
+      <p>ゾーン＝可用性ゾーン：リージョンの中にある、物理的に独立した区画の1つ。1つ以上のデータセンターで構成。</p>
+      <img src="./data/msazure/az.png">
+
+      <h2>ラック ＞ サーバ</h2>
+      <p>ラック＝サーバラック<br>
+        サーバ＝ラックマウントサーバ
+      </p>
+      <img src="./data/msazure/server-rack-2.png">
+      <img src="./data/msazure/server-rack.png">
+
+      <h2>サーバ ＞ 仮想マシン</h2>
+      <img src="./data/msazure/vm-on-server.png">
+
+      <h2>可用性セット</h2>
+      <p>可用性セットは、仮想マシンを一つのデータセンター内で分散配置し、可用性を高めるための仕組みです。<br>
+      可用性セットは、障害ドメインと更新ドメインという2つの考え方で構成されます。</p>
+      <ol>
+        <ul>障害ドメイン：物理的なグループ</ul>
+        <ul>更新ドメイン：論理的なグループ</ul>
+      </ol>
+      <ol>
+        <li>サーバラックの電源やネットワークに障害が発生しても、物理的に別々のサーバラックに仮想マシンを分散配置していれば、可用性セットの仮想マシンがすべて同時に停止することを避けられます（障害ドメイン）。<br>
+        </li>
+        <li>Azure側がOSのアップデートなどでサーバを更新しても、更新のタイミングが違うグループに仮想マシンを分散配置していれば、可用性セットの仮想マシンがすべて同時に再起動することを避けられます（更新ドメイン）。<br>
+        </li>
+      </ol>
+      <p>仮想マシン 4台 を 可用性セットに配置した際に、それぞれの仮想マシンが 障害ドメイン と 更新ドメイン にどのように分散配置されるかの例を下記に示します。
+        <img src="./data/msazure/avl-set.png">
+        <img src="./data/msazure/availability-set-2.png">
+        ※ 以前のAzureではOSやホストの更新時に再起動が必須でしたが、現在 Azureのプラットフォーム更新の多くは再起動を伴わずに実行されます。
+      </p>
+
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータルで パブリックロードバランサーを作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータルで パブリックロードバランサーを作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ ロードバランサー</span></p>
+      <p>この演習では、Azure ポータルを使用して パブリックロードバランサーを作成します。</p>
+      <p><strong>所要時間:</strong> 約 30 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-vm.html">仮想マシンを作成する（Windows 可用性セット）</a> を完了してください。</p>
+
+      <h2>ロードバランサー</h2>
+      <p>通信を振り分けてサーバーの負荷（ロード）を分散するための装置です。<br>
+        Azure では リソース として実装されています。</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>分類</th>
+                <th>説明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>パブリック ロードバランサー</td>
+                <td>パブリック IP アドレスからの 通信を振り分けてサーバーの負荷を分散</td>
+              </tr>
+              <tr>
+                <td>内部 ロードバランサー</td>
+                <td>プライベート IP アドレスからの 通信を振り分けてサーバーの負荷を分散</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <h2>5タプル と 5タプルハッシュ</h2>
+        <img src="./data/msazure/lb-method.png"><br>
+        <div class="table-container">
+          <caption>5タプル</caption>
+          <table>
+            <thead>
+              <tr>
+                <th>5タプル 要素</th>
+                <th>説明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>送信元IPアドレス</td>
+                <td>クライアントの IP アドレス</td>
+              </tr>
+              <tr>
+                <td>送信元ポート番号</td>
+                <td>クライアント側で接続ごとに使われるポート番号</td>
+              </tr>
+              <tr>
+                <td>宛先IPアドレス</td>
+                <td>ロードバランサーの IP アドレス</td>
+              </tr>
+              <tr>
+                <td>宛先ポート番号</td>
+                <td>ロードバランサーの 待ち受けポート番号</td>
+              </tr>
+              <tr>
+                <td>プロトコル</td>
+                <td>トラフィックのプロトコルの種類 (TCP / UDP)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p>Azureの ロードバランサーは、デフォルトで「5タプルハッシュ」で 通信を振り分けます。<br>
+          「5タプル」は、通信を 他の通信と区別することができる 5つの要素の組み合わせです。<br>
+          「5タプルハッシュ」は、「5タプルのハッシュ値の 剰余で振り分け先を選択」する方式です。<br>
+          <a href="https://gemini.google.com/share/c5826c9434ff">5タプルハッシュ 解説＆シミュレーター</a> で理解を深めてください。
+        </p>
+
+      <h2>ロードバランサーの設定</h2>
+        <img src="./data/msazure/lb-setup.png">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>設定</th>
+                <th>説明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>フロントエンド</td>
+                <td>クライアントからの通信を受け取るエンドポイント</td>
+              </tr>
+              <tr>
+                <td>負荷分散規則</td>
+                <td>通信をバックエンド プールのサーバーに振り分けるための規則（ルール）</td>
+              </tr>
+              <tr>
+                <td>バックエンド プール</td>
+                <td>負荷分散の対象となるサーバーのプール（集まり）</td>
+              </tr>
+              <tr>
+                <td>正常性プローブ</td>
+                <td>バックエンドの正常性を確認するためのプローブ（探査）</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <h2>タスク 1: ロードバランサー の作成</h2>
+        <p>ロードバランサー を作成します。</p>
+        <ol>
+          <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+          <li><strong>[ロードバランサー]</strong> を選択します。</li>
+          <li><strong>[＋ 作成]</strong> を選択します。</li>
+          <li><strong>[Standard Load Balancer]</strong> を選択します。
+            <img src="./data/msazure/lb-menu.png">
+          </li>
+          <li>使用する サブスクリプション を選択します。</li>
+          <li>リソース グループで <code>msaz-rg</code> を選択します。</li>
+          <li>名前に <code>msaz-lb</code> と入力します。</li>
+          <li>利用可能な リージョン を選択します。</li>
+          <li>SKUで <strong>[Standard (バックエンド リソースへのトラフィックの分散)]</strong> を選択します。</li>
+          <li>種類で <strong>[パブリック]</strong> を選択します。</li>
+          <li>レベルで <strong>[地域]</strong> を選択します。</li>
+          <li><strong>[次: フロントエンド IP 構成]</strong> を選択します。</li>
+          <li><strong>[＋ フロントエンド IP 構成の追加]</strong> を選択します。<br>パブリック IP アドレス は 新規作成します。</li>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>名前</td>
+                  <td><code>frontend</code></td>
+                </tr>
+                <tr>
+                  <td>パブリック IP アドレス</td>
+                  <td>(新規) <code>msaz-lb-ip</code></td>
+                </tr>
+              </tbody>
+            </table>
+            <img src="./data/msazure/lb-frontend.png">
+          </div>
+
+          <li><strong>[保存]</strong> を選択します。</li>
+          <li><strong>[確認および作成]</strong> を選択します。<br>
+            フロントエンド以外は ロードバランサーの作成後に設定します。
+          </li>
+          <li>内容を一通り確認し、<strong>[作成]</strong> を選択します。</li>
+          <li>完了を待ちます。</li>
+        </ol>
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+        <p>ロードバランサーが作成されていることを確認します。</p>
+        <ol>
+          <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+          <li><strong>[ロードバランサー]</strong> を選択します。</li>
+          <li><code>msaz-lb</code> が存在することを確認します。</li>
+          <li><code>msaz-lb</code> を選択します。
+            <img src="./data/msazure/lb-created.png">
+          </li>
+          <li>バックエンド プール、負荷分散規則、正常性プローブ、インバウンド NAT 規則 が まだ作成されていないことを確認します。</li>
+          <li>サービスメニューから 設定 ＞ <strong>[フロントエンド IP 構成]</strong> を選択します。</li>
+          <li><code>frontend</code> が存在することを確認します。</li>
+        </ol>
+
+      <h2>タスク 3: ロードバランサーのバックエンド プールの作成</h2>
+        <p>ロードバランサーのバックエンド プール を作成します。<br>バックエンド プールは、負荷分散の対象であるサーバーの集まりです。</p>
+        <ol>
+          <li><a href="msaz-vmstop.html">仮想マシン 2台 を開始</a>します。</li>
+          <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+          <li><strong>[ロードバランサー]</strong> を選択します。</li>
+          <li><code>msaz-lb</code> を選択します。</li>
+          <li>サービスメニューから 設定 ＞ <strong>[バックエンド プール]</strong> を選択します。
+            <img src="./data/msazure/lb-service-menu.png">
+          </li>
+          <li><strong>[＋ 追加]</strong> を選択します。</li>
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>名前</td>
+                  <td><code>backend</code></td>
+                </tr>
+                <tr>
+                  <td>仮想ネットワーク</td>
+                  <td><code>msaz-vnet (msaz-rg)</code></td>
+                </tr>
+                <tr>
+                  <td>バックエンド プールの構成</td>
+                  <td><strong>[NIC]</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <li><strong>[＋ 追加]</strong> を選択します。</li>
+          <li>仮想マシン 2台 のチェックボックスにチェックを入れます。
+            <img src="./data/msazure/lb-backend.png">
+          <li><strong>[追加]</strong> を選択します。
+          <li><strong>[保存]</strong> を選択します。
+          <li>完了を待ちます。</li>
+        </ol>
+
+
+      <h2>タスク 4: 作成されたリソースの確認</h2>
+      <p>ロードバランサーのバックエンド プールが作成されていることを確認します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+        <li><strong>[ロードバランサー]</strong> を選択します。</li>
+        <li><code>msaz-lb</code> を選択します。
+        <li>サービスメニューから 設定 ＞ <strong>[バックエンド プール]</strong> を選択します。
+          <img src="./data/msazure/lb-backend-created.png">
+        </li>
+        <li>仮想マシン 2台 が <code>backend</code> に関連付けされていることを確認します。</li>
+      </ol>
+
+
+      <h2>タスク 5: ロードバランサーの正常性プローブの作成</h2>
+      <p>ロードバランサーの正常性プローブを作成します。<br>
+        正常性プローブは、バックエンドのサーバーの正常性を確認するためのプローブ（探査）です。<br>
+        ここでは TCP 80 番ポートの正常性プローブを作成します。</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>プロトコル　</th>
+                <th>宛先ポート番号　　</th>
+                <th>探査（プローブ）内容</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TCP</td>
+                <td>80</td>
+                <td>TCP 80 番ポートに対して TCP 接続を開始し、3 ウェイ ハンドシェイクが成立するかどうか</td>
+              </tr>
+              <tr>
+                <td>HTTP</td>
+                <td>80</td>
+                <td>HTTP 80 番ポートに対して GET リクエストを送信し、200 OK レスポンスを受信するかどうか</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <ol>
+        <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+        <li><strong>[ロードバランサー]</strong> を選択します。</li>
+        <li><code>msaz-lb</code> を選択します。</li>
+        <li>サービスメニューから 設定 ＞ <strong>[正常性プローブ]</strong> を選択します。</li>
+        <li><strong>[＋ 追加]</strong> を選択します。</li>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>設定</th>
+                <th>値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>名前</td>
+                <td><code>probe</code></td>
+              </tr>
+              <tr>
+                <td>プロトコル</td>
+                <td><strong>[TCP]</strong></td>
+              </tr>
+              <tr>
+                <td>ポート番号</td>
+                <td><code>80</code></td>
+              </tr>
+              <tr>
+                <td>間隔</td>
+                <td><code>5</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <li><strong>[保存]</strong> を選択します。
+        <li>完了を待ちます。</li>
+      </ol>
+
+
+      <h2>タスク 6: 作成されたリソースの確認</h2>
+      <p>ロードバランサーの正常性プローブが作成されていることを確認します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+        <li><strong>[ロードバランサー]</strong> を選択します。</li>
+        <li><code>msaz-lb</code> を選択します。</li>
+        <li>サービスメニューから 設定 ＞ <strong>[正常性プローブ]</strong> を選択します。
+          <img src="./data/msazure/lb-probe-confirm.png">
+        </li>
+        <li><code>probe</code> が作成されていることを確認します。</li>
+      </ol>
+
+
+      <h2>タスク 7: ロードバランサーの負荷分散規則の作成</h2>
+      <p>ロードバランサーの負荷分散規則 を作成します。<br>負荷分散規則は 通信をサーバーに振り分けるための規則（ルール）です。<br>
+        ロードバランサー フロントエンド IP アドレスの 80 番ポートに届いた通信を、<br>バックエンドにある サーバーの 80 番ポートへ振り分けるルールを作成します。</p>
+      <img src="./data/msazure/lb-rule.png">
+      <ol>
+        <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+        <li><strong>[ロードバランサー]</strong> を選択します。</li>
+        <li><code>msaz-lb</code> を選択します。
+        <li>サービスメニューから 設定 ＞ <strong>[負荷分散規則]</strong> を選択します。</li>
+        <li><strong>[＋ 追加]</strong> を選択します。</li>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>設定</th>
+                <th>値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>名前</td>
+                <td><code>lb-rule</code></td>
+              </tr>
+              <tr>
+                <td>フロントエンド IP アドレス</td>
+                <td><code>frontend (xxx.xxx.xxx.xxx)</code></td>
+              </tr>
+              <tr>
+                <td>バックエンド プール</td>
+                <td><code>backend</code></td>
+              </tr>
+              <tr>
+                <td>プロトコル</td>
+                <td><strong>[TCP]</strong></td>
+              </tr>
+              <tr>
+                <td>ポート</td>
+                <td><code>80</code></td>
+              </tr>
+              <tr>
+                <td>バックエンド ポート</td>
+                <td><code>80</code></td>
+              </tr>
+              <tr>
+                <td>正常性プローブ</td>
+                <td><code>probe (TCP:80)</code></td>
+              </tr>
+              <tr>
+                <td>セッション永続化 ※</td>
+                <td><strong>[なし]</strong></td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+
+        <li><strong>[保存]</strong> を選択します。
+        <li>完了を待ちます。</li>
+      </ol>
+
+
+      <h2>セッション永続化</h2>
+
+        <p>セッション永続化は 特定のクライアントの接続を 特定のサーバーに固定する機能 です。</p>
+          <img src="./data/msazure/lb-sticky-session.png">
+
+        <div class="table-container">
+          <caption><strong>セッション永続化の種類と特徴</strong></caption>
+          <table>
+            <thead>
+              <tr>
+                <th>ポータルの表示</th>
+                <th>振り分けの判断材料<br>(タプル)</th>
+                <th>どんな動きになる？</th>
+                <th>どんな時に使う？</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><b>なし</b></td>
+                <td><span>5つの情報</span><br>(IP、ポート、通信の種類)</td>
+                <td><b>とにかくバラバラに振り分ける</b><br>同じ人からのアクセスでも、例えば別のブラウザからの接続は 別のサーバーに振り分けられる場合がある。</td>
+                <td><b>デフォルト。</b><br>特定のサーバーに負荷が集中せず、システム全体を効率よく使える。</td>
+              </tr>
+              <tr>
+                <td><b>ソース IP</b></td>
+                <td><span>2つの情報</span><br>(自分と相手のIP)</td>
+                <td><b>「同じ人」は「同じサーバー」へ</b><br>同じIPアドレスからの通信なら、常に同じサーバーに振り分けられるようになる。</td>
+                <td><b>ログイン状態を保ちたい時。</b><br>サーバー側で「誰が今操作中か」を一時的に覚えているアプリに。</td>
+              </tr>
+              <tr>
+                <td><b>ソース IP と<br>プロトコル</b></td>
+                <td><span>3つの情報</span><br>(IP、通信の種類)</td>
+                <td><b>「同じ人」かつ「同じ通信の種類」なら「同じサーバー」へ</b><br>IPが同じでも、通信の種類（TCPかUDPか）が変われば振り分け先も変わる場合がある。</td>
+                <td><b>特殊なケース。</b><br>同じ人からの接続でも、通信の種類によって処理するサーバーを分けたい場合。</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <h2>タスク 8: 作成されたリソースの確認</h2>
+      <p>ロードバランサーの設定が作成されていることを確認します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>ロードバランサー</code> と入力します。</li>
+        <li><strong>[ロードバランサー]</strong> を選択します。</li>
+        <li><code>msaz-lb</code> を選択します。
+          <img src="./data/msazure/lb-probe-created.png">
+        </li>
+        <li>バックエンド プール、負荷分散規則、正常性プローブ が 作成されていることを確認します。</li>
+          <img src="./data/msazure/lb-setup.png">
+      </ol>
+
+
+      <h2>通信の振り分け方式</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>宛先アドレス</th>
+                <th>宛先ポート</th>
+                <th>適用される規則</th>
+                <th>振り分け方式</th>
+                <th>転送先アドレス</th>
+                <th>転送先ポート</th>
+                <th>サービス</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>フロントエンド<br>ロードバランサー</td>
+                <td>80</td>
+                <td>負荷分散規則</td>
+                <td>5タプルハッシュ<br>（セッション永続化：なし）</td>
+                <td>バックエンド<br>仮想マシン</td>
+                <td>80</td>
+                <td>HTTP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+          <img src="./data/msazure/lb-setup-2.png">
+
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

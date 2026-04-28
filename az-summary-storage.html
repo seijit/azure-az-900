@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ストレージ</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+
+      <h2>Azure ストレージ</h2>
+      <p>Azure ストレージは、さまざまなデータを保存するための クラウド ストレージ基盤です。<br>
+        いくつかのストレージ サービスを、用途に応じて使い分けます。<br>
+      </p>
+      <img src="./data/msazure/azure-storage.png">
+
+
+      <h2>ストレージ サービス</h2>
+      <p>ストレージ サービス は、Azure ストレージで利用するデータ保存サービスの総称です。<br>
+        Azure ポータルのメニューから 個々のストレージ サービスを利用できます。
+      </p>
+      <img src="./data/msazure/storage-menu.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ポータルでの メニュー　　</th>
+              <th colspan="2">サービス / 拡張機能</th>
+              <th>概要・主な特徴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td rowspan="2"><strong>[コンテナー]</strong></td>
+              <td colspan="2" class="no-border-bottom">Blob Storage</td>
+              <td>画像やログなどを保存する汎用的なオブジェクト ストレージ（フラットな名前空間）</td>
+            </tr>
+            <tr>
+              <td class="no-border-top"></td>
+              <td>Azure Data Lake Storage Gen2 (ADLS Gen2)</td>
+              <td>Blob Storage を基盤に、機能を拡張したデータレイク向けストレージ（階層型名前空間）</td>
+            </tr>
+            <tr>
+              <td><strong>[テーブル]</strong></td>
+              <td colspan="2">Table Storage</td>
+              <td>非リレーショナルな構造化データ向け NoSQL データストア</td>
+            </tr>
+            <tr>
+              <td><strong>[キュー]</strong></td>
+              <td colspan="2">Queue Storage</td>
+              <td>アプリケーション間で非同期メッセージをやり取りするためのキューサービス</td>
+            </tr>
+            <tr>
+              <td><strong>[ファイル共有]</strong></td>
+              <td colspan="2">Azure Files</td>
+              <td>ファイル共有プロトコル(SMB/NFS)に対応したファイルストレージ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h2>ストレージ アカウント</h2>
+      <p>ストレージ アカウントは、ストレージ サービスを利用・管理するための管理単位です。<br>
+        ストレージ アカウントは 作成時の「パフォーマンス」「アカウントの種類」で 分類できます。
+      </p>
+      <img src="./data/msazure/storage-account-type.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>パフォーマンス</th>
+              <th>アカウントの種類　　　　　　</th>
+              <th>説明 / 備考</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Standard</td>
+              <td>汎用 v2</td>
+              <td>ほとんどのシナリオに推奨。<br>幅広い冗長オプションに対応。</td>
+            </tr>
+            <tr>
+              <td rowspan="3">Premium</td>
+              <td>ページ BLOB</td>
+              <td>ランダムな読み書き操作に最適。</td>
+            </tr>
+            <tr>
+              <td>ブロック BLOB</td>
+              <td>高トランザクションレートまたは低ストレージ遅延に最適。</td>
+            </tr>
+            <tr>
+              <td>ファイル共有</td>
+              <td>高性能なファイル共有やスケールが必要な用途に最適。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+
+      <h2>冗長オプション</h2>
+      <p>Azure ストレージでは、保存したデータを システムが自動的にレプリケート（コピー）します。<br>
+        冗長オプションはストレージアカウント単位で設定し、<br>データをどこにどのようにレプリケートするかを選択します。<br>
+      </p>
+      <img src="./data/msazure/redundant-option.png">
+      <img src="./data/msazure/geo-rs.png">
+      <img src="./data/msazure/redundant-storage.png">
+
+
+      <p>オプション名は、L / Z / G といった複製先を表す記号、RS = Redundant Storage（冗長ストレージ）、そして必要に応じて RA = Read-Access（読み取りアクセス）を組み合わせて表します。</p>
+
+      <h4><img src="./data/msazure/locally-redundant-storage.png">
+      LRS : Locally-Redundant Storage (ローカル冗長ストレージ)</h4>
+
+      <h4><img src="./data/msazure/zone-redundant-storage.png">
+      ZRS : Zone-Redundant Storage (ゾーン冗長ストレージ)</h4>
+      
+      <h4><img src="./data/msazure/geo-redundant-storage.png">
+      GRS : Geo-Redundant Storage (geo 冗長ストレージ)<br>
+      RA-GRS : Read-Access Geo-Redundant Storage (読み取りアクセス ~)</h4>
+
+      <h4><img src="./data/msazure/geo-zone-redundant-storage.png">
+      GZRS : Geo-Zone-Redundant Storage (geo ゾーン冗長ストレージ)<br>
+      RA-GZRS : Read-Access Geo-Zone-Redundant Storage (読み取りアクセス ~)</h4>
+
+      <p>どこにどのようにレプリケートするか</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>種類　　　　　</th>
+              <th>どこにどのようにレプリケートするか</th>
+              <th>位置づけ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>LRS</td>
+              <td>プライマリリージョン内の1つのデータセンター内で3つのラックへ同期コピー。</td>
+              <td>最小コストの基本冗長化。</td>
+            </tr>
+            <tr>
+              <td>ZRS</td>
+              <td>同一リージョン内の3つのゾーンへ同期コピー。</td>
+              <td>ゾーン障害まで考えた高可用設計。</td>
+            </tr>
+            <tr>
+              <td>GRS</td>
+              <td>プライマリリージョンで LRS、さらにセカンダリリージョン で LRS（非同期コピー）。</td>
+              <td>リージョン障害を想定した災害対策。</td>
+            </tr>
+            <tr>
+              <td>GZRS</td>
+              <td>プライマリリージョンで ZRS、さらにセカンダリリージョン で LRS（非同期コピー）。</td>
+              <td>ゾーン障害とリージョン災害の両方を強く意識した構成。</td>
+            </tr>
+            <tr>
+              <td>RA-GRS / <br>RA-GZRS</td>
+              <td>GRS / GZRS だけでなく、平常時からセカンダリリージョンの読み取りを可能にする。</td>
+              <td>読み取り継続性を強めたい設計向け。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>選択できる冗長オプションは、ストレージ アカウントの種類や利用するサービスによって異なります。</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>アカウントの種類</th>
+              <th>冗長オプション（一部選択できない場合あり）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Standard 汎用 v2</td>
+              <td>LRS / ZRS / GRS / GZRS / (RA-GRS) / (RA-GZRS)</td>
+            </tr>
+            <tr>
+              <td>Premium ページ BLOB</td>
+              <td>LRS / ZRS</td>
+            </tr>
+            <tr>
+              <td>Premium ブロック BLOB</td>
+              <td>LRS / ZRS</td>
+            </tr>
+            <tr>
+              <td>Premium ファイル共有</td>
+              <td>LRS / ZRS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>冗長性とバックアップは別です。冗長性はインフラ障害に備える仕組みで、誤削除やデータ破損にはバックアップやバージョン管理を利用します。</p>
+
+
+      <h2>Azure Data Lake Storage Gen2 (ADLS Gen2)</h2>
+      <p>ADLS Gen2 は完全に独立したサービスというより、Blob Storage を拡張して 階層型名前空間 の機能を有効化したものです（Blob Storage はフラットな名前空間）。<br>
+        階層型名前空間は ストレージアカウント単位で設定します。
+      </p>
+      <img src="./data/msazure/hns-option.png">
+
+      <img src="./data/msazure/namespace.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>フラットな名前空間</th>
+              <th>階層型名前空間　　　</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>データをディレクトリ階層ではなく、平らな名前の集合として扱う方式。<br>名前に / を含んでいても実体としてのディレクトリではない。</td>
+              <td>データをファイルシステムのように、ディレクトリ階層で管理できる方式。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>マルチプロトコルアクセス</h3>
+      ADLS Gen2 の BLOB は、内部では階層型名前空間で管理されますが、<br>外部からのアクセスには 階層型名前空間での読み書きと フラットな名前空間での読み書きの 両方に対応します。
+      <img src="./data/msazure/multi-protocol.png">
+
+
+      <h2>アクセス層</h2>
+      <p>アクセス層は、データの利用頻度に応じて、保存コストとアクセスコストを最適化する設定です。<br>
+        アクセス層に対応しているのは、一部のストレージアカウントと一部の BLOB だけです。
+      </p>
+      <img src="./data/msazure/access-tier-smart.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>アクセス層　　　</th>
+              <th>アクセス性　　　　</th>
+              <th>最短保存期間</th>
+              <th>コスト傾向　　　　　　</th>
+              <th>主な用途・補足</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ホット</strong></td>
+              <td>オンライン</td>
+              <td>なし</td>
+              <td>保存コスト: 高め<br>アクセスコスト: 低め</td>
+              <td>頻繁に読み書きするデータ。画像や Activeなログなど。</td>
+            </tr>
+            <tr>
+              <td><strong>クール</strong></td>
+              <td>オンライン</td>
+              <td>30日</td>
+              <td>保存コスト: 中<br>アクセスコスト: 中</td>
+              <td>たまに参照するデータ。直近のバックアップなど。</td>
+            </tr>
+            <tr>
+              <td><strong>コールド</strong></td>
+              <td>オンライン</td>
+              <td>90日</td>
+              <td>保存コスト: 安い<br>アクセスコスト: 高め</td>
+              <td>めったに参照しないが、必要時は即座にアクセスしたいデータ。</td>
+            </tr>
+            <tr>
+              <td><strong>アーカイブ</strong></td>
+              <td><strong>オフライン</strong></td>
+              <td>180日</td>
+              <td>保存コスト: 最安<br>アクセスコスト: 最高</td>
+              <td>長期保管用。参照にはオンライン層へ戻す操作と復元待ちが必要。選べる冗長オプションに制限あり。アーカイブ層は、アカウントではなく、BLOB レベルでのみ設定できる。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <ul>
+        <li>
+          <strong>オンラインとオフライン</strong>
+          <ul>
+            <li><strong>オンライン</strong>：待ち時間なしで即座に読み書きが可能。</li>
+            <li><strong>オフライン</strong>：読み取る前に、オンラインに戻す操作と数時間〜15時間の復元待ち（リハイドレーション）が必要。</li>
+          </ul>
+        </li>
+        <li>
+          <strong>コスト構造</strong>
+          <ul>
+            <li>データの「保存」と「アクセス」の両方に料金がかかる。</li>
+            <li>保存コストが安い層ほど、アクセスコストが高くなる反比例の関係。</li>
+          </ul>
+        </li>
+        <li>
+          <strong>最短保存期間</strong>
+          <ul>
+            <li>保存コストが安い層には、最低利用期間がある。</li>
+            <li>期間内に削除したり他の層へ移したりしても、その期間分の料金は課金される。</li>
+          </ul>
+        </li>
+      </ul>
+
+      <br>
+
+      <p>アクセス層を設定できるストレージアカウントは Standard 汎用 v2 だけです。</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ストレージアカウントの種類</th>
+              <th>アカウント既定のアクセス層　　</th>
+              <th>BLOB ごとのアクセス層</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Standard 汎用 v2</td>
+              <td>ホット / クール / コールド</td>
+              <td>ブロック BLOB のみ：<br>ホット / クール / コールド / アーカイブ</td>
+            </tr>
+            <tr>
+              <td>Premium ページ BLOB</td>
+              <td>非対応</td>
+              <td>非対応</td>
+            </tr>
+            <tr>
+              <td>Premium ブロック BLOB</td>
+              <td>非対応</td>
+              <td>非対応</td>
+            </tr>
+            <tr>
+              <td>Premium ファイル共有</td>
+              <td>非対応</td>
+              <td>非対応</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+
+      <p>アクセス層を設定できる BLOB の種類 は ブロック BLOB だけです。</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>BLOB の種類</th>
+              <th>ホット</th>
+              <th>クール</th>
+              <th>コールド</th>
+              <th>アーカイブ</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ページ BLOB</td>
+              <td>×</td>
+              <td>×</td>
+              <td>×</td>
+              <td>×</td>
+            </tr>
+            <tr>
+              <td>ブロック BLOB</td>
+              <td>○</td>
+              <td>○</td>
+              <td>○</td>
+              <td>○</td>
+            </tr>
+            <tr>
+              <td>追加 BLOB</td>
+              <td>×</td>
+              <td>×</td>
+              <td>×</td>
+              <td>×</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <h2>匿名アクセス / 匿名アクセス レベル</h2>
+      <p>匿名アクセスは、サインインや認証なしで BLOB を読める設定です。<br>
+        匿名アクセスは ストレージアカウント単位で設定します。
+      </p>
+      <img src="./data/msazure/anonymous-read-access.png">
+      <p>匿名アクセス レベルは BLOB の公開範囲を決めます。<br>
+        個々の BLOB ごとには設定できず、コンテナー単位で設定します。
+      </p>
+      <img src="./data/msazure/anonymous-access-level.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"> </th>
+              <th scope="col">ストレージ アカウント</th>
+              <th scope="col">コンテナー</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">名称</th>
+              <td>匿名アクセス<br>（BLOB 匿名アクセス）</td>
+              <td>匿名アクセス レベル</td>
+            </tr>
+            <tr>
+              <th scope="row">役割</th>
+              <td>匿名アクセスを許可するかどうか</td>
+              <td>匿名アクセスをどこまで許可するか</td>
+            </tr>
+            <tr>
+              <th scope="row">対象範囲</th>
+              <td>アカウント内の すべてのコンテナー<br>（大元の設定）<br>（コンテナーの設定よりも優先される）</td>
+              <td>設定した 特定のコンテナーのみ<br>（個別の設定）<br>（ストレージアカウントの設定に従う）</td>
+            </tr>
+            <tr>
+              <th scope="row" rowspan="3">匿名アクセス レベル</th>
+              <td rowspan="3"></td>
+              <td>プライベート<br>：非公開</td>
+            </tr>
+            <tr>
+              <td>コンテナー<br>：ファイルとファイル一覧を公開</td>
+            </tr>
+            <tr>
+              <td>BLOB<br>：ファイルを公開</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>匿名アクセス マトリクス表</h3>
+      <p>ストレージアカウントの設定が コンテナーの設定よりも優先されます。<br>
+        - ストレージアカウントが 匿名アクセス無効 の場合、すべてのコンテナーは 匿名アクセス無効<br>
+        - ストレージアカウントが 匿名アクセス有効 の場合、コンテナーごとに 匿名アクセスレベルを選択可能<br>
+      </p>
+      <img src="./data/msazure/storage-account-container.png">
+
+
+      <h2>BLOB ＜ コンテナー ＜ ストレージ アカウント</h2>
+      <p>Blob Storage は BLOB（Binary Large Object）を保存するサービスです。<br>
+      BLOB はコンテナーに保存し、コンテナーは用途に応じて複数作成できます。</p>
+      <img src="./data/msazure/storage-container.png">
+
+
+      <h2>BLOB の種類</h2>
+      <p>BLOB の種類は、データを保存する際に選択します。<br>
+      </p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>BLOB の種類　　　　</th>
+              <th>特徴</th>
+              <th>対応ストレージアカウント　　　　</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>ページ BLOB</strong></td>
+              <td>仮想ディスクなどの、ランダムな読み書きに適している。</td>
+              <td>Standard 汎用 v2<br>Premium ページ BLOB</td>
+            </tr>
+            <tr>
+              <td><strong>ブロック BLOB</strong></td>
+              <td>データをブロック単位で管理し、一般的なファイルの保存に適している。</td>
+              <td>Standard 汎用 v2<br>Premium ブロック BLOB</td>
+            </tr>
+            <tr>
+              <td><strong>追加 BLOB</strong></td>
+              <td>ログなどの末尾への追記に適しており、既存部分の更新には向かない。</td>
+              <td>Standard 汎用 v2<br>Premium ブロック BLOB</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <br>
+
+      <p>ストレージアカウントの種類などによって、保存できる BLOB の種類が異なります。</p>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ストレージアカウントの種類</th>
+              <th>ページ BLOB</th>
+              <th>ブロック BLOB</th>
+              <th>追加 BLOB</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Standard 汎用 v2</td>
+              <td>○</td>
+              <td>○</td>
+              <td>○</td>
+            </tr>
+            <tr>
+              <td>Premium ページ BLOB</td>
+              <td>○</td>
+              <td>×</td>
+              <td>×</td>
+            </tr>
+            <tr>
+              <td>Premium ブロック BLOB</td>
+              <td>×</td>
+              <td>○</td>
+              <td>○</td>
+            </tr>
+            <tr>
+              <td>Premium ファイル共有</td>
+              <td>×</td>
+              <td>×</td>
+              <td>×</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータル で コンテナー を作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータル で コンテナー を作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ ストレージ アカウント</span></p>
+      <p>この演習では、Azure ポータル を使用して コンテナー を作成します。</p>
+
+      <p><strong>所要時間:</strong> 約 10 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-storage-account-1.html">ストレージ アカウント を作成する</a> を完了してください。</p>
+
+
+      <h2>Azure ストレージ</h2>
+      <img src="./data/msazure/azure-storage.png">
+
+
+      <h2>ストレージ サービス</h2>
+      <p>ストレージ サービス は、ストレージ アカウントで利用するデータ保存サービスの総称です。<br>
+        Azure ポータルのメニューから 個々のストレージ サービスを利用できます。
+      </p>
+      <img src="./data/msazure/storage-menu.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ポータルでの メニュー</th>
+              <th>サービス / 拡張機能</th>
+              <th>概要・主な特徴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>コンテナー</td>
+              <td>Blob Storage</td>
+              <td>画像やログなどを保存する汎用的なオブジェクト ストレージ（フラットな名前空間）</td>
+            </tr>
+            <tr>
+              <td>キュー</td>
+              <td>Queue Storage</td>
+              <td>アプリケーション間で非同期メッセージをやり取りするためのキューサービス</td>
+            </tr>
+            <tr>
+              <td>テーブル</td>
+              <td>Table Storage</td>
+              <td>非リレーショナルな構造化データ向け NoSQL データストア</td>
+            </tr>
+            <tr>
+              <td>ファイル共有</td>
+              <td>Azure Files</td>
+              <td>ファイル共有プロトコル(SMB/NFS)に対応したファイルストレージ</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+
+      <h2>タスク 1: コンテナーの作成</h2>
+      <p>コンテナー の作成は、内部的には ストレージ アカウント内で Blob Storage サービスを利用する操作です。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。
+          <img src="./data/msazure/storage-menu.png">
+          
+        </li>
+        <li><strong>[＋ コンテナーの追加]</strong> を選択します。<br>
+          <img src="./data/msazure/storage-new-container.png">
+          匿名アクセスレベル：プライベート は 匿名アクセスを許可しません。
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>名前</td>
+                  <td><code>storage-container</code></td>
+                </tr>
+                <tr>
+                  <td>匿名アクセスレベル</td>
+                  <td><strong>[プライベート（匿名アクセスはありません）]</strong><br>ℹ️ このストレージ アカウントで 匿名アクセス が 無効 になっているため、
+                     コンテナーの 匿名アクセス レベル は変更できず、プライベート（匿名アクセス禁止）に固定されています。</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li><strong>[作成]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+      </ol>
+
+      <h2>匿名アクセス / 匿名アクセス レベル</h2>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"> </th>
+              <th scope="col">ストレージ アカウント</th>
+              <th scope="col">コンテナー</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">名称</th>
+              <td>匿名アクセス<br>（BLOB 匿名アクセス）</td>
+              <td>匿名アクセス レベル</td>
+            </tr>
+            <tr>
+              <th scope="row">役割</th>
+              <td>匿名アクセスを許可するかどうか</td>
+              <td>匿名アクセスをどこまで許可するか</td>
+            </tr>
+            <tr>
+              <th scope="row">対象範囲</th>
+              <td>アカウント内の すべてのコンテナー<br>（大元の設定）<br>（コンテナーの設定よりも優先される）</td>
+              <td>設定した 特定のコンテナーのみ<br>（個別の設定）<br>（ストレージアカウントの設定に従う）</td>
+            </tr>
+            <tr>
+              <th scope="row" rowspan="3">匿名アクセス レベル</th>
+              <td rowspan="3"></td>
+              <td>プライベート<br>：非公開</td>
+            </tr>
+            <tr>
+              <td>コンテナー<br>：ファイルとファイル一覧を公開</td>
+            </tr>
+            <tr>
+              <td>BLOB<br>：ファイルを公開</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>コンテナーが作成されていることを確認します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>ストレージ アカウント</code> と入力します。</li>
+        <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。
+          <img src="./data/msazure/storage-menu.png">
+        </li>
+        <li><code>storage-container</code> が存在することを確認します。
+          <img src="./data/msazure/created-container.png">
+        </li>
+        <li>匿名アクセス レベル が <code>プライベート</code> であることを確認します。
+        </li>
+      </ol>
+
+
+      <h3>匿名アクセス マトリクス表</h3>
+      <p>ストレージアカウントの設定が コンテナーの設定よりも優先されます。<br>
+        - ストレージアカウントが 匿名アクセス無効 の場合、すべてのコンテナーは 匿名アクセス無効<br>
+        - ストレージアカウントが 匿名アクセス有効 の場合、コンテナーごとに 匿名アクセスレベルを選択可能<br>
+      </p>
+      <img src="./data/msazure/storage-account-container.png">
+
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+    </main>
+  </div>
+</body>
+</html>

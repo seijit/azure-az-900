@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータル で ネットワークセキュリティグループ を作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータル で ネットワークセキュリティグループ を作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ ネットワーク セキュリティ グループ</span></p>
+      <p>この演習では、Azure ポータル を使用して ネットワーク セキュリティ グループ（NSG） を作成します。</p>
+
+      <p><strong>所要時間:</strong> 約 15 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-vnet.html">仮想ネットワークを作成する</a> を完了してください。</p>
+
+      <h2>ネットワークセキュリティグループ（NSG）</h2>
+      <p>NSGは、Azure 上の通信を「通してよいか、止めるか」を決めるための規則（ルール）の集まりです。<br>
+        NSGは 受信セキュリティ規則 と 送信セキュリティ規則 で構成されています。</p>
+      <img src="./data/msazure/nsg-in-out.png">
+
+      <h2>タスク 1: ネットワークセキュリティグループ（NSG）の作成</h2>
+      <p>NSG を作成します。NSG のルールを有効にするには、サブネット / ネットワーク インターフェイス (NIC) に関連付ける必要があります。</p>
+      <img src="./data/msazure/nsg-to-create.png">
+      <ol>
+        <li>上部の検索ボックスに <code>nsg</code> と入力します。</li>
+        <li><strong>[ネットワーク セキュリティ グループ]</strong> を選択します。</li>
+        <li><strong>[＋ 作成]</strong> を選択します。</li>
+        <li>使用する サブスクリプション を選択します。</li>
+        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
+        <li>名前に <code>msaz-nsg</code> と入力します。</li>
+        <li>利用可能な リージョン を選択します。</li>
+        <li><strong>[確認および作成]</strong> を選択します。</li>
+        <li>内容を一通り確認し、 <strong>[作成]</strong> を選択します。</li>
+        <li>完了を待ちます。
+          <img src="./data/msazure/nsg-deployed.png">
+        </li>
+      </ol>
+
+      <h2>タスク 2: セキュリティ規則の追加</h2>
+      <p>受信セキュリティ規則（ルール）を追加します。下記を許可します。</p>
+      <ul>
+        <li>Azureの仮想マシンにブラウザで接続する（Webページを表示するため）</li>
+        <li>Azureの仮想マシンにリモートデスクトップで接続する（仮想マシンを設定するため）</li>
+      </ul>
+      <img src="./data/msazure/system-architecture.png">
+
+      <ol>
+        <li>上部の検索ボックスに <code>nsg</code> と入力します。</li>
+        <li><strong>[ネットワーク セキュリティ グループ]</strong> を選択します。</li>
+        <li><code>msaz-nsg</code> を選択します。</li>
+        <li>デフォルトの 受信セキュリティ規則 と 送信セキュリティ規則 を確認します。<br>
+          セキュリティ規則は、優先度の小さいものから順に評価されます。どれか 1 つのセキュリティ規則で許可または拒否された時点で評価は終了します。
+          受信/送信ともに、最後には <code>❌ Deny</code>（拒否のセキュリティ規則）があり、それまでの規則で許可も拒否もされなかった通信は拒否されます。
+          <img src="./data/msazure/nsg-default-rule.png">
+        </li>
+        <li>サービスメニューから 設定 ＞ <strong>[受信セキュリティ規則]</strong> を選択します。</li>
+        <li><strong>[＋ 追加]</strong> を選択します。</li>
+        <li>受信セキュリティ規則の追加 で 下の表の HTTPの設定 を入力または確認します。</li>
+        <li><strong>[追加]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+        <li><strong>[＋ 追加]</strong> を選択します。</li>
+        <li>受信セキュリティ規則の追加 で 下の表の RDPの設定 を入力または確認します。</li>
+        <li><strong>[追加]</strong> を選択します。</li>
+        <li>完了を待ちます。</li>
+      </ol>
+
+      <div class="table-flex-row">
+        <div class="table-flex-item">
+          <p><strong>HTTPの設定</strong></p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr><th>設定</th><th>値</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>ソース</td><td><strong>[Any]</strong></td></tr>
+                <tr><td>ソースポート範囲</td><td><code>*</code></td></tr>
+                <tr><td>宛先</td><td><strong>[Any]</strong></td></tr>
+                <tr><td>サービス</td><td><strong>[HTTP]</strong></td></tr>
+                <tr><td>宛先ポート範囲</td><td><code>80</code></td></tr>
+                <tr><td>プロトコル</td><td><strong>[TCP]</strong></td></tr>
+                <tr><td>アクション</td><td><strong>[許可]</strong></td></tr>
+                <tr><td>優先度</td><td><code>100</code></td></tr>
+                <tr><td>名前</td><td><code>AllowAnyHTTPInbound</code></td></tr>
+                <tr><td>説明</td><td><code>すべての送信元からのHTTPインバウンド通信を許可する</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="table-flex-item">
+          <p><strong>RDPの設定</strong></p>
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr><th>設定</th><th>値</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>ソース</td><td><strong>[Any]</strong></td></tr>
+                <tr><td>ソースポート範囲</td><td><code>*</code></td></tr>
+                <tr><td>宛先</td><td><strong>[Any]</strong></td></tr>
+                <tr><td>サービス</td><td><strong>[RDP]</strong></td></tr>
+                <tr><td>宛先ポート範囲</td><td><code>3389</code></td></tr>
+                <tr><td>プロトコル</td><td><strong>[TCP]</strong></td></tr>
+                <tr><td>アクション</td><td><strong>[許可]</strong></td></tr>
+                <tr><td>優先度</td><td><code>110</code></td></tr>
+                <tr><td>名前</td><td><code>AllowAnyRDPInbound</code></td></tr>
+                <tr><td>説明</td><td><code>すべての送信元からのRDPインバウンド通信を許可する</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <img src="./data/msazure/nsg-port.png">
+
+      <h2>タスク 3: 作成されたリソースの確認</h2>
+      <p>受信セキュリティ規則（ルール）が追加されていることを確認します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>nsg</code> と入力します。</li>
+        <li><strong>[ネットワーク セキュリティ グループ]</strong> を選択します。</li>
+        <li><code>msaz-nsg</code> を選択します。</li>
+        <li>受信セキュリティ規則 を確認します。<br>ポート <code>80</code> (HTTP) と ポート <code>3389</code> (RDP) が アクション <code>✅ Allow</code> であることを確認します。
+          <img src="./data/msazure/nsg-http-rdp-rule.png">
+        </li>
+      </ol>
+
+      <h2>タスク 4: ネットワークセキュリティグループ（NSG）を リソースに関連付けする</h2>
+      <p>NSGをリソースに関連付けします。<br>セキュリティ規則（ルール）を適用するには関連付けが必要です。</p>
+      <p>NSGの関連付けは ネットワーク設計に応じていくつかのパターンに分類できます。
+        <img src="./data/msazure/vnet-nsg-pattern.png">
+      </p>
+      <p>ここでは 作成したNSGを サブネットに 関連付けします。<br>NSGのセキュリティ規則（ルール）が サブネットに共通の規則（ルール）として適用されます。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>nsg</code> と入力します。</li>
+        <li><strong>[ネットワーク セキュリティ グループ]</strong> を選択します。</li>
+        <li><code>msaz-nsg</code> を選択します。</li>
+        <li>サービスメニューから 設定 ＞ <strong>[サブネット]</strong> を選択します。</li>
+        <li><strong>[＋ 関連付け]</strong> を選択します。</li>
+        <li>サブネットの関連付け で 以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>仮想ネットワーク</td>
+                  <td><strong>[msaz-vnet (msaz-rg)]</strong></td>
+                </tr>
+                <tr>
+                  <td>サブネット</td>
+                  <td><strong>[web-subnet]</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li><strong>[OK]</strong> を選択します。</li>
+        <li>完了を待ちます。
+          <img src="./data/msazure/nsg-associated.png">
+        </li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

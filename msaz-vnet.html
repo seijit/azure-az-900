@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータル で 仮想ネットワーク を作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータル で 仮想ネットワークを作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想ネットワーク</span></p>
+      <p>この演習では、Azure ポータル を使用して仮想ネットワークとサブネットを作成します。</p>
+
+      <p><strong>所要時間:</strong> 約 10 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-rg.html">リソースグループを作成する</a> を完了してください。</p>
+
+      <h2>タスク 1: 仮想ネットワーク/サブネットの作成</h2>
+      <p>仮想ネットワークとサブネットを作成します。</p>
+      <img src="./data/msazure/vnet-to-create.png">
+      <img src="./data/msazure/subnet-in-network.png">
+      <ol>
+        <li>ポータルメニューから <strong>[仮想ネットワーク]</strong> を選択します。</li>
+        <li><strong>[＋ 作成]</strong> を選択します。</li>
+        <li>使用する <strong>[サブスクリプション]</strong> を選択します。</li>
+        <li>リソース グループで <code>msaz-rg</code> を選択します。</li>
+        <li>仮想ネットワーク名に <code>msaz-vnet</code> と入力します。</li>
+        <li>利用可能な <strong>[リージョン]</strong> を選択します。</li>
+        <li><strong>[次へ]</strong> を選択します。</li>
+        <li>セキュリティ タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[次へ]</strong> を選択します。</li>
+        <li>アドレス空間 タブでは、仮想ネットワークの IPアドレス空間を構成します。<br>
+          <strong>[🗑️ アドレス空間の削除]</strong> を選択します。
+          <img src="./data/msazure/vnet-tab.png">
+        </li>
+        <li><strong>[IPv4 アドレス空間の追加]</strong> を選択します。</li>
+        <li><code>10.0.0.0</code> <code>/16</code> のアドレス空間が追加されたことを確認します。</li>
+        <li><strong>[＋ サブネットの追加]</strong> を選択します。</li>
+        <li>以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+          <img src="./data/msazure/vnet-add-subnet.png">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>分類</th>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td rowspan="2"></td>
+                  <td>サブネットの目的</td>
+                  <td><strong>[Default]</strong></td>
+                </tr>
+                <tr>
+                  <td>名前</td>
+                  <td><code>web-subnet</code></td>
+                </tr>
+                <tr>
+                  <td rowspan="4">IPv4</td>
+                  <td>IPv4 アドレス空間を含める</td>
+                  <td><strong>[☑️]</strong></td>
+                </tr>
+                <tr>
+                  <td>IPv4 アドレスの範囲</td>
+                  <td><code>10.0.0.0/16</code></td>
+                </tr>
+                <tr>
+                  <td>開始アドレス</td>
+                  <td><code>10.0.1.0</code></td>
+                </tr>
+                <tr>
+                  <td>サイズ</td>
+                  <td><strong>[/24 (256個のアドレス)]</strong></td>
+                </tr>
+                <tr>
+                  <td>プライベート サブネット</td>
+                  <td>プライベート サブネットを有効にする (既定の送信アクセスなし)</td>
+                  <td><strong>[☑️]</strong></td>
+                </tr>
+                <tr>
+                  <td rowspan="3">セキュリティ</td>
+                  <td>NAT ゲートウェイ</td>
+                  <td><strong>[なし]</strong></td>
+                </tr>
+                <tr>
+                  <td>ネットワーク セキュリティ グループ</td>
+                  <td><strong>[なし]</strong></td>
+                </tr>
+                <tr>
+                  <td>ルート テーブル</td>
+                  <td><strong>[なし]</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li><strong>[追加]</strong> を選択します。</li>
+        <li><strong>[レビューと作成]</strong> を選択します。</li>
+        <li>内容を一通り確認し、<strong>[作成]</strong> を選択します。</li>
+        <li>完了を待ちます。
+          <img src="./data/msazure/subnet-deployed.png">
+        </li>
+      </ol>
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>仮想ネットワークとサブネットが作成されていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想ネットワーク]</strong> を選択します。</li>
+        <li><code>msaz-vnet</code> が作成されていることを確認します。</li>
+        <li><code>msaz-vnet</code> を選択します。</li>
+        <li>サービスメニューから 設定 ＞ <strong>[サブネット]</strong> を選択します。</li>
+        <li><code>web-subnet</code> が作成されていることを確認します。</li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

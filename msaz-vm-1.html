@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータルで 仮想マシンを作成する（Windows）</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータルで 仮想マシンを作成する（Windows）</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
+      <p>この演習では、Azure ポータルを使用して 仮想マシンを作成します。<br>
+        仮想マシンは IaaS (Infrastructure as a Service) に分類されるサービスです。</p>
+      <p><strong>所要時間:</strong> 約 20 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-rg.html">リソースグループを作成する</a> を完了してください。</p>
+
+      <h2>タスク 1: 仮想マシンの作成</h2>
+      <p>仮想マシン（VM）を作成します。<br>仮想マシンを作成する際、関連するリソースも同時に作成する必要があります。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><strong>[＋ 作成]</strong> を選択します。</li>
+        <li><strong>[仮想マシン]</strong> を選択します。</li>
+        <li>基本 タブで、以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+          <img src="./data/msazure/vm-tab.png">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>サブスクリプション</td>
+                  <td>任意</td>
+                </tr>
+                <tr>
+                  <td>リソース グループ</td>
+                  <td><code>msaz-rg</code></td>
+                </tr>
+                <tr>
+                  <td>仮想マシン名</td>
+                  <td><code>msaz-vm</code></td>
+                </tr>
+                <tr>
+                  <td>リージョン</td>
+                  <td><strong>[(Asia Pacific) Japan West]</strong> など</td>
+                </tr>
+                <tr>
+                  <td>可用性オプション</td>
+                  <td><strong>[インフラストラクチャ冗長は必要ありません]</strong></td>
+                </tr>
+                <tr>
+                  <td>セキュリティの種類</td>
+                  <td><strong>[トラステッド起動の仮想マシン]</strong></td>
+                </tr>
+                <tr>
+                  <td>イメージ</td>
+                  <td><strong>[[smalldisk] Windows Server 2022 Datacenter: Azure Edition - x64 Gen 2]</strong></td>
+                </tr>
+                <tr>
+                  <td>サイズ</td>
+                  <td><strong>[Standard_D2als_v6 ...]</strong> など</td>
+                </tr>
+                <tr>
+                  <td>ユーザー名</td>
+                  <td><code>azureuser</code></td>
+                </tr>
+                <tr>
+                  <td>パスワード</td>
+                  <td><code>Password123!</code> など</td>
+                </tr>
+                <tr>
+                  <td>パブリック受信ポート</td>
+                  <td><strong>[RDP (3389)]</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li><strong>[次： ディスク ＞]</strong> を選択します。</li>
+        <li>ディスク タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[次： ネットワーク ＞]</strong> を選択します。</li>
+        <li>ネットワーク タブで、以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。<br>
+        ネットワーク インターフェイスが 仮想マシンと同時に作成されます。<br>
+        ネットワーク インターフェイス用のネットワーク セキュリティ グループが 仮想マシンと同時に作成されます。
+
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>仮想ネットワーク</td>
+                  <td><strong>[(新規) msaz-vm-vnet]</strong></td>
+                </tr>
+                <tr>
+                  <td>サブネット</td>
+                  <td><strong>[(新規) default (10.0.0.0/24)]</strong></td>
+                </tr>
+                <tr>
+                  <td>パブリック IP</td>
+                  <td><strong>[(新規) msaz-vm-ip]</strong></td>
+                </tr>
+                <tr>
+                  <td>NIC ネットワーク セキュリティ グループ</td>
+                  <td><strong>[Basic]</strong></td>
+                </tr>
+                <tr>
+                  <td>パブリック受信ポート</td>
+                  <td><strong>[選択したポートを許可する]</strong></td>
+                </tr>
+                <tr>
+                  <td>受信ポートを選択</td>
+                  <td><strong>[RDP (3389)]</strong></td>
+                </tr>
+                <tr>
+                  <td>VM が削除されたときにパブリック IP と NIC を削除する</td>
+                  <td><strong>[☑️]</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+
+        <li><strong>[次： 管理 ＞]</strong> を選択します。</li>
+        <li>管理 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[次： 監視 ＞]</strong> を選択します。</li>
+        <li>監視 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[次： 詳細 ＞]</strong> を選択します。</li>
+        <li>詳細 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[次： タグ ＞]</strong> を選択します。</li>
+        <li>タグ タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[確認および作成]</strong> を選択します。</li>
+        <li>確認および作成 タブで、仮想マシンだけでなく、ディスクやネットワークも作成の対象になっていることを確認します。</li>
+          <img src="./data/msazure/vm1-confirm-portal.png">
+        <li><strong>[作成]</strong> を選択します。</li>
+        <li>完了を待ちます。
+          <img src="./data/msazure/next-steps.png">
+        </li>
+      </ol>
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>仮想マシンだけでなく、仮想マシンに関連するリソースも同時に作成されていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li>リソースの一覧が表示されます。仮想マシンに関連する複数のリソースが 同じリソース グループ内に作成されたことを確認します。
+          <img src="./data/msazure/created-resources.png">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>名前</th>
+                  <th>リソースの種類</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>msaz-vm</code></td>
+                  <td>仮想マシン</td>
+                </tr>
+                <tr>
+                  <td><code>msaz-vm-ip</code></td>
+                  <td>パブリック IP アドレス</td>
+                </tr>
+                <tr>
+                  <td><code>msaz-vm-nsg</code></td>
+                  <td>ネットワーク セキュリティ グループ</td>
+                </tr>
+                <tr>
+                  <td><code>msaz-vm-vnet</code></td>
+                  <td>仮想ネットワーク</td>
+                </tr>
+                <tr>
+                  <td><code>msaz-vm443-z1</code></td>
+                  <td>ネットワーク インターフェイス</td>
+                </tr>
+                <tr>
+                  <td><code>msaz-vm_OsDisk_1_.....</code></td>
+                  <td>ディスク</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+      </ol>
+
+      <h2>タスク 3: リソースの関連付けの確認</h2>
+      <p>作成されたリソースがどのように関連付けされているかを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li>サービスメニューから <strong>[リソース ビジュアライザー]</strong> を選択します。</li>
+        <li>仮想マシンに関連する複数のリソースがどのように関連付けされているか確認します
+          <img src="./data/msazure/resource.png">
+        </li>
+        <li>ネットワークセキュリティグループの関連付けは ネットワーク設計に応じていくつかのパターンに分類できます。ここでは、デフォルトのネットワークセキュリティグループがネットワークインターフェイスに関連付けされています。
+          <img src="./data/msazure/vnet-nsg-pattern.png">
+        </li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1377 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure AZ-900 Udemy x MS Learn x Study and Work</title>
+  <style>
+    :root {
+      --bg-color: #121212;
+      --surface-color: #1e1e1e;
+      --text-main: #e0e0e0;
+      --text-muted: #b0b0b0;
+      --azure-blue: #0078d4;
+      --azure-light: #379ae6;
+      --border-color: #333333;
+      --code-bg: #2d2d2d;
+      --alert-info-bg: #332b00;
+      --alert-info-border: #ffb900;
+      --alert-error-bg: #2b0000;
+      --alert-error-border: #d13438;
+      --spacing-base: 1.5rem;
+      
+      /* ガイドボックス用：Azure Blue パターン */
+      --guide-bg: #002440;
+      --guide-border: #0078d4;
+      --guide-title: #379ae6;
+
+      /* Udemy項目の表示スイッチ */
+      /* 表示したいときは block、隠したいときは none に書き換える */
+      --udemy-display: none;
+    }
+
+    body {
+      font-family: "Segoe UI", "Meiryo", system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+      color: var(--text-main);
+      background-color: var(--bg-color);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 850px;
+      padding: 40px 20px;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: var(--text-main);
+      border-bottom: 4px solid var(--azure-blue);
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+
+    h2 {
+      font-size: 1.5rem;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-color);
+      margin-top: 3rem;
+      padding-bottom: 0.3rem;
+    }
+
+    h3 {
+      font-size: 1.2rem;
+      color: var(--text-main);
+      margin-top: 2rem;
+    }
+
+    p { margin-bottom: 1rem; }
+    strong { color: #ffffff; }
+
+    /* ガイドボックス */
+    .alert {
+      background-color: var(--guide-bg);
+      border-left: 5px solid var(--guide-border);
+      padding: 1.25rem;
+      margin: 2rem 0;
+      border-radius: 4px;
+    }
+
+    .alert h2 {
+      border: none;
+      margin-top: 0;
+      padding-bottom: 0;
+      color: var(--guide-title);
+      font-size: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .guide-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+      font-size: 0.95rem;
+    }
+
+    .guide-grid strong {
+      color: var(--guide-title);
+    }
+
+    /* コントロール（リセットボタン） */
+    .controls {
+      text-align: right;
+      margin-bottom: 1rem;
+    }
+    
+    .reset-button {
+      background-color: transparent;
+      color: #ff8484;
+      border: 1px solid #d13438;
+      padding: 8px 16px;
+      font-size: 0.9rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: all 0.2s;
+    }
+
+    .reset-button:hover {
+      background-color: var(--alert-error-bg);
+      color: #ff9999;
+    }
+
+    /* プラットフォームラベル */
+    .platform-box { margin-bottom: 2rem; }
+    
+    /* Udemy系をまとめて制御するクラス */
+    .udemy-group {
+      /* 変数の値を読み込む。!important をつけることで確実に切り替える */
+      display: var(--udemy-display) !important;
+    }
+
+    .platform-label {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      color: #ffffff;
+      margin-bottom: 10px;
+    }
+    .label-udemy { background-color: #6a2a9e; }
+    .label-practice { background-color: #b33909; }
+
+    /* リストとリンク */
+    ul { list-style: none; padding: 0; margin: 0; }
+    
+    li {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.2s;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    
+    li:hover { background-color: var(--surface-color); }
+    li:last-child { border-bottom: none; }
+    
+    a { 
+      text-decoration: none; 
+      color: #4dabf7; 
+      font-size: 0.95rem; 
+      display: block; 
+      width: 100%; 
+      transition: color 0.2s;
+    }
+
+    a:visited {
+      color: #a085db;
+    }
+
+    a:hover { 
+      text-decoration: underline; 
+      color: #74c0fc; 
+    }
+
+    .practice-link { color: #ff8484; }
+    .practice-link:hover { color: #ff9999; }
+
+    /* チェックボックスと進捗 */
+    .progress-checkbox {
+      width: 18px;
+      height: 18px;
+      cursor: pointer;
+      accent-color: var(--azure-light);
+      flex-shrink: 0;
+      margin-top: 4px;
+    }
+    
+    .completed a {
+      color: var(--text-muted);
+      text-decoration: line-through;
+    }
+    
+    .completed .practice-link {
+      color: #8c5555; 
+    }
+
+    /* 画像トグル */
+    .link-wrapper {
+      flex-grow: 1;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .link-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      width: 100%;
+    }
+    
+    .toggle-img-btn {
+      background-color: var(--code-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 4px 10px;
+      font-size: 0.75rem;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+    
+    .toggle-img-btn:hover {
+      background-color: #3d3d3d;
+      border-color: #555555;
+    }
+    
+    .img-container {
+      display: none;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-color);
+      text-align: center;
+    }
+    
+    .img-container img {
+      max-width: 100%;
+      height: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      margin-bottom: 10px;
+      background-color: #000;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    @media (max-width: 600px) {
+      .link-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .toggle-img-btn { align-self: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <main>
+      <h1>AZ-900 ビデオ講座と演習問題へのリンク集</h1>
+      <p><strong>Udemy × Microsoft Learn × Study and Work</strong></p>
+
+      <div class="controls">
+          <button id="reset-btn" class="reset-button">🔄 すべての進捗をリセット</button>
+      </div>
+
+      <div class="alert">
+          <h2>📚 学習の進め方</h2>
+          <div class="guide-grid">
+              <div>
+                  <strong>📺 Udemy (インプット)</strong><br>
+                  動画で概念を視覚的に理解します。
+              </div>
+              <div>
+                  <strong>🎯 演習・テスト (アウトプット)</strong><br>
+                  🎯 小テスト (Udemy)<br>
+                  📝 Microsoft Learn (公式演習)<br>
+                  🖊 Study and Work (実践問題)
+              </div>
+          </div>
+      </div>
+
+      <section>
+          <h2>🏁 セクション 1: はじめに</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380042" target="_blank">1. コースのご紹介</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33728886" target="_blank">2. AZ-900試験の概要</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/41442054" target="_blank">3. Udemyのレビューについて</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>☁️ セクション 2: クラウドの概念</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380050" target="_blank">4. クラウドの登場で変わったこと</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.04.01 クラウドとは.PNG" width="700" alt="クラウドとは" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380058" target="_blank">5. クラウドコンピューティングの定義</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.05.01 クラウドの定義（5つの特徴）.PNG" width="700" alt="クラウドの定義" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380062" target="_blank">6. クラウドのメリット（高可用性、フォールトトレランス、ディザスタリカバリ）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.06.01 クラウドのメリット 1~3.PNG" width="700" alt="クラウドのメリット 1~3" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.06.02 高可用性.PNG" width="700" alt="高可用性" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.06.03 フォールトトレランス.PNG" width="700" alt="フォールトトレランス" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.06.04 ディザスタリカバリ.PNG" width="700" alt="ディザスタリカバリ" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380064" target="_blank">7. クラウドのメリット（スケーラビリティ、弾力性、機敏性）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.07.01 クラウドのメリット 4~6.PNG" width="700" alt="クラウドのメリット 4~6" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.07.02 スケーラビリティ（拡張性）.PNG" width="700" alt="スケーラビリティ" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.07.02.1 スケール.PNG" width="700" alt="スケール" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.07.03 エラスティシティ（弾力性）.PNG" width="700" alt="エラスティシティ" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.07.04 アジリティ（機敏性）.PNG" width="700" alt="アジリティ" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.07.05 クラウドのメリット まとめ.PNG" width="700" alt="クラウドのメリット まとめ" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380082" target="_blank">8. CapEXとOpEx</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.08.01 CapExとOpEx.PNG" width="700" alt="CapExとOpEx" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.08.02 クラウドの支出.PNG" width="700" alt="クラウドの支出" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380088" target="_blank">9. サービスモデルの違い</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.09.01 サービスモデルとは.PNG" width="700" alt="サービスモデルとは" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.09.02 IaaS イアース.PNG" width="700" alt="IaaS" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.09.03 PaaS パース.PNG" width="700" alt="PaaS" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.09.04 SaaS サース.PNG" width="700" alt="SaaS" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.09.05 サービスモデルの違い.PNG" width="700" alt="サービスモデルの違い" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.09.05.1 サービスモデルの違い.PNG" width="700" alt="サービスモデルの違い" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380092" target="_blank">10. 共同責任モデル</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.10.01 共同責任モデル（責任共有モデル）.PNG" width="700" alt="共同責任モデル" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380094" target="_blank">11. 展開モデルの違い</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 1 クラウドの概念/u02.11.01 展開モデルのまとめ.PNG" width="700" alt="展開モデルのまとめ" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5669046" target="_blank" class="practice-link">🎯 小テスト1: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-cloud-compute/7-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP1.M1.U7 モジュール評価</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-benefits-use-cloud-services/6-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP1.M2.U6 モジュール評価</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-cloud-service-types/5-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP1.M3.U5 モジュール評価</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=2" target="_blank" class="practice-link">🖊 Study and Work Q2: パブリッククラウドの特徴</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=3" target="_blank" class="practice-link">🖊 Study and Work Q3: Azureサービスタイプ分類（IaaS,PaaS,SaaS）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=4" target="_blank" class="practice-link">🖊 Study and Work Q4: クラウドの特徴（閑散期、繁忙期に併せて増減）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=5" target="_blank" class="practice-link">🖊 Study and Work Q5: クラウドサービスのタイプ分類</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=6" target="_blank" class="practice-link">🖊 Study and Work Q6: 適切なクラウド構成の選択</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=7" target="_blank" class="practice-link">🖊 Study and Work Q7: クラウドの様々な構成</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=8" target="_blank" class="practice-link">🖊 Study and Work Q8: クラウドサービスのメリット（フォールトトレランス）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=9" target="_blank" class="practice-link">🖊 Study and Work Q9: クラウドにおける共同責任</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=10" target="_blank" class="practice-link">🖊 Study and Work Q10: Azureサービスタイプ分類（IaaS,PaaS,SaaS）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=11" target="_blank" class="practice-link">🖊 Study and Work Q11: クラウドの様々な構成</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=12" target="_blank" class="practice-link">🖊 Study and Work Q12: パブリッククラウドの説明</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=13" target="_blank" class="practice-link">🖊 Study and Work Q13: クラウドの様々な構成</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=76" target="_blank" class="practice-link">🖊 Study and Work Q76: 仮想マシンのSLAについて</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>🏛️ セクション 3: コアアーキテクチャコンポーネント</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33456410" target="_blank">12. このセクションで学ぶこと</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.12.01 Azureのコアアーキテクチャコンポーネント.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380706" target="_blank">13. ジオ、リージョン、リージョンペア</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.13.01 サーバ.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.13.01.1 サーバ.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.13.02 Azureのデータセンターに関する用語.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.13.03 ジオ、リージョン、リージョンペア.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.13.04 リージョン.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.13.04.1 リージョン.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.13.05 リージョンペア.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.13.06 リージョン選びのポイント.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380714" target="_blank">14. 可用性ゾーン</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.14.01 可用性ゾーン.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.14.01.1 可用性ゾーンがないと.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.14.01.2 可用性ゾーン.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380718" target="_blank">15. 可用性セット</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.15.01 可用性セット.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.15.01.1 可用性セット.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.15.02 可用性セットの概念.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.15.02.1 可用性セットの概念.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380744" target="_blank">16. 特殊なリージョン（ソブリンリージョン）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.16.01 特殊なリージョン.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.16.01.1 Azure Government.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.16.01.2 Azure China.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33444084" target="_blank">17. データセンターに関する用語のまとめ</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.17.01 まとめ.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.17.02 まとめ.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380758" target="_blank">18. Azureリソース</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.18.01 Azureリソースの階層構造.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.18.02 Azure リソース.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380760" target="_blank">19. リソースグループ</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.19.01 リソースグループとは.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.19.01.1 リソースグループとは.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.19.02 リソースグループの分け方.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.19.02.1 リソースグループの分け方.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.19.03 リソースグループの注意点.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380764" target="_blank">20. サブスクリプション</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.20.01 サブスクリプションとは.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.20.02 サブスクリプションとは.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.20.03 サブスクリプションとは.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33380766" target="_blank">21. 管理グループ</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.21.01 管理グループとは.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/33444086" target="_blank">22. リソースグループ、サブスクリプション、管理グループの階層構造</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.22.01 まとめ.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.22.02 Azureリソースの階層構造.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.22.03 権限・ポリシー.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103894" target="_blank">23. 無料アカウント</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.23.01 無料アカウント.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.23.02 無料アカウント作成に必要なもの.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.23.03 Azureアカウントとサブスクリプション.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 2 コアアーキテクチャ/u03.23.03.1 Azureアカウントとサブスクリプション.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670382" target="_blank" class="practice-link">🎯 小テスト2: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-core-architectural-components-of-azure/7-exercise-create-azure-resource/" target="_blank" class="practice-link">📝 Microsoft Learn LP2.M1.U7 演習 - Azure リソースを作成する</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=1" target="_blank" class="practice-link">🖊 Study and Work Q1: 単一AZ障害時のサービス継続</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=14" target="_blank" class="practice-link">🖊 Study and Work Q14: Azureリージョンの説明</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=15" target="_blank" class="practice-link">🖊 Study and Work Q15: 単一データセンター障害時でのサービス継続</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=19" target="_blank" class="practice-link">🖊 Study and Work Q19: 適切なAzureサービスの選択（部門毎の管理）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=24" target="_blank" class="practice-link">🖊 Study and Work Q24: Azure利用を開始する時の動作</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=67" target="_blank" class="practice-link">🖊 Study and Work Q67: Azure Governmentの説明</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>💻 セクション 4: コンピューティングサービス</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103896" target="_blank">24. コンピューティングサービス</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.24.01 コンピューティングサービス.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.24.02 代表的なコンピューティングサービス.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103902" target="_blank">25. Virtual Machines（仮想マシン）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.25.01 Virtual Machines (仮想マシン).PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103904" target="_blank">26. 仮想マシンを構成する要素</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.26.01 仮想マシンの構成要素.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103906" target="_blank">27. 仮想マシンのOSとサイズ</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.27.01 仮想マシンのOS.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.27.02 仮想マシンのスペック.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.27.03 仮想マシンのサイズ.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.27.04 サイズの命名規則.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103908" target="_blank">28. 仮想マシンのディスク</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.01 仮想マシンのディスク.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.02 仮想マシンのローカルディスク.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.02.1 仮想マシンのローカルディスク.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.02.2 仮想マシンのローカルディスク.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.02.3 仮想マシンのローカルディスク.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.03 ディスクの性能.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.04 SKU.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.05 ディスクの性能を表す用語.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.05.1 ディスクの性能を表す用語.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.06 ディスクの容量.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.28.07 仮想マシンのディスクまとめ.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103910" target="_blank">29. ネットワークインターフェイスとパブリックIPアドレス</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.29.01 ネットワークインターフェイス.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.29.01.1 ネットワークインターフェイス.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.29.02 パブリックIPアドレス.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.29.03 ネットワークインターフェイスとパブリックIPアドレス.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103912" target="_blank">30. ネットワークセキュリティグループ（NSG）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.30.01 ネットワークセキュリティグループ(NSG).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.30.02 NSGのフィルタ処理で使われる5つの情報.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.30.03 規則の設定項目.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.30.04 NSGの関連付けパターン.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103914" target="_blank">31. Virtual Machine Scale Sets（仮想マシンスケールセット）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.31.01 Virtual Machine Scale Sets (仮想マシンスケールセット).PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103916" target="_blank">32. Azure App Service（Webアプリ）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.32.01 Azure App Service (Webアプリ).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.32.01.1 Azure App Service (Webアプリ).PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103918" target="_blank">33. Azure Functions（関数アプリ）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.33.01 Azure Functions (関数アプリ).PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103922" target="_blank">34. Azure Container Instances（ACI）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.34.01 Azure Container Instances (ACI).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.34.02 コンテナーとは？ (Dockerが有名).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.34.02.1 コンテナーとは？.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103926" target="_blank">35. Azure Kubernetes Service（AKS）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.35.01 Azure Kubernetes Service (AKS).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.35.02 Kubernetes (クーバネティス) とは？.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.35.03 ACI と AKS のキーワード.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103928" target="_blank">36. Azure Virtual Desktop（AVD）</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.36.01 Azure Virtual Desktop (AVD).PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103930" target="_blank">37. コンピューティングサービスのまとめ</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.37.01 まとめ.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.37.01 仮想マシンの構成要素.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670392" target="_blank" class="practice-link">🎯 小テスト3: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-azure-compute-networking-services/3-exercise-create-azure-virtual-machine/" target="_blank" class="practice-link">📝 Microsoft Learn LP2.M2.U3 演習 - Azure 仮想マシンを作成する</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=16" target="_blank" class="practice-link">🖊 Study and Work Q16: Azure Synapse Analytics とは</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=17" target="_blank" class="practice-link">🖊 Study and Work Q17: 適切なAzureサービスの選択（PowerBI利用）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=27" target="_blank" class="practice-link">🖊 Study and Work Q27: Azureサービスの説明（IoT関連）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=28" target="_blank" class="practice-link">🖊 Study and Work Q28: Azure マシンラーニングの説明</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=30" target="_blank" class="practice-link">🖊 Study and Work Q30: Azureサービスの説明（コンピューティング関連）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=33" target="_blank" class="practice-link">🖊 Study and Work Q33: Azureサービスの説明（各種サービス）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=37" target="_blank" class="practice-link">🖊 Study and Work Q37: AzureDatabricksとは</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=38" target="_blank" class="practice-link">🖊 Study and Work Q38: Azure Repos とは</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=40" target="_blank" class="practice-link">🖊 Study and Work Q40: Azureサービスの説明（各種サービス）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=41" target="_blank" class="practice-link">🖊 Study and Work Q41: Azureサービスの説明（各種サービス）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=42" target="_blank" class="practice-link">🖊 Study and Work Q42: 特定ルールによるメール送付</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=44" target="_blank" class="practice-link">🖊 Study and Work Q44: IoTデバイスからのデータの保存・分析</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=46" target="_blank" class="practice-link">🖊 Study and Work Q46: Azureサービスの説明（AI関連）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=48" target="_blank" class="practice-link">🖊 Study and Work Q48: インターネットから仮想マシンへのネットワーク接続制御</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=49" target="_blank" class="practice-link">🖊 Study and Work Q49: Azure内のサーバ間のネットワーク接続制御</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>🌐 セクション 5: ネットワーキングサービス</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103934" target="_blank">38. 仮想ネットワークとサブネット</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.38.01 ネットワーキングサービス.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.38.02 仮想ネットワーク (VNet).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.38.02.1 仮想ネットワーク (VNet).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.38.03 システムルート.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.38.03.1 システムルート.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.38.03.2 システムルート.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103938" target="_blank">39. 仮想ネットワークピアリング</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.39.01 VNetを他の場所と接続する方法.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.39.02 仮想ネットワークピアリング.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103940" target="_blank">40. VPNゲートウェイ</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.40.01 VPNゲートウェイ.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.40.02 VPNゲートウェイの接続形態.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103944" target="_blank">41. ExpressRoute</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.41.01 ExpressRoute (エクスプレスルート).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.41.02 まとめ.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103946" target="_blank">42. Azure DNS</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.42.01 DNSの仕組み.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.42.01.1 DNSの仕組み.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.42.01.1 フルリゾルバの設定 (Windows).PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.42.02 Azure DNS.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.42.03 Azure プライベートDNS.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.42.04 まとめ.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103948" target="_blank">43. エンドポイントの種類</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.43.02 エンドポイントの種類.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.43.03 エンドポイントとは？.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.43.04 パブリックエンドポイント.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.43.05 サービスエンドポイント.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 3 コンピューティングとネットワーキング/u04.43.06 プライベートエンドポイント.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670394" target="_blank" class="practice-link">🎯 小テスト4: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-azure-compute-networking-services/9-exercise-configure-network-access/" target="_blank" class="practice-link">📝 Microsoft Learn LP2.M2.U9 演習 - Azure 仮想マシンを作成し、ネットワーク アクセスを構成する</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-azure-compute-networking-services/13-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP2.M2.U13 モジュール評価</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=20" target="_blank" class="practice-link">🖊 Study and Work Q20: 適切なAzureサービスの選択（オンプレミス内端末からの通信）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=22" target="_blank" class="practice-link">🖊 Study and Work Q22: ネットワークセグメントの分離</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=43" target="_blank" class="practice-link">🖊 Study and Work Q43: 高品質な動画配信</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=50" target="_blank" class="practice-link">🖊 Study and Work Q50: ネットワークフィルタリング</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>💾 セクション 6: ストレージサービス</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103954" target="_blank">44. Azure Storage</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.44.01 Azure Storage.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.44.02 Azure Storage.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103958" target="_blank">45. ストレージアカウント</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.45.02 ストレージアカウント.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.45.02.1 ストレージアカウント.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.45.02.2 ストレージアカウント.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.45.03 ストレージアカウントのパフォーマンス.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.45.03.1 ストレージアカウントのパフォーマンス.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103962" target="_blank">46. ストレージのデータサービス</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.46.01 Azure Srorageのデータサービス.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.46.02 オブジェクトストレージとは.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.46.03 BLOBストレージの構造.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.46.04 ファイル共有.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.46.05 Azure Srorageのデータサービス テーブル.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.46.05.1 NoSQLとは？.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103966" target="_blank">47. BLOBストレージのアクセス層</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.47.01 BLOBストレージのアクセス層.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.47.02 BLOBストレージのアクセス層.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103972" target="_blank">48. ストレージの冗長オプション</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.48.01 Azure Srorageの冗長オプション.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.48.01.1 Azure Srorageの冗長オプション.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.48.02 Azure Srorageの冗長オプション.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.48.02.1 Azure Srorageの冗長オプション.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103976" target="_blank">49. Azure Storage Explorer</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.49.01 ファイル移動オプション.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.49.02 Azure Storage Explorer.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.49.02.1 Azure Storage Explorer.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.49.02.2 Azure Storage Explorer.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103978" target="_blank">50. AzCopy</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.50.01 AzCopy.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103980" target="_blank">51. Azure File Sync</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.51.01 Azure File Sync.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.51.02 Azure File Syncの用途・メリット.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.51.03 ファイル移動オプションのまとめ.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103984" target="_blank">52. Azure Migrate</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.52.01 データ移行オプション.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.52.01.1 データ移行オプション.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.52.01.2 データ移行オプション.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                      <li>
+                          <div class="link-wrapper">
+                              <div class="link-header">
+                                  <a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103986" target="_blank">53. Azure Data Box</a>
+                                  <button class="toggle-img-btn">🖼️ 画像を表示</button>
+                              </div>
+                              <div class="img-container">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.53.01 Azure Data Box.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.53.01.1 Azure Data Box.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.53.02 オフライン移行が解決する課題.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.53.03 Azure Data Box.PNG" width="700" loading="lazy">
+                                  <img src="data/az900-udemy-mo/STEP 4 ストレージ/u05.53.04 データ移行オプションまとめ.PNG" width="700" loading="lazy">
+                              </div>
+                          </div>
+                      </li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670396" target="_blank" class="practice-link">🎯 小テスト5: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-azure-storage-services/5-exercise-create-storage-blob/" target="_blank" class="practice-link">📝 Microsoft Learn LP2.M3.U5 演習 - ストレージ BLOB を作成する</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-azure-storage-services/8-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP2.M3.U8 モジュール評価</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=23" target="_blank" class="practice-link">🖊 Study and Work Q23: 端末からAzure内ファイルサーバへの接続</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+<!-- 
+
+      
+      <section>
+          <h2>🔐 セクション 7: ID、アクセス、セキュリティ</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103990" target="_blank">54. このセクションで学ぶこと</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103992" target="_blank">55. Microsoft Entra ID（旧Azure AD）</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34103996" target="_blank">56. 認証と承認</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104000" target="_blank">57. Microsoft Entra IDとサブスクリプションの関係</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104004" target="_blank">58. オンプレミスのActive Directoryとの違い</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104006" target="_blank">59. Microsoft Entra Connect</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104008" target="_blank">60. ユーザーとグループ</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104010" target="_blank">61. シングルサインオン（SSO）</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104014" target="_blank">62. 多要素認証（MFA）</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104016" target="_blank">63. パスワードレス</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104018" target="_blank">64. ロールベースのアクセス制御（RBAC）</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104020" target="_blank">65. ゼロトラスト</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104024" target="_blank">66. 条件付きアクセス</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104026" target="_blank">67. 多層防御</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104028" target="_blank">68. Microsoft Defender for Cloud</a></li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670402" target="_blank" class="practice-link">🎯 小テスト6: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-azure-identity-access-security/10-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP2.M4.U10 モジュール評価</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=51" target="_blank" class="practice-link">🖊 Study and Work Q51: 証明書管理</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=52" target="_blank" class="practice-link">🖊 Study and Work Q52: DDoS攻撃からの保護</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=53" target="_blank" class="practice-link">🖊 Study and Work Q53: インバウンドトラフィックのネットワークフィルタリング</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=54" target="_blank" class="practice-link">🖊 Study and Work Q54: Azure Key Vaultでのシークレット管理</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=55" target="_blank" class="practice-link">🖊 Study and Work Q55: 資格情報の安全な管理</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=56" target="_blank" class="practice-link">🖊 Study and Work Q56: 限定されたポートのみでの仮想マシンへの接続許可</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=57" target="_blank" class="practice-link">🖊 Study and Work Q57: セキュリティイベントの収集と分析</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=58" target="_blank" class="practice-link">🖊 Study and Work Q58: 匿名アドレスからの認証要求時の特定動作設定</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=59" target="_blank" class="practice-link">🖊 Study and Work Q59: セキュリティトークンの取得</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=60" target="_blank" class="practice-link">🖊 Study and Work Q60: オンプレミス環境上のADサーバからのMicrosoft Entra IDへのアカウント移行</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>💰 セクション 8: コスト管理</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104030" target="_blank">69. このセクションで学ぶこと</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104032" target="_blank">70. コストに影響を与える要因1</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104034" target="_blank">71. コストに影響を与える要因2</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104036" target="_blank">72. コストの割引オプション</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104038" target="_blank">73. 料金計算ツール</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104040" target="_blank">74. 総保有コスト（TCO）計算ツール</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104042" target="_blank">75. Microsoft Cost Management</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104044" target="_blank">76. タグ</a></li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670416" target="_blank" class="practice-link">🎯 小テスト7: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-cost-management-azure/4-exercise-estimate-workload-costs-use-pricing-calculator/" target="_blank" class="practice-link">📝 Microsoft Learn LP3.M1.U4 演習 - 料金計算ツールを使用してワークロードのコストを見積もる</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-cost-management-azure/8-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP3.M1.U8 モジュール評価</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=21" target="_blank" class="practice-link">🖊 Study and Work Q21: Azureサービスの上限値に抵触した場合にどうするか？</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=61" target="_blank" class="practice-link">🖊 Study and Work Q61: リソースグループ内リソースのタグ管理</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=69" target="_blank" class="practice-link">🖊 Study and Work Q69: 請求金額が予算超過時の電子メール通知</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=70" target="_blank" class="practice-link">🖊 Study and Work Q70: Azureの各種リソースのコストについて</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=71" target="_blank" class="practice-link">🖊 Study and Work Q71: 適切なサポートプランの選択（ヘルスステータス等）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=72" target="_blank" class="practice-link">🖊 Study and Work Q72: 適切なサポートプランの選択（新規サポート）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=73" target="_blank" class="practice-link">🖊 Study and Work Q73: 適切なサポートプランの選択（電話）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=74" target="_blank" class="practice-link">🖊 Study and Work Q74: 適切なサポートプランの選択（メール）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=75" target="_blank" class="practice-link">🖊 Study and Work Q75: サポートリクエストの作成</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=78" target="_blank" class="practice-link">🖊 Study and Work Q78: Azureハイブリッド特典</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=79" target="_blank" class="practice-link">🖊 Study and Work Q79: 部門毎の支払い管理</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>⚖️ セクション 9: ガバナンスとコンプライアンス機能およびツール</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104048" target="_blank">77. このセクションで学ぶこと</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/44936245" target="_blank">78. Microsoft Purview</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104050" target="_blank">79. Azure Policy</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104056" target="_blank">80. リソースロック</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104058" target="_blank">81. Service Trust Portal</a></li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670426" target="_blank" class="practice-link">🎯 小テスト8: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-features-tools-azure-for-governance-compliance/5-exercise-configure-resource-lock/" target="_blank" class="practice-link">📝 Microsoft Learn LP3.M2.U5 演習 - リソース ロックを構成する</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-features-tools-azure-for-governance-compliance/7-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP3.M2.U7 モジュール評価</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=18" target="_blank" class="practice-link">🖊 Study and Work Q18: 適切なAzureサービスの選択（コンプライアンス管理）</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=34" target="_blank" class="practice-link">🖊 Study and Work Q34: テスト用環境の作成・削除の管理</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=62" target="_blank" class="practice-link">🖊 Study and Work Q62: Azure Information Protectionについて</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=63" target="_blank" class="practice-link">🖊 Study and Work Q63: コンプライアンス準拠状況の確認方法</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=64" target="_blank" class="practice-link">🖊 Study and Work Q64: 特定リージョンでの特定タグ取付け</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=65" target="_blank" class="practice-link">🖊 Study and Work Q65: Microsoft Service Trust Portal とは</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=66" target="_blank" class="practice-link">🖊 Study and Work Q66: 規制要件の順守状況評価</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=68" target="_blank" class="practice-link">🖊 Study and Work Q68: Azureのサービスのライフサイクルポリシー</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=77" target="_blank" class="practice-link">🖊 Study and Work Q77: Azureのサービスのプレビュー段階の状態</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>🛠️ セクション 10: リソースを管理およびデプロイするための機能とツール</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104064" target="_blank">82. このセクションで学ぶこと</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104066" target="_blank">83. Azureポータル</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104072" target="_blank">84. Azure CLI / Azure PowerShell</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104074" target="_blank">85. Azure Cloud Shell</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104080" target="_blank">86. Azure Resource Manager（ARM）</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104082" target="_blank">87. Azure Arc</a></li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670438" target="_blank" class="practice-link">🎯 小テスト9: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-features-tools-manage-deploy-azure-resources/5-knowledge-check/" target="_blank" class="practice-link">📝 Microsoft Learn LP3.M3.U5 モジュール評価</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=29" target="_blank" class="practice-link">🖊 Study and Work Q29: PowerShellスクリプトによるAzure操作</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=31" target="_blank" class="practice-link">🖊 Study and Work Q31: コマンドによるAzure操作</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=32" target="_blank" class="practice-link">🖊 Study and Work Q32: Azure操作の自動化</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=35" target="_blank" class="practice-link">🖊 Study and Work Q35: Azure CLIによるAzure操作</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=36" target="_blank" class="practice-link">🖊 Study and Work Q36: Azure管理のための接続方法</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=45" target="_blank" class="practice-link">🖊 Study and Work Q45: iPhoneからのAzure管理操作</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>🔍 セクション 11: 監視ツール</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104086" target="_blank">88. このセクションで学ぶこと</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104108" target="_blank">89. Azure Advisor</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104112" target="_blank">90. Azure Service Health</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104116" target="_blank">91. Azureの状態</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104120" target="_blank">92. Service Health（サービス正常性）</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104126" target="_blank">93. Resource Health（リソース正常性）</a></li>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104130" target="_blank">94. Azure Monitor</a></li>
+                  </ul>
+              </div>
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/quiz/5670442" target="_blank" class="practice-link">🎯 小テスト10: 演習テスト</a></li>
+                      <li><a href="https://learn.microsoft.com/ja-jp/training/modules/describe-monitoring-tools-azure/6-summary/" target="_blank" class="practice-link">📝 Microsoft Learn LP3.M4.U6 概要</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=25" target="_blank" class="practice-link">🖊 Study and Work Q25: イベントのリポジトリへの収集</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=26" target="_blank" class="practice-link">🖊 Study and Work Q26: マイクロソフト保守作業の事前通知受け取り</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=39" target="_blank" class="practice-link">🖊 Study and Work Q39: 計画メンテナンスの参照</a></li>
+                      <li><a href="https://studyand.work/question-azure-az-900?idx=47" target="_blank" class="practice-link">🖊 Study and Work Q47: 仮想マシン停止時のアラート発行</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>🎉 セクション 12: おわりに</h2>
+          <div class="content-body">
+              <div class="platform-box udemy-group">
+                  <span class="platform-label label-udemy">Udemy レクチャー</span>
+                  <ul>
+                      <li><a href="https://www.udemy.com/course/microsoft-azure-az900-video/learn/lecture/34104138" target="_blank">95. おわりに（ボーナスレクチャー）</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+      <section>
+          <h2>🏆 総合演習（模擬試験）</h2>
+          <div class="content-body">
+              <div class="platform-box">
+                  <span class="platform-label label-practice">演習・テスト</span>
+                  <ul>
+                      <li><a href="https://learn.microsoft.com/ja-jp/credentials/certifications/azure-fundamentals/practice/assessment?assessment-type=practice&assessmentId=23&practice-assessment-type=certification" target="_blank" class="practice-link">📝 AZ-900 Microsft Learn プラクティス評価（練習問題）</a></li>
+                      <li><a href="https://www.starttest.com/ITDVersions/24.2.0.0/ITDStart.aspx?SVC=4dedfafc-5f1b-4c0d-93b8-27da34152d02&Json=1" target="_blank" class="practice-link">📝 AZ-900 Microsft Learn 試験サンドボックス（模擬試験）</a></li>
+                  </ul>
+              </div>
+          </div>
+      </section>
+
+-->
+
+
+
+
+      <p><a href="index.html">← 目次に戻る</a></p>
+      
+    </main>
+  </div>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+    // --- 1. 画像の表示切り替え（イベントリスナー化） ---
+    const toggleButtons = document.querySelectorAll('.toggle-img-btn');
+    
+    toggleButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+        // ボタンと同じ階層の .img-container を探す
+        const container = this.closest('.link-wrapper').querySelector('.img-container');
+        const isVisible = container.style.display === 'block';
+        
+        // 表示状態の切り替え
+        container.style.display = isVisible ? 'none' : 'block';
+        this.textContent = isVisible ? '🖼️ 画像を表示' : '❌ 画像を隠す';
+        });
+    });
+
+    // --- 2. 進捗管理（チェックボックス生成と保存） ---
+    const listItems = document.querySelectorAll('li');
+    listItems.forEach((li) => {
+        const link = li.querySelector('a');
+        if (link) {
+        const href = link.getAttribute('href');
+        const uniqueKey = 'az900-v2-progress-' + href;
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.className = 'progress-checkbox';
+
+        // 保存された状態を復元
+        const isChecked = localStorage.getItem(uniqueKey) === 'true';
+        checkbox.checked = isChecked;
+        if (isChecked) {
+            li.classList.add('completed');
+        }
+
+        // 状態変更時の保存
+        checkbox.addEventListener('change', (e) => {
+            localStorage.setItem(uniqueKey, e.target.checked);
+            if (e.target.checked) {
+            li.classList.add('completed');
+            } else {
+            li.classList.remove('completed');
+            }
+        });
+
+        li.insertBefore(checkbox, li.firstChild);
+        }
+    });
+
+    // --- 3. すべてリセットボタン ---
+    const resetBtn = document.getElementById('reset-btn');
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+        if (confirm('学習の進捗をすべてリセットしますか？\n（この操作は取り消せません）')) {
+            const checkboxes = document.querySelectorAll('.progress-checkbox');
+            checkboxes.forEach((cb) => {
+            cb.checked = false;
+            const li = cb.closest('li');
+            li.classList.remove('completed');
+            const link = li.querySelector('a');
+            const uniqueKey = 'az900-v2-progress-' + link.getAttribute('href');
+            localStorage.removeItem(uniqueKey);
+            });
+        }
+        });
+    }
+    });
+</script>
+
+</body>
+</html>

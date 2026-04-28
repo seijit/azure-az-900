@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure 知ソース</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+
+      <h2>管理単位</h2>
+      <p>
+        <img src="./data/msazure/subscription.png">
+        <ol>
+          <li>Microsoft Entra テナント： 認証基盤</li>
+          <li>管理グループ： 組織・ポリシー統制</li>
+          <li>サブスクリプション： 契約単位・課金単位</li>
+          <li>リソース グループ： まとめる入れ物</li>
+          <li>リソース： サービス実体 (ストレージ、ネットワーク、仮想マシン 等)</li>
+        </ol>
+      </p>
+
+
+      <h2>リソース グループ</h2>
+      <p>リソース グループは リソースをまとめる論理的な入れ物です。<br>
+        すべてのリソースは、どれか1つのリソース グループに必ず所属します。
+        <img src="./data/msazure/resource-group.png">
+      </p>
+
+      <h2>リソース</h2>
+      <p>オンプレミスで使っていたサーバー、ネットワーク、ディスクに相当する機能を、<br>
+        Azure では 仮想マシン、仮想ネットワーク、マネージド ディスク などのリソースとして作成・更新・削除します。
+      </p>
+      <img src="./data/msazure/resource.png">
+      <div class="table-container">
+        <caption>Azure 主要リソース</caption>
+        <table>
+          <thead>
+            <tr>
+              <th>カテゴリ</th>
+              <th>リソース名</th>
+              <th>概要・役割</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>計算 (Compute)</td>
+              <td>仮想マシン (VM)</td>
+              <td>クラウド上のサーバー実体（IaaS）。自由度の高いOS管理が可能。</td>
+            </tr>
+            <tr>
+              <td>ストレージ</td>
+              <td>ストレージ アカウント (Storage Account)</td>
+              <td>Blob（ファイル）、File、Queue、Tableなどのデータを格納する汎用コンテナ。</td>
+            </tr>
+            <tr>
+              <td>ストレージ</td>
+              <td>マネージド ディスク (Managed Disks)</td>
+              <td>仮想マシンに接続してOSやデータを保存する専用の仮想ディスク。</td>
+            </tr>
+              <tr>
+              <td>ネットワーク</td>
+              <td>仮想ネットワーク (VNet)</td>
+              <td>Azure内におけるユーザー専用のプライベートなネットワーク空間。</td>
+            </tr>
+            <tr>
+              <td>ネットワーク</td>
+              <td>ネットワーク インターフェイス (NIC)</td>
+              <td>仮想マシンをVNetに接続するための論理的なアダプター。</td>
+            </tr>
+            <tr>
+              <td>ネットワーク</td>
+              <td>パブリック IP アドレス (Public IP Address)</td>
+              <td>インターネットからリソースへアクセスするための外向きIP。</td>
+            </tr>
+            <tr>
+              <td>ネットワーク</td>
+              <td>ネットワーク セキュリティ グループ (Network Security Group)</td>
+              <td>通信の許可・拒否を設定するファイアウォール。</td>
+            </tr>
+            <tr>
+              <td>計算 (Compute)</td>
+              <td>App Service</td>
+              <td>WebアプリケーションやAPIをホストするためのPaaS。</td>
+            </tr>
+            <tr>
+              <td>データベース</td>
+              <td>Azure SQL Database</td>
+              <td>SQL Serverベースのフルマネージドなリレーショナルデータベース。</td>
+            </tr>
+            <tr>
+              <td>分析 / ID</td>
+              <td>Microsoft Fabric</td>
+              <td>データの移動からデータサイエンス、リアルタイム分析までを統合したSaaS。</td>
+            </tr>
+            <tr>
+              <td>分析 / ID</td>
+              <td>Microsoft Entra ID</td>
+              <td>ユーザーの認証やリソースへのアクセス権限を管理するIDサービス。</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Azure Resource Manager（ARM）</h2>
+      <p>Azure のリソースは Azure Resource Manager（ARM）というしくみにより管理されます。<br>
+        ARM は各リソースへの要求を受付け、リソースの作成、設定変更、削除などを行う管理基盤です。
+        <img src="./data/msazure/azure-resource-manager.png">
+        <br>さまざまなユーザー インターフェイスにより ARM へのリクエストが可能です。<br>
+        GUI である Azure portal と CLI である Azure PowerShell など異なるユーザー インターフェイスを使っていても、最終的に ARM へアクセスされるため、同じ操作が可能となっています。
+      </p>
+
+      <h2>共同責任モデル</h2>
+      <p>
+        <img src="./data/msazure/shared-responsibility-model.png">
+      </p>
+
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+    </main>
+  </div>
+</body>
+</html>

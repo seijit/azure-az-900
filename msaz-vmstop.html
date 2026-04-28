@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>仮想マシンを 停止 / 開始 する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>仮想マシンを 停止 / 開始 する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
+      <p>この演習では、Azure ポータルを使用して 仮想マシンを停止および開始します。</p>
+      <p><strong>所要時間:</strong> 約 5 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-vm1.html">仮想マシンを作成する</a> を完了してください。</p>
+
+      <h2>タスク 1: 仮想マシンの停止と開始</h2>
+      <p>仮想マシンを 停止 および 開始 します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><code>msaz-vm</code> などを選択します。</li>
+        <li>コマンドバーで <strong>[️🔄 最新の情報に更新]</strong> を選択します。
+          <img src="./data/msazure/vm-status.png">
+        </li>
+        <li>状態 の右または 状態 の下（場所 の上）の表示を確認します。表示がないように見える場合は画面を大きくするなどして調整します。</li>
+
+        <li>状態 が 実行しています の場合<br>
+          - コマンドバーで <strong>[️□ 停止]</strong> を選択します。<strong>[️はい]</strong> を選択します。<br>
+          - 待ちます。<br>
+          - 状態 が 停止済み (割り当て解除) です になることを確認します。
+        </li>
+
+        <li>状態 が 停止済み (割り当て解除) です の場合<br>
+          - コマンドバーで <strong>[️▷ 開始]</strong> を選択します。<br>
+          - 待ちます。<br>
+          - 状態 が 実行しています になることを確認します。
+        </li>
+
+      </ol>
+
+      <h3>仮想マシンの状態と課金の関係</h3>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>操作</th>
+              <th>状態</th>
+              <th>課金</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>ポータルで <strong>[▷ 開始]</strong></td>
+              <td>実行しています</td>
+              <td>仮想マシンとディスクが課金される</td>
+            </tr>
+            <tr>
+              <td>ポータルで <strong>[□ 停止]</strong></td>
+              <td>停止済み（割り当て解除）</td>
+              <td>仮想マシンは課金されないが、ディスクは課金される</td>
+            </tr>
+            <tr>
+              <td>リモート接続で OSをシャットダウン</td>
+              <td>停止済み</td>
+              <td>OSの操作でシャットダウンしても仮想マシンとディスクの課金は停止されない</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>タスク 2: 自動シャットダウンの設定</h2>
+      <p>仮想マシンが特定の時刻にシャットダウンするようにスケジュールを設定します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><code>msaz-vm</code> などを選択します。</li>
+        <li>サービスメニューから 操作 ＞ <strong>[自動シャットダウン]</strong> を選択します。</li>
+        <li>以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+          <img src="./data/msazure/auto-shutdown.png">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>有効</td>
+                  <td><code>オン</code></td>
+                </tr>
+                <tr>
+                  <td>スケジュールされたシャットダウン</td>
+                  <td><code>1:00:00</code></td>
+                </tr>
+                <tr>
+                  <td>タイム ゾーン</td>
+                  <td><strong>[(UTC+09:00) 大阪、札幌、東京]</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li>コマンドバーで <strong>[💾 保存]</strong> を選択します。</li>
+      </ol>
+
+      <h2>タスク 3: 作成されたリソースの確認</h2>
+      <p>自動シャットダウンが設定されていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><code>msaz-vm</code> などを選択します。</li>
+        <li>サービスメニューから <strong>[概要]</strong> を選択します。</li>
+        <li>自動シャットダウンの設定を確認します
+          <img src="./data/msazure/created-shutdown.png">
+        </li>
+      </ol>
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+
+    </main>
+  </div>
+</body>
+</html>
