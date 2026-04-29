@@ -75,7 +75,56 @@
         </li>
       </ol>
 
-      
+
+      <h2>匿名アクセス / 匿名アクセス レベル</h2>
+      <p>匿名アクセスは、サインインや認証なしで BLOB を読める設定です。<br>
+        匿名アクセスは ストレージアカウント単位で設定します。
+      </p>
+      <img src="./data/msazure/anonymous-read-access.png">
+      <p>匿名アクセス レベルは BLOB の公開範囲を決めます。<br>
+        個々の BLOB ごとには設定できず、コンテナー単位で設定します。
+      </p>
+      <img src="./data/msazure/anonymous-access-level.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"> </th>
+              <th scope="col">ストレージ アカウント</th>
+              <th scope="col">コンテナー</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">名称</th>
+              <td>匿名アクセス<br>（BLOB 匿名アクセス）</td>
+              <td>匿名アクセス レベル</td>
+            </tr>
+            <tr>
+              <th scope="row">役割</th>
+              <td>匿名アクセスを許可するかどうか</td>
+              <td>匿名アクセスをどこまで許可するか</td>
+            </tr>
+            <tr>
+              <th scope="row">対象範囲</th>
+              <td>アカウント内の すべてのコンテナー<br>（大元の設定）<br>（コンテナーの設定よりも優先される）</td>
+              <td>設定した 特定のコンテナーのみ<br>（個別の設定）<br>（ストレージアカウントの設定に従う）</td>
+            </tr>
+            <tr>
+              <th scope="row" rowspan="3">匿名アクセス レベル</th>
+              <td rowspan="3"></td>
+              <td>プライベート<br>：非公開</td>
+            </tr>
+            <tr>
+              <td>コンテナー<br>：ファイルとファイル一覧を公開</td>
+            </tr>
+            <tr>
+              <td>BLOB<br>：ファイルを公開</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
       <h2>🎉匿名アクセスを許可して、アクセス可能な BLOB を作成しました。🎉</h2>
 
 
