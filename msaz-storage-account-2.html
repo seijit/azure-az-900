@@ -48,8 +48,8 @@
             </tr>
             <tr>
               <td class="no-border-top"></td>
-              <td>Azure Data Lake Storage Gen2 (ADLS Gen2)</td>
-              <td>Blob Storage を基盤に、機能を拡張したデータレイク向けストレージ（階層型名前空間）</td>
+              <td><span style="color: skyblue;">Azure Data Lake Storage Gen2 (ADLS Gen2)</span></td>
+              <td><span style="color: skyblue;">Blob Storage を基盤に、機能を拡張したデータレイク向けストレージ（階層型名前空間）</span></td>
             </tr>
             <tr>
               <td><strong>[テーブル]</strong></td>
@@ -87,8 +87,9 @@
           </thead>
           <tbody>
             <tr>
-              <td>データをディレクトリ階層ではなく、平らな名前の集合として扱う方式。<br>名前に / を含んでいても実体としてのディレクトリではない。</td>
-              <td>データをファイルシステムのように、ディレクトリ階層で管理できる方式。</td>
+              <td>データをディレクトリ階層ではなく、平らな名前の集合として扱う方式。<br>
+                ディレクトリは本物のディレクトリではなく、BLOB 名の <code>/</code> で区切られた部分をディレクトリっぽく見せている。</td>
+              <td>データをPCのファイルシステムのように、ディレクトリ階層で管理できる方式。</td>
             </tr>
           </tbody>
         </table>
@@ -123,7 +124,6 @@
         <li><strong>[詳細]</strong> タブ または <strong>[セキュリティ]</strong> タブで、<strong>個々のコンテナーで匿名アクセスの有効化を許可する</strong> が 有効 を選択します。<br>
           この設定は、各コンテナーで 匿名アクセスを設定できるようにするかどうかを選択します。<br>
           ここでは 匿名アクセスを許可する設定で進めます。
-          <img src="./data/msazure/account-public-access-on.png">
         </li>
         <li><strong>[レビューと作成]</strong> を選択します。</li>
         <li>設定が反映されていることを確認します。
