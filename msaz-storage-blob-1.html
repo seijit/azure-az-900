@@ -16,7 +16,7 @@
       <p><strong>所要時間:</strong> 約 15 分</p>
 
       <h2>先行の演習</h2>
-      <p>この演習を始める前に <a href="msaz-blob-storage-1.html">コンテナー を作成する</a> を完了してください。</p>
+      <p>この演習を始める前に <a href="msaz-storage-container-1.html">コンテナー を作成する</a> を完了してください。</p>
 
 
       <h2>BLOB ＜ コンテナー ＜ ストレージ アカウント</h2>
@@ -134,57 +134,9 @@
       <p>ストレージアカウントの設定が コンテナーの設定よりも優先されます。<br>
         - ストレージアカウントが 匿名アクセスを無効にする場合、すべてのコンテナーは 匿名アクセス無効<br>
         - ストレージアカウントが 匿名アクセスを有効にする場合、コンテナーごとに 匿名アクセスレベルを選択可能<br>
-      <img src="./data/msazure/storage-account-container.png">
-
-        <br>この演習では ストレージアカウント と コンテナー を設定して、BLOB に匿名アクセスができるように変更します。<br>
-      <img src="./data/msazure/storage-account-container-edit.png">
+      <img src="./data/msazure/storage-account-container-default.png">
       </p>
 
-      <h2>タスク 4: BLOB 匿名アクセスの許可</h2>
-      <p>ストレージ アカウントで BLOB への 匿名アクセスを許可します。</p>
-      <ol>
-        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
-        <li><code>storagev2msaz1</code> を選択します。</li>
-        <li>サービスメニューから 設定 ＞ <strong>[構成]</strong> を選択します。</li>
-        <li>BLOB 匿名アクセスを許可する で <strong>[有効]</strong> を選択します。
-          <img src="./data/msazure/storage-menu-2.png">
-        </li> 
-        <li>コマンドバーで <strong>[💾 保存]</strong> を選択します。</li>
-      </ol>
-
-      <h2>タスク 5: 匿名アクセスレベルの変更</h2>
-      <p>コンテナーで 匿名アクセスレベルを プライベート から BLOB に変更します。</p>
-      <ol>
-        <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
-        <li><code>storagev2msaz1</code> を選択します。</li>
-        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。</li>
-        <li><strong>[🔄 最新の情報に更新]</strong> を選択します。</li>
-        <li><code>storage-container</code> のチェックボックスにチェックを入れます。
-          <img src="./data/msazure/access-level.png">
-        </li>
-        <li>コマンドバーで <strong>[🔒 アクセス レベルの変更]</strong> を選択します。</li>
-        <li>匿名アクセスレベルで <strong>[BLOB (BLOB 専用の匿名読み取りアクセス)]</strong> を選択します。
-          <img src="./data/msazure/access-level-anno.png">
-          <img src="./data/msazure/access-level-change.png">
-        </li>
-        <li><strong>[OK]</strong> を選択します。</li>
-      </ol>
-
-      <h2>タスク 6: 変更されたリソースの確認</h2>
-      <p>BLOB にインターネット経由でアクセスできることを確認します。</p>
-      <ol>
-        <li><strong>[🔄 最新の情報に更新]</strong> を選択します。</li>
-        <li><code>storage-container</code> の 匿名アクセスレベル が BLOB に変更されていることを確認します。
-          <img src="./data/msazure/access-level-after.png">
-        </li>
-        <li><code>storage-container</code> を選択します。</li>
-        <li>前のタスクで <strong>アップロードしたファイル</strong> を選択します。</li>
-        <li>URLの 右端の <strong>[コピー]</strong> ボタン を選択します。</li>
-        <li>ブラウザで新しいタブを開いてコピーしたURLをアドレスバーに貼り付けます。</li>
-        <li>アップロードした画像ファイルが表示されることを確認します。</br>
-          BLOB の匿名アクセスレベルが 変更されました。
-        </li>
-      </ol>
 
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
