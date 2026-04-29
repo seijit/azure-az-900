@@ -24,7 +24,7 @@
         - ストレージアカウントが 匿名アクセスを無効にする場合、すべてのコンテナーは 匿名アクセス無効<br>
         - ストレージアカウントが 匿名アクセスを有効にする場合、コンテナーごとに 匿名アクセスレベルを選択可能<br>
 
-        <br>この演習では ストレージアカウント と コンテナー を設定して、BLOB に匿名アクセスができるように変更します。<br>
+        <br>ここでは ストレージアカウント と コンテナー を設定して、BLOB に匿名アクセスができるように変更します。<br>
       <img src="./data/msazure/storage-account-container-edit.png">
       </p>
 
@@ -34,6 +34,7 @@
         <li>ポータルメニューから <strong>[ストレージ アカウント]</strong> を選択します。</li>
         <li><code>storagev2msaz1</code> を選択します。</li>
         <li>サービスメニューから 設定 ＞ <strong>[構成]</strong> を選択します。</li>
+        <li>BLOB 匿名アクセスを許可する が <strong>[無効]</strong> であることを確認します。</li>  
         <li>BLOB 匿名アクセスを許可する で <strong>[有効]</strong> を選択します。
           <img src="./data/msazure/storage-menu-2.png">
         </li> 
@@ -47,6 +48,7 @@
         <li><code>storagev2msaz1</code> を選択します。</li>
         <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。</li>
         <li><strong>[🔄 最新の情報に更新]</strong> を選択します。</li>
+        <li><code>storage-container</code> の 匿名アクセスレベル が プライベート であることを確認します。</li>
         <li><code>storage-container</code> のチェックボックスにチェックを入れます。
           <img src="./data/msazure/access-level.png">
         </li>
@@ -70,9 +72,12 @@
         <li>URLの 右端の <strong>[コピー]</strong> ボタン を選択します。</li>
         <li>ブラウザで新しいタブを開いてコピーしたURLをアドレスバーに貼り付けます。</li>
         <li>アップロードした画像ファイルが表示されることを確認します。</br>
-          BLOB の匿名アクセスレベルが 変更されました。
         </li>
       </ol>
+
+      
+      <h2>🎉匿名アクセスを許可して、アクセス可能な BLOB を作成しました。🎉</h2>
+
 
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>

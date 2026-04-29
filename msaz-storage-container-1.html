@@ -102,6 +102,62 @@
         <li>完了を待ちます。</li>
       </ol>
 
+      <h2>匿名アクセス レベル</h2>
+          <img src="./data/msazure/storage-new-container-1.png">
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col"> </th>
+              <th scope="col">コンテナー</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">名称</th>
+              <td>匿名アクセス レベル</td>
+            </tr>
+            <tr>
+              <th scope="row">役割</th>
+              <td>匿名アクセスをどこまで許可するか</td>
+            </tr>
+            <tr>
+              <th scope="row">対象範囲</th>
+              <td>設定した 特定のコンテナーのみ<br>（個別の設定）<br>（ストレージアカウントの設定に従う）</td>
+            </tr>
+            <tr>
+              <th scope="row" rowspan="3">匿名アクセス レベル</th>
+              <td>プライベート<br>：非公開</td>
+            </tr>
+            <tr>
+              <td>コンテナー<br>：ファイルとファイル一覧を公開</td>
+            </tr>
+            <tr>
+              <td>BLOB<br>：ファイルを公開</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>コンテナーが作成されていることを確認します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>ストレージ アカウント</code> と入力します。</li>
+        <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
+        <li><code>storagev2msaz1</code> を選択します。</li>
+        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。
+          <img src="./data/msazure/storage-menu.png">
+        </li>
+        <li><code>storage-container</code> が存在することを確認します。
+          <img src="./data/msazure/created-container.png">
+        </li>
+        <li>匿名アクセス レベル が <code>プライベート</code> であることを確認します。
+        </li>
+      </ol>
+
+
+
       <h2>匿名アクセス / 匿名アクセス レベル</h2>
       <div class="table-container">
         <table>
@@ -142,31 +198,6 @@
           </tbody>
         </table>
       </div>
-
-
-      <h2>タスク 2: 作成されたリソースの確認</h2>
-      <p>コンテナーが作成されていることを確認します。</p>
-      <ol>
-        <li>上部の検索ボックスに <code>ストレージ アカウント</code> と入力します。</li>
-        <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
-        <li><code>storagev2msaz1</code> を選択します。</li>
-        <li>サービスメニューから データ ストレージ ＞ <strong>[コンテナー]</strong> を選択します。
-          <img src="./data/msazure/storage-menu.png">
-        </li>
-        <li><code>storage-container</code> が存在することを確認します。
-          <img src="./data/msazure/created-container.png">
-        </li>
-        <li>匿名アクセス レベル が <code>プライベート</code> であることを確認します。
-        </li>
-      </ol>
-
-
-      <h3>匿名アクセス マトリクス表</h3>
-      <p>ストレージアカウントの設定が コンテナーの設定よりも優先されます。<br>
-        - ストレージアカウントが 匿名アクセス無効 の場合、すべてのコンテナーは 匿名アクセス無効<br>
-        - ストレージアカウントが 匿名アクセス有効 の場合、コンテナーごとに 匿名アクセスレベルを選択可能<br>
-      </p>
-      <img src="./data/msazure/storage-account-container.png">
 
 
       <h2>リソースをクリーンアップする場合</h2>
