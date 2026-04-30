@@ -11,11 +11,11 @@
     <main>
       <h1>Azure ポータルで 仮想マシンにIISをセットアップする</h1>
       <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
-      <p>この演習では、Azure ポータルを使用して 仮想マシン2台に IISをセットアップします。</p>
+      <p>この演習では、Azure ポータルを使用して 仮想マシンに IISをセットアップします。</p>
       <p><strong>所要時間:</strong> 約 10 分</p>
 
       <h2>先行の演習</h2>
-      <p>この演習を始める前に <a href="msaz-vm-2.html">仮想マシンを作成する（Windows 可用性セット）</a> を完了してください。</p>
+      <p>この演習を始める前に <a href="msaz-vm-1.html">仮想マシンを作成する</a> を完了してください。</p>
 
       <h2>IIS</h2>
       <p>IIS（Internet Information Services）は、Windows 用の Web サーバーソフトで、ブラウザからの要求に応じて HTML や画像などを配信します。<br>
@@ -23,29 +23,11 @@
         <img src="./data/msazure/web-server.png">
       </p>
 
+
       <h2>タスク 1: 仮想マシンに IISをインストール</h2>
-      <p>仮想マシンに IISをインストールします。IIS のセットアップは コマンドで行います。<br>
-        仮想マシン 2台に同じ手順を繰り返します。</p>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>1台目の仮想マシン</th>
-                <th>2台目の仮想マシン</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>msaz-vm-01</code></td>
-                <td><code>msaz-vm-02</code></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+      <p>仮想マシンに IISをインストールします。IIS のセットアップは コマンドで行います。</p>
       <ol>
-        <li>仮想マシンに <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
+        <li><code>msaz-vm</code>に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
         </li>
         <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
         <li>スタートメニューを選択して <strong>[Windows PowerShell]</strong> を選択します。
@@ -62,31 +44,14 @@
         </li>
       </ol>
 
+
       <h2>タスク 2: インストールされたサービスの確認</h2>
       <p>IIS は サービスとして動作します。サービスはバックグラウンドで実行されるアプリケーションです。 <br>
         IIS のサービスは <code>W3SVC</code> というサービス名です。<br>
         <code>W3SVC</code> サービスの 停止 / 開始 / 状態確認 を実行して サービスの状態を確認します。<br>
-        仮想マシン 2台に同じ手順を繰り返します。</p>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>1台目の仮想マシン</th>
-                <th>2台目の仮想マシン</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>msaz-vm-01</code></td>
-                <td><code>msaz-vm-02</code></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+      </p>
       <ol>
-        <li>仮想マシンに <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
+        <li><code>msaz-vm</code>に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
         </li>
         <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
         <li>スタートメニューを選択して <strong>[Windows PowerShell]</strong> を選択します。
@@ -113,30 +78,13 @@
         </li>
       </ol>
 
+
       <h2>タスク 3: IIS の Web 公開フォルダーに HTMLファイルを配置</h2>
       <p>IIS の Web 公開フォルダーに HTMLファイルを配置します。<br>
         Web 公開フォルダーに index.html を配置すると <code>http://仮想マシンのIPアドレス</code> にアクセスすれば その内容が表示されます。<br>
-        仮想マシン 2台に同じ手順を繰り返します。</p>
-
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th>1台目の仮想マシン</th>
-                <th>2台目の仮想マシン</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td><code>msaz-vm-01</code></td>
-                <td><code>msaz-vm-02</code></td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-
+      </p>
       <ol>
-        <li>仮想マシンに <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
+        <li><code>msaz-vm</code>に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
         </li>
         <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
         <li>スタートメニューを選択して <strong>[Windows PowerShell]</strong> を選択します。
@@ -157,11 +105,29 @@
         </li>
       </ol>
 
+
+      <h2>タスク 4: IIS のテスト</h2>
+      <p>仮想マシンの IIS が 期待通りのHTMLファイルを配信するか確認します。
+      </p>
+      <ol>
+        <li>上部の検索ボックスに <code>パブリック IP アドレス</code> と入力します。</li>
+        <li><strong>[パブリック IP アドレス]</strong> を選択します。</li>
+        <li>ポータルの画面から <code>msaz-vm-ip</code>の IP アドレス をコピーします。
+          <img src="./data/msazure/ip-clip.png">
+        </li>
+        <li>ブラウザで新しいタブを開いてコピーしたURLをアドレスバーに貼り付けます。
+        </li>
+        <li><code>msaz-vm</code> が表示されることを確認します。<br>
+          表示されない場合は HTTPで接続していることを確認してください（HTTPSでは接続できません）。
+          <img src="./data/msazure/browser-name.png">
+        </li>
+      </ol>
+
+
+
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
-
       <h4><br><a href="index.html">← 目次に戻る</a></h4>
-
     </main>
   </div>
 </body>

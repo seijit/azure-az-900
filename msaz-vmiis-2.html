@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータルで 仮想マシンにIISをセットアップする</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータルで 仮想マシンにIISをセットアップする</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
+      <p>この演習では、Azure ポータルを使用して 仮想マシン2台に IISをセットアップします。</p>
+      <p><strong>所要時間:</strong> 約 10 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-vm-2.html">仮想マシンを作成する（Windows 可用性セット）</a> を完了してください。</p>
+
+      <h2>IIS</h2>
+      <p>IIS（Internet Information Services）は、Windows 用の Web サーバーソフトで、ブラウザからの要求に応じて HTML や画像などを配信します。<br>
+        サーバーソフトは、バックグラウンドでサービスとして動作することが多いです。<br>
+        <img src="./data/msazure/web-server.png">
+      </p>
+
+      <h2>タスク 1: 仮想マシンに IISをインストール</h2>
+      <p>仮想マシンに IISをインストールします。IIS のセットアップは コマンドで行います。<br>
+        仮想マシン 2台に同じ手順を繰り返します。</p>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>1台目の仮想マシン</th>
+                <th>2台目の仮想マシン</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>msaz-vm-01</code></td>
+                <td><code>msaz-vm-02</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      <ol>
+        <li>仮想マシンに <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
+        </li>
+        <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
+        <li>スタートメニューを選択して <strong>[Windows PowerShell]</strong> を選択します。
+          <img src="./data/msazure/rdp-start-menu.png">
+        </li>
+        <li>IISをインストールするコマンドを実行します。
+          <pre><code>Install-WindowsFeature web-server</code></pre>
+        </li>
+        <li>完了を待ちます。
+          <img src="./data/msazure/rdp-iis-installed.png">
+        </li>
+        <li>IIS サービスを状態確認するコマンドを実行します。
+          <pre><code>Get-Service W3SVC</code></pre>
+          <img src="./data/msazure/powershell-get-iis.png">
+        </li>
+        <li>PowerShellプロンプトで Status が Running であることを確認します。
+        </li>
+      </ol>
+
+
+      <h2>タスク 2: IIS の Web 公開フォルダーに HTMLファイルを配置</h2>
+      <p>IIS の Web 公開フォルダーに HTMLファイルを配置します。<br>
+        Web 公開フォルダーに index.html を配置すると <code>http://仮想マシンのIPアドレス</code> にアクセスすれば その内容が表示されます。<br>
+        仮想マシン 2台に同じ手順を繰り返します。</p>
+
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>1台目の仮想マシン</th>
+                <th>2台目の仮想マシン</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>msaz-vm-01</code></td>
+                <td><code>msaz-vm-02</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+      <ol>
+        <li>仮想マシンに <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
+        </li>
+        <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
+        <li>スタートメニューを選択して <strong>[Windows PowerShell]</strong> を選択します。
+        </li>
+        <li>仮想マシンの IIS の Web 公開フォルダー（C:\inetpub\wwwroot）に コンピューター名を表示する index.html を作成するコマンドを実行します。<br>
+          <pre><code>Set-Content -Path C:\inetpub\wwwroot\index.html -Value "&lt;h1&gt;$($env:computername)&lt;/h1&gt;"</code></pre>
+          <img src="./data/msazure/powershell-set-content.png"><br>
+          <code>$env:computername</code> は、PC の「コンピューター名」を保持している環境変数です。この環境変数を利用することで、どの PC で実行しても 同じコマンドで その PC のコンピューター名 を自動的に取得して出力することができます。
+        </li>
+        <li>配置されたHTMLファイルを メモ帳で開くコマンドを実行します。<br>
+          <pre><code>notepad C:\inetpub\wwwroot\index.html</code></pre>
+          <img src="./data/msazure/notepad-command.png"><br>
+        </li>
+        <li>作成されたHTMLファイルの内容を確認します。下図は例です。<br>
+          <img src="./data/msazure/rdp-notepad-html-1.png"><br>
+          h1 タグ の h は heading の略で、見出しを意味します。
+          見出しタグには h1 から h6 まであり、数字が小さいほど重要度が高く、h1 が最上位です。
+        </li>
+      </ol>
+
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+    </main>
+  </div>
+</body>
+</html>
