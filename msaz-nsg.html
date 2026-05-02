@@ -19,7 +19,7 @@
       <p>この演習を始める前に <a href="msaz-vnet.html">仮想ネットワークを作成する</a> を完了してください。</p>
 
       <h2>ネットワークセキュリティグループ（NSG）</h2>
-      <p>NSGは、Azure 上の通信を「通してよいか、止めるか」を決めるための規則（ルール）の集まりです。<br>
+      <p>NSGは、Azure 上の通信を「通すか、止めるか」を決めるための規則（ルール）の集まりです。<br>
         NSGは 受信セキュリティ規則 と 送信セキュリティ規則 で構成されています。</p>
       <img src="./data/msazure/nsg-in-out.png">
 
@@ -157,7 +157,7 @@
                 </tr>
                 <tr>
                   <td>サブネット</td>
-                  <td><strong>[web-subnet]</strong></td>
+                  <td><strong>[subnet]</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -169,11 +169,23 @@
         </li>
       </ol>
 
+
+      <h2>タスク 5: 作成されたリソースの確認</h2>
+      <p>ネットワーク セキュリティ グループが作成されていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li>サービスメニューから <strong>[リソースビジュアライザ―]</strong> を選択します。</li>
+        <li><code>msaz-nsg</code> が作成されていることを確認します。
+          <img src="./data/msazure/nsg-subnet-rv.png">
+          セキュリティ規則が表示されないのは、リソースビジュアライザーでは配下の子リソースや内部の設定情報が表示されないためです。
+        </li>
+      </ol>
+
+
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
-
       <h4><br><a href="index.html">← 目次に戻る</a></h4>
-
     </main>
   </div>
 </body>

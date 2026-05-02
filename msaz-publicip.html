@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja-jp" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Azure ポータル で パブリック IP アドレス を作成する</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <main>
+      <h1>Azure ポータル で パブリック IP アドレス を作成する</h1>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ パブリック IP アドレス</span></p>
+      <p>この演習では、Azure ポータル を使用してパブリック IP アドレスを作成します。</p>
+
+      <p><strong>所要時間:</strong> 約 5 分</p>
+
+      <h2>先行の演習</h2>
+      <p>この演習を始める前に <a href="msaz-rg.html">リソースグループを作成する</a> を完了してください。</p>
+
+      <h2>タスク 1: パブリック IP アドレスの作成</h2>
+      <p>パブリック IP アドレスを作成します。</p>
+      <ol>
+        <li>上部の検索ボックスに <code>パブリック IP アドレス</code> と入力します。</li>
+        <li><strong>[パブリック IP アドレス]</strong> を選択します。</li>
+        <li><strong>[＋ 作成]</strong> を選択します。</li>
+        <li>使用する <strong>[サブスクリプション]</strong> を選択します。</li>
+        <li>リソース グループで <code>msaz-rg</code> を選択します。</li>
+        <li>利用可能な <strong>[リージョン]</strong> を選択します。</li>
+        <li>以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>設定</th>
+                  <th>値</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>名前</td>
+                  <td><code>msaz-public-ip</code></td>
+                </tr>
+                <tr>
+                  <td>IP バージョン</td>
+                  <td>[IPv4]</td>
+                </tr>
+                <tr>
+                  <td>SKU</td>
+                  <td>[Standard]</td>
+                </tr>
+                <tr>
+                  <td>可用性ゾーン</td>
+                  <td>[Zone-redundant]</td>
+                </tr>
+                <tr>
+                  <td>レベル</td>
+                  <td>[Regional]</td>
+                </tr>
+                <tr>
+                  <td>IP アドレスの割り当て</td>
+                  <td>静的</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </li>
+        <li><strong>[次へ]</strong> を選択します。</li>
+        <li>DDoS 保護 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li><strong>[レビューと作成]</strong> を選択します。</li>
+        <li>内容を一通り確認し、<strong>[作成]</strong> を選択します。</li>
+        <li>完了を待ちます。
+        </li>
+      </ol>
+
+
+      <h2>タスク 2: 作成されたリソースの確認</h2>
+      <p>パブリック IP アドレスが作成されていることを確認します。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li>サービスメニューから <strong>[リソースビジュアライザ―]</strong> を選択します。</li>
+        <li><code>msaz-public-ip</code> が作成されていることを確認します。
+          <img src="./data/msazure/public-ip-rv.png">
+        </li>
+      </ol>
+
+
+      <h2>リソースをクリーンアップする場合</h2>
+      <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
+      <h4><br><a href="index.html">← 目次に戻る</a></h4>
+    </main>
+  </div>
+</body>
+</html>

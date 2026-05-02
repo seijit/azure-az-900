@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Azure ポータルで 仮想マシンを作成する（Windows 可用性セット）</title>
+  <title>Azure ポータルで 仮想マシンを作成する（可用性セット）</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <main>
-      <h1>Azure ポータルで 仮想マシンを作成する（Windows 可用性セット）</h1>
+      <h1>Azure ポータルで 仮想マシンを作成する（可用性セット）</h1>
       <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
-      <p>この演習では、Azure ポータルを使用して 仮想マシンを可用性セットに作成します。</p>
+      <p>この演習では、Azure ポータルを使用して Windows仮想マシンを可用性セットに作成します。</p>
       <p><strong>所要時間:</strong> 約 15 分</p>
 
       <h2>先行の演習</h2>
@@ -28,8 +28,10 @@
         <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
         <li><strong>[＋ 作成]</strong> を選択します。</li>
         <li><strong>[仮想マシン]</strong> を選択します。</li>
+        <li>使用する サブスクリプション を選択します。</li>
+        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
         <li>
-          基本 タブで、以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+          以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
           <img src="./data/msazure/vm-tab.png">
 
           <div class="table-flex-row">
@@ -44,14 +46,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>サブスクリプション</td>
-                      <td>任意</td>
-                    </tr>
-                    <tr>
-                      <td>リソース グループ</td>
-                      <td><code>msaz-rg</code></td>
-                    </tr>
                     <tr>
                       <td>仮想マシン名</td>
                       <td><code>msaz-vm-01</code></td>
@@ -79,6 +73,10 @@
                     <tr>
                       <td>サイズ</td>
                       <td><strong>[Standard_D2als_v6 ...]</strong> など</td>
+                    </tr>
+                    <tr>
+                      <td>認証の種類</td>
+                      <td><strong>[パスワード]</strong></td>
                     </tr>
                     <tr>
                       <td>ユーザー名</td>
@@ -109,14 +107,6 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>サブスクリプション</td>
-                      <td>任意</td>
-                    </tr>
-                    <tr>
-                      <td>リソース グループ</td>
-                      <td><code>msaz-rg</code></td>
-                    </tr>
-                    <tr>
                       <td>仮想マシン名</td>
                       <td><code>msaz-vm-02</code></td>
                     </tr>
@@ -143,6 +133,10 @@
                     <tr>
                       <td>サイズ</td>
                       <td><strong>[Standard_D2als_v6 ...]</strong> など</td>
+                    </tr>
+                    <tr>
+                      <td>認証の種類</td>
+                      <td><strong>[パスワード]</strong></td>
                     </tr>
                     <tr>
                       <td>ユーザー名</td>
@@ -182,10 +176,6 @@
                   </thead>
                   <tbody>
                     <tr>
-                      <td>OS ディスク サイズ</td>
-                      <td><strong>[イメージの規定値 (30 GiB)]</strong></td>
-                    </tr>
-                    <tr>
                       <td>OS ディスクの種類</td>
                       <td><strong>[Standard SSD (ローカル冗長ストレージ)]</strong></td>
                     </tr>
@@ -209,10 +199,6 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>OS ディスク サイズ</td>
-                      <td><strong>[イメージの規定値 (30 GiB)]</strong></td>
-                    </tr>
                     <tr>
                       <td>OS ディスクの種類</td>
                       <td><strong>[Standard SSD (ローカル冗長ストレージ)]</strong></td>
@@ -252,7 +238,7 @@
                     </tr>
                     <tr>
                       <td>サブネット</td>
-                      <td><code>web-subnet</code></td>
+                      <td><code>subnet</code></td>
                     </tr>
                     <tr>
                       <td>パブリック IP</td>
@@ -260,7 +246,7 @@
                     </tr>
                     <tr>
                       <td>NIC ネットワーク セキュリティ グループ</td>
-                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'web-subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。</td>
+                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。</td>
                     </tr>
                     <tr>
                       <td>VM が削除されたときにパブリック IP と NIC を削除する</td>
@@ -288,7 +274,7 @@
                     </tr>
                     <tr>
                       <td>サブネット</td>
-                      <td><code>web-subnet</code></td>
+                      <td><code>subnet</code></td>
                     </tr>
                     <tr>
                       <td>パブリック IP</td>
@@ -296,7 +282,7 @@
                     </tr>
                     <tr>
                       <td>NIC ネットワーク セキュリティ グループ</td>
-                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'web-subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。</td>
+                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。</td>
                     </tr>
                     <tr>
                       <td>VM が削除されたときにパブリック IP と NIC を削除する</td>

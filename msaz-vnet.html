@@ -18,8 +18,9 @@
       <h2>先行の演習</h2>
       <p>この演習を始める前に <a href="msaz-rg.html">リソースグループを作成する</a> を完了してください。</p>
 
-      <h2>タスク 1: 仮想ネットワーク/サブネットの作成</h2>
-      <p>仮想ネットワークとサブネットを作成します。</p>
+      <h2>タスク 1: 仮想ネットワークの作成</h2>
+      <p>仮想ネットワークとサブネットを作成します。<br>
+        仮想ネットワークは IaaS (Infrastructure as a Service) に分類されるサービスです。</p>
       <img src="./data/msazure/vnet-to-create.png">
       <img src="./data/msazure/subnet-in-network.png">
       <ol>
@@ -58,7 +59,7 @@
                 </tr>
                 <tr>
                   <td>名前</td>
-                  <td><code>web-subnet</code></td>
+                  <td><code>subnet</code></td>
                 </tr>
                 <tr>
                   <td rowspan="4">IPv4</td>
@@ -107,21 +108,28 @@
         </li>
       </ol>
 
+
       <h2>タスク 2: 作成されたリソースの確認</h2>
       <p>仮想ネットワークとサブネットが作成されていることを確認します。</p>
       <ol>
-        <li>ポータルメニューから <strong>[仮想ネットワーク]</strong> を選択します。</li>
-        <li><code>msaz-vnet</code> が作成されていることを確認します。</li>
+        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
+        <li><code>msaz-rg</code> を選択します。</li>
+        <li>サービスメニューから <strong>[リソースビジュアライザ―]</strong> を選択します。</li>
+        <li><code>msaz-vnet</code> が作成されていることを確認します。<br>
+          <img src="./data/msazure/vnet-rv.png">
+        サブネットが表示されないのは、リソースビジュアライザーでは配下の子リソースや内部の設定情報が表示されないためです。
+        </li>
         <li><code>msaz-vnet</code> を選択します。</li>
         <li>サービスメニューから 設定 ＞ <strong>[サブネット]</strong> を選択します。</li>
-        <li><code>web-subnet</code> が作成されていることを確認します。</li>
+        <li><code>subnet</code> が作成されていることを確認します。
+          <img src="./data/msazure/vnet-subnet.png">
+        </li>
       </ol>
+
 
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
-
       <h4><br><a href="index.html">← 目次に戻る</a></h4>
-
     </main>
   </div>
 </body>

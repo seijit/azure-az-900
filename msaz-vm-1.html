@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Azure ポータルで 仮想マシンを作成する（Windows）</title>
+  <title>Azure ポータルで 仮想マシンを作成する（＋必要リソース一式）</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <main>
-      <h1>Azure ポータルで 仮想マシンを作成する（Windows）</h1>
+      <h1>Azure ポータルで 仮想マシンを作成する（＋必要リソース一式）</h1>
       <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
-      <p>この演習では、Azure ポータルを使用して 仮想マシンを作成します。<br>
+      <p>この演習では、Azure ポータルを使用して Windows仮想マシンと必要リソース一式を作成します。<br>
         仮想マシンは IaaS (Infrastructure as a Service) に分類されるサービスです。</p>
       <p><strong>所要時間:</strong> 約 20 分</p>
 
@@ -33,7 +33,9 @@
         <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
         <li><strong>[＋ 作成]</strong> を選択します。</li>
         <li><strong>[仮想マシン]</strong> を選択します。</li>
-        <li>基本 タブで、以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
+        <li>使用する サブスクリプション を選択します。</li>
+        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
+        <li>以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
           <img src="./data/msazure/vm-tab.png">
           <div class="table-container">
             <table>
@@ -45,20 +47,12 @@
               </thead>
               <tbody>
                 <tr>
-                  <td>サブスクリプション</td>
-                  <td>任意</td>
-                </tr>
-                <tr>
-                  <td>リソース グループ</td>
-                  <td><code>msaz-rg</code></td>
-                </tr>
-                <tr>
                   <td>仮想マシン名</td>
                   <td><code>msaz-vm</code></td>
                 </tr>
                 <tr>
                   <td>リージョン</td>
-                  <td><strong>[(Asia Pacific) Japan West]</strong> など</td>
+                  <td><strong>[(Asia Pacific) Japan West]</strong></td>
                 </tr>
                 <tr>
                   <td>可用性オプション</td>
@@ -77,6 +71,10 @@
                   <td><strong>[Standard_D2als_v6 ...]</strong> など</td>
                 </tr>
                 <tr>
+                  <td>認証の種類</td>
+                  <td><strong>[パスワード]</strong></td>
+                </tr>
+                <tr>
                   <td>ユーザー名</td>
                   <td><code>azureuser</code></td>
                 </tr>
@@ -86,7 +84,7 @@
                 </tr>
                 <tr>
                   <td>パブリック受信ポート</td>
-                  <td><strong>[RDP (3389)]</strong></td>
+                      <td><strong>[なし]</td>
                 </tr>
               </tbody>
             </table>
@@ -130,7 +128,7 @@
                 </tr>
                 <tr>
                   <td>受信ポートを選択</td>
-                  <td><strong>[RDP (3389)]</strong></td>
+                  <td><strong>[HTTP (80),RDP (3389)]</strong></td>
                 </tr>
                 <tr>
                   <td>VM が削除されたときにパブリック IP と NIC を削除する</td>

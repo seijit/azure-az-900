@@ -29,9 +29,10 @@
         <img src="./data/msazure/resource-group.png">
       </p>
 
+
       <h2>リソース</h2>
       <p>オンプレミスで使っていたサーバー、ネットワーク、ディスクに相当する機能を、<br>
-        Azure では 仮想マシン、仮想ネットワーク、マネージド ディスク などのリソースとして作成・更新・削除します。
+        Azure では 仮想マシン、仮想ネットワーク、マネージド ディスク などのリソースとして作成・管理します。
       </p>
       <img src="./data/msazure/resource.png">
       <div class="table-container">
@@ -46,29 +47,29 @@
           </thead>
           <tbody>
             <tr>
+              <td>ストレージ</td>
+              <td>ストレージ アカウント (Storage Account)</td>
+              <td>Blob、File、Queue、Tableなどのデータを格納するストレージ基盤。</td>
+            </tr>
+            <tr>
+              <td>ストレージ</td>
+              <td>マネージド ディスク (Managed Disks)</td>
+              <td>仮想マシンの OS やデータを保存するためのディスク。</td>
+            </tr>
+            <tr>
               <td>計算 (Compute)</td>
               <td>仮想マシン (VM)</td>
               <td>クラウド上のサーバー実体（IaaS）。自由度の高いOS管理が可能。</td>
             </tr>
             <tr>
-              <td>ストレージ</td>
-              <td>ストレージ アカウント (Storage Account)</td>
-              <td>Blob（ファイル）、File、Queue、Tableなどのデータを格納する汎用コンテナ。</td>
-            </tr>
-            <tr>
-              <td>ストレージ</td>
-              <td>マネージド ディスク (Managed Disks)</td>
-              <td>仮想マシンに接続してOSやデータを保存する専用の仮想ディスク。</td>
-            </tr>
-              <tr>
               <td>ネットワーク</td>
               <td>仮想ネットワーク (VNet)</td>
               <td>Azure内におけるユーザー専用のプライベートなネットワーク空間。</td>
             </tr>
             <tr>
               <td>ネットワーク</td>
-              <td>ネットワーク インターフェイス (NIC)</td>
-              <td>仮想マシンをVNetに接続するための論理的なアダプター。</td>
+              <td>ネットワーク セキュリティ グループ (Network Security Group)</td>
+              <td>サブネットや NIC に対する通信の許可・拒否を制御するルール。</td>
             </tr>
             <tr>
               <td>ネットワーク</td>
@@ -77,8 +78,8 @@
             </tr>
             <tr>
               <td>ネットワーク</td>
-              <td>ネットワーク セキュリティ グループ (Network Security Group)</td>
-              <td>通信の許可・拒否を設定するファイアウォール。</td>
+              <td>ネットワーク インターフェイス (NIC)</td>
+              <td>仮想マシンをVNetに接続するための論理的なアダプター。</td>
             </tr>
             <tr>
               <td>計算 (Compute)</td>
@@ -104,14 +105,16 @@
         </table>
       </div>
 
+
       <h2>Azure Resource Manager（ARM）</h2>
       <p>Azure のリソースは Azure Resource Manager（ARM）というしくみにより管理されます。<br>
         ARM は各リソースへの要求を受付け、リソースの作成、設定変更、削除などを行う管理基盤です。
         <img src="./data/msazure/azure-resource-manager.png">
         <br>さまざまなユーザー インターフェイスにより ARM へのリクエストが可能です。<br>
-        GUI である Azure portal と CLI である Azure PowerShell など異なるユーザー インターフェイスを使っていても、最終的に ARM へアクセスされるため、同じ操作が可能となっています。
+        GUI である Azure ポータル と CLI である Azure PowerShell など異なるユーザー インターフェイスを使っていても、最終的に ARM へアクセスされるため、同じ操作が可能となっています。
       </p>
 
+      
       <h2>共同責任モデル</h2>
       <p>
         <img src="./data/msazure/shared-responsibility-model.png">
