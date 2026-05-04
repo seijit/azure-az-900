@@ -42,22 +42,22 @@
           </thead>
           <tbody>
             <tr>
-              <td>コンテナー</td>
+              <td><strong>[コンテナー]</strong></td>
               <td>Blob Storage</td>
               <td>画像やログなどを保存する汎用的なオブジェクト ストレージ（フラットな名前空間）</td>
             </tr>
             <tr>
-              <td>テーブル</td>
+              <td><strong>[テーブル]</strong></td>
               <td>Table Storage</td>
               <td>非リレーショナルな構造化データ向け NoSQL データストア</td>
             </tr>
             <tr>
-              <td>キュー</td>
+              <td><strong>[キュー]</strong></td>
               <td>Queue Storage</td>
               <td>アプリケーション間で非同期メッセージをやり取りするためのキューサービス</td>
             </tr>
             <tr>
-              <td>ファイル共有</td>
+              <td><strong>[ファイル共有]</strong></td>
               <td>Azure Files</td>
               <td>ファイル共有プロトコル(SMB/NFS)に対応したファイルストレージ</td>
             </tr>
@@ -74,13 +74,13 @@
         <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
         <li><strong>[＋ 作成]</strong> を選択します。</li>
         <li>使用する サブスクリプション を選択します。</li>
-        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
+        <li>リソース グループで <code>msaz-rg</code> を選択します。</li>
         <li>ストレージ アカウント名に <code>storagev2msaz1</code> と入力します。<br>ストレージ アカウント名は既に使用されています。 と表示された場合は、任意の別の名前を入力してください。</li>
         <li>利用可能な リージョン を選択します。</li>
         <li>パフォーマンスで <strong>[Standard]</strong> を選択します。</li>
         <li>冗長性で <strong>[geo ゾーン冗長ストレージ (GZRS)]</strong> を選択します。</li>
         <li><strong>[次へ]</strong> を選択します。</li>
-        <li><strong>[詳細]</strong> タブで、設定項目を一通り確認します。</li>
+        <li>詳細 タブで、設定項目を一通り確認します。</li>
         <li>階層型名前空間を有効にする が 無効 であることを確認します。<br>
           この設定は、フラットな名前空間 を維持するか、<br>
           階層型名前空間 に拡張するか を選択します。<br>
@@ -88,9 +88,9 @@
           ここでは 通常の BLOB を利用するストレージ アカウントなので、階層型名前空間を 無効 の状態で進めます。
           <img src="./data/msazure/account-hns-off.png">
         </li>
-        <li>アクセス層 が <strong>[ホット]</strong> であることを確認します。<br>
+        <li>アクセス層 が ホット であることを確認します。<br>
         </li>
-        <li><strong>[詳細]</strong> タブ または <strong>[セキュリティ]</strong> タブで、<strong>個々のコンテナーで匿名アクセスの有効化を許可する</strong> が 無効 を選択します。<br>
+        <li>詳細 タブ または セキュリティ タブで、個々のコンテナーで匿名アクセスの有効化を許可する が <strong>[無効]</strong> を選択します。<br>
           この設定は、各コンテナーで 匿名アクセスを設定できるようにするかどうかを選択します。<br>
           ここでは 匿名アクセスを許可しない設定で進めます。
           <img src="./data/msazure/account-public-access-off.png">
@@ -109,14 +109,14 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><strong>詳細</strong></td>
+                  <td>詳細</td>
                   <td>階層型名前空間を有効にする</td>
-                  <td><code>無効</code></td>
+                  <td>無効</td>
                 </tr>
                 <tr>
-                  <td><strong>セキュリティ</strong></td>
+                  <td>セキュリティ</td>
                   <td>BLOB 匿名アクセス</td>
-                  <td><code>無効</code></td>
+                  <td>無効</td>
                 </tr>
               </tbody>
             </table>
@@ -164,7 +164,7 @@
         <li>上部の検索ボックスに <code>ストレージ アカウント</code> と入力します。</li>
         <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
         <li><code>storagev2msaz1</code> を選択します。</li>
-        <li>アカウントの種類 が <code>StorageV2 (汎用 v2)</code> であることを確認します。</li>
+        <li>アカウントの種類 が StorageV2 (汎用 v2) であることを確認します。</li>
       </ol>
 
 

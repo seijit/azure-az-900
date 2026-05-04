@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Azure ポータルで 仮想マシンにIISをセットアップする</title>
+  <title>Azure ポータルで 仮想マシンに IIS をセットアップする</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="container">
     <main>
-      <h1>Azure ポータルで 仮想マシンにIISをセットアップする</h1>
+      <h1>Azure ポータルで 仮想マシンに IIS をセットアップする</h1>
       <p><strong>適用対象:</strong> <span class="badge">✔️ 仮想マシン</span></p>
-      <p>この演習では、Azure ポータルを使用して 仮想マシンに IISをセットアップします。</p>
+      <p>この演習では、Azure ポータルを使用して 仮想マシンに IIS をセットアップします。</p>
       <p><strong>所要時間:</strong> 約 10 分</p>
 
       <h2>先行の演習</h2>
@@ -24,17 +24,17 @@
       </p>
 
 
-      <h2>タスク 1: 仮想マシンに IISをインストール</h2>
-      <p>仮想マシンに IISをインストールします。IIS のセットアップは コマンドで行います。</p>
+      <h2>タスク 1: 仮想マシンに IIS をインストール</h2>
+      <p>仮想マシンに IIS をインストールします。IIS のセットアップは コマンドで行います。</p>
       <ol>
-        <li><code>msaz-vm</code>に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
+        <li><code>msaz-vm</code> に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
         </li>
         <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
         <li>スタートメニューを選択して <strong>[Windows PowerShell]</strong> を選択します。
           <img src="./data/msazure/rdp-start-menu.png">
           <img src="./data/msazure/rdp-powershell-prompt.png">
         </li>
-        <li>IISをインストールするコマンドを実行します。
+        <li>IIS をインストールするコマンドを実行します。
           <pre><code>Install-WindowsFeature web-server</code></pre>
           <img src="./data/msazure/powershell-command.png">
         </li>
@@ -51,7 +51,7 @@
         <code>W3SVC</code> サービスの 停止 / 開始 / 状態確認 を実行して サービスの状態を確認します。<br>
       </p>
       <ol>
-        <li><code>msaz-vm</code>に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
+        <li><code>msaz-vm</code> に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
         </li>
         <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
         <li>スタートメニューを選択して <strong>[Windows PowerShell]</strong> を選択します。
@@ -84,7 +84,7 @@
         Web 公開フォルダーに index.html を配置すると <code>http://仮想マシンのIPアドレス</code> にアクセスすれば その内容が表示されます。<br>
       </p>
       <ol>
-        <li><code>msaz-vm</code>に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
+        <li><code>msaz-vm</code> に <a href="msaz-vmrdp.html">リモートデスクトップ接続</a>します。
         </li>
         <li>リモートデスクトップ接続で仮想マシンのデスクトップが表示されていることを確認します。</li>
         <li>スタートメニューを選択して <strong>[Windows PowerShell]</strong> を選択します。
@@ -112,7 +112,7 @@
       <ol>
         <li>上部の検索ボックスに <code>パブリック IP アドレス</code> と入力します。</li>
         <li><strong>[パブリック IP アドレス]</strong> を選択します。</li>
-        <li>ポータルの画面から <code>msaz-vm-ip</code>の IP アドレス をコピーします。
+        <li>ポータルの画面から <code>msaz-vm-ip</code> の IP アドレス をコピーします。
           <img src="./data/msazure/ip-clip.png">
         </li>
         <li>ブラウザで新しいタブを開いてコピーしたURLをアドレスバーに貼り付けます。

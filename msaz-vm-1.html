@@ -34,7 +34,7 @@
         <li><strong>[＋ 作成]</strong> を選択します。</li>
         <li><strong>[仮想マシン]</strong> を選択します。</li>
         <li>使用する サブスクリプション を選択します。</li>
-        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
+        <li>リソース グループで <code>msaz-rg</code> を選択します。</li>
         <li>以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
           <img src="./data/msazure/vm-tab.png">
           <div class="table-container">
@@ -80,18 +80,81 @@
                 </tr>
                 <tr>
                   <td>パスワード</td>
-                  <td><code>Password123!</code> など</td>
+                  <td>任意 (12文字以上 小文字・大文字・数字・特殊文字を含める)</td>
                 </tr>
                 <tr>
                   <td>パブリック受信ポート</td>
-                      <td><strong>[なし]</td>
+                  <td><strong>[なし]</strong>　　※ ネットワーク タブで設定する</td>
                 </tr>
               </tbody>
             </table>
           </div>
         </li>
         <li><strong>[次： ディスク ＞]</strong> を選択します。</li>
-        <li>ディスク タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li>ディスク タブで、設定項目を一通り確認します。指定のない項目はデフォルトのままにします。</li>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>設定</th>
+                <th>値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>OS ディスクの種類</td>
+                <td><strong>[Standard SSD (ローカル冗長ストレージ)]</strong></td>
+              </tr>
+              <tr>
+                <td>VM と共に削除</td>
+                <td><strong>[☑️]</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <img src="./data/msazure/vm-os-disk-type.png">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>冗長性の種類</th>
+                <th>ディスクの種類</th>
+                <th>説明</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="3">
+                  LRS<br> ローカル冗長ストレージ<br>
+                  <small>(データは単一のデータセンター内でレプリケートされます)</small>
+                </td>
+                <td>Premium SSD</td>
+                <td>実稼働およびパフォーマンスが要求されるワークロードに最適です</td>
+              </tr>
+              <tr>
+                <td>Standard SSD</td>
+                <td>Web サーバー、使用頻度の低いエンタープライズ アプリケーション、Dev/Test に最適です</td>
+              </tr>
+              <tr>
+                <td>Standard HDD</td>
+                <td>バックアップ用、重要でない、頻度の低いアクセスに最適です。2028年9月8日廃止予定</td>
+              </tr>
+              <tr>
+                <td rowspan="2">
+                  ZRS<br> ゾーン冗長ストレージ<br>
+                  <small>(データは 3 つのゾーンにレプリケートされます)</small>
+                </td>
+                <td>Premium SSD</td>
+                <td>ゾーン障害に対するストレージ回復性が必要な実稼働ワークロードに最適です</td>
+              </tr>
+              <tr>
+                <td>Standard SSD</td>
+                <td>Web サーバー、使用頻度の低いエンタープライズ アプリケーション、ゾーン障害に対するストレージ回復性が必要な開発/テスト環境に最適です</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
         <li><strong>[次： ネットワーク ＞]</strong> を選択します。</li>
         <li>ネットワーク タブで、以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。<br>
         ネットワーク インターフェイスが 仮想マシンと同時に作成されます。<br>
@@ -108,15 +171,15 @@
               <tbody>
                 <tr>
                   <td>仮想ネットワーク</td>
-                  <td><strong>[(新規) msaz-vm-vnet]</strong></td>
+                  <td><code>(新規) msaz-vm-vnet</code></td>
                 </tr>
                 <tr>
                   <td>サブネット</td>
-                  <td><strong>[(新規) default (10.0.0.0/24)]</strong></td>
+                  <td><code>(新規) default (10.0.0.0/24)</code></td>
                 </tr>
                 <tr>
                   <td>パブリック IP</td>
-                  <td><strong>[(新規) msaz-vm-ip]</strong></td>
+                  <td><code>(新規) msaz-vm-ip</code></td>
                 </tr>
                 <tr>
                   <td>NIC ネットワーク セキュリティ グループ</td>
@@ -142,20 +205,36 @@
         <li><strong>[次： 管理 ＞]</strong> を選択します。</li>
         <li>管理 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
         <li><strong>[次： 監視 ＞]</strong> を選択します。</li>
-        <li>監視 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
+        <li>監視 タブで、設定項目を一通り確認します。指定のない項目はデフォルトのままにします。</li>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>設定</th>
+                <th>値</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>ブート診断</td>
+                <td><strong>[マネージド ストレージ アカウントで有効にする (推奨)]</strong></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         <li><strong>[次： 詳細 ＞]</strong> を選択します。</li>
         <li>詳細 タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
         <li><strong>[次： タグ ＞]</strong> を選択します。</li>
         <li>タグ タブで、設定項目を一通り確認します。設定値はデフォルトのままにします。</li>
         <li><strong>[確認および作成]</strong> を選択します。</li>
         <li>確認および作成 タブで、仮想マシンだけでなく、ディスクやネットワークも作成の対象になっていることを確認します。</li>
-          <img src="./data/msazure/vm1-confirm-portal.png">
         <li><strong>[作成]</strong> を選択します。</li>
         <li>完了を待ちます。
           <img src="./data/msazure/next-steps.png">
         </li>
       </ol>
 
+      
       <h2>タスク 2: 作成されたリソースの確認</h2>
       <p>仮想マシンだけでなく、仮想マシンに関連するリソースも同時に作成されていることを確認します。</p>
       <ol>
@@ -189,7 +268,7 @@
                   <td>仮想ネットワーク</td>
                 </tr>
                 <tr>
-                  <td><code>msaz-vm443-z1</code></td>
+                  <td><code>msaz-vm949</code></td>
                   <td>ネットワーク インターフェイス</td>
                 </tr>
                 <tr>
@@ -202,7 +281,21 @@
         </li>
       </ol>
 
-      <h2>タスク 3: リソースの関連付けの確認</h2>
+
+      <h2>タスク 3: ブート診断の確認</h2>
+      <p>ブート診断を確認します。<br>ブート診断は、仮想マシンのブート(起動)時のスクリーンショットをストレージアカウントに保存して、ブート(起動)に問題がないか診断するための機能です。</p>
+      <ol>
+        <li>ポータルメニューから <strong>[仮想マシン]</strong> を選択します。</li>
+        <li><code>msaz-vm</code> を選択します。</li>
+        <li>サービスメニューから ヘルプ ＞ <strong>[ブート診断]</strong> を選択します。</li>
+        <li>仮想マシンのブート(起動)時のスクリーンショットが表示されます。<br>仮想マシンのWindowsがブート(起動)したことが確認できます。
+          <img src="./data/msazure/boot-diagnostics.png">
+        </li>
+        取得中にエラーが発生しました。 と表示された場合は、少し時間をおいてから再度確認してください。<br>
+      </ol>
+
+
+      <h2>タスク 4: リソースの関連付けの確認</h2>
       <p>作成されたリソースがどのように関連付けされているかを確認します。</p>
       <ol>
         <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
@@ -211,16 +304,19 @@
         <li>仮想マシンに関連する複数のリソースがどのように関連付けされているか確認します
           <img src="./data/msazure/resource.png">
         </li>
-        <li>ネットワークセキュリティグループの関連付けは ネットワーク設計に応じていくつかのパターンに分類できます。ここでは、デフォルトのネットワークセキュリティグループがネットワークインターフェイスに関連付けされています。
+        <li>ネットワークセキュリティグループの関連付けは ネットワーク設計に応じていくつかのパターンに分類できます。
+          ここでは、ネットワークセキュリティグループがネットワーク インターフェイスに関連付けされています。
           <img src="./data/msazure/vnet-nsg-pattern.png">
         </li>
       </ol>
 
+
+      <h2>🎉ネットワークと併せて、仮想マシンを作成しました。🎉</h2>
+
+
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
-
       <h4><br><a href="index.html">← 目次に戻る</a></h4>
-
     </main>
   </div>
 </body>

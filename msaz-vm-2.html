@@ -29,7 +29,7 @@
         <li><strong>[＋ 作成]</strong> を選択します。</li>
         <li><strong>[仮想マシン]</strong> を選択します。</li>
         <li>使用する サブスクリプション を選択します。</li>
-        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
+        <li>リソース グループで <code>msaz-rg</code> を選択します。</li>
         <li>
           以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
           <img src="./data/msazure/vm-tab.png">
@@ -84,11 +84,11 @@
                     </tr>
                     <tr>
                       <td>パスワード</td>
-                      <td><code>Password123!</code> など</td>
+                      <td>任意 (12文字以上 小文字・大文字・数字・特殊文字を含める)</td>
                     </tr>
                     <tr>
                       <td>パブリック受信ポート</td>
-                      <td><strong>[なし] ※</td>
+                      <td><strong>[なし]</strong> ※</td>
                     </tr>
                   </tbody>
                 </table>
@@ -144,7 +144,7 @@
                     </tr>
                     <tr>
                       <td>パスワード</td>
-                      <td><code>Password123!</code> など</td>
+                      <td>任意 (12文字以上 小文字・大文字・数字・特殊文字を含める)</td>
                     </tr>
                     <tr>
                       <td>パブリック受信ポート</td>
@@ -157,7 +157,7 @@
             </div>
           </div>
           ※ パブリック受信ポート では、パブリック インターネットから仮想マシンに 受信を許可するポートを選択します。<br>
-          ここでは、サブネットに関連付けされたネットワーク セキュリティ グループ（NSG）で受信を許可するため、パブリック受信ポートは［なし］を選択します。
+          ここでは、サブネットに関連付けされたネットワーク セキュリティ グループ（NSG）で受信を許可するため、パブリック受信ポートは <strong>[なし]</strong> を選択します。
         </li>
 
         <li><strong>[次： ディスク ＞]</strong> を選択します。</li>
@@ -234,7 +234,7 @@
                   <tbody>
                     <tr>
                       <td>仮想ネットワーク</td>
-                      <td><code>msaz-vnet</code></td>
+                      <td><code>msaz-vm-vnet</code></td>
                     </tr>
                     <tr>
                       <td>サブネット</td>
@@ -242,11 +242,11 @@
                     </tr>
                     <tr>
                       <td>パブリック IP</td>
-                      <td><strong>[(新規) msaz-vm-01-ip]</strong></td>
+                      <td><code>(新規) msaz-vm-01-ip</code></td>
                     </tr>
                     <tr>
                       <td>NIC ネットワーク セキュリティ グループ</td>
-                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。</td>
+                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-vm-nsg' に関連付けられています。</td>
                     </tr>
                     <tr>
                       <td>VM が削除されたときにパブリック IP と NIC を削除する</td>
@@ -270,7 +270,7 @@
                   <tbody>
                     <tr>
                       <td>仮想ネットワーク</td>
-                      <td><code>msaz-vnet</code></td>
+                      <td><code>msaz-vm-vnet</code></td>
                     </tr>
                     <tr>
                       <td>サブネット</td>
@@ -278,11 +278,11 @@
                     </tr>
                     <tr>
                       <td>パブリック IP</td>
-                      <td><strong>[(新規) msaz-vm-02-ip]</strong></td>
+                      <td><code>(新規) msaz-vm-02-ip</code></td>
                     </tr>
                     <tr>
                       <td>NIC ネットワーク セキュリティ グループ</td>
-                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。</td>
+                      <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-vm-nsg' に関連付けられています。</td>
                     </tr>
                     <tr>
                       <td>VM が削除されたときにパブリック IP と NIC を削除する</td>
@@ -316,7 +316,7 @@
                   <tbody>
                     <tr>
                       <td>ブート診断</td>
-                      <td><strong>[マネージド ストレージ アカウントで有効にする (推奨)]<br>ℹ️ マネージド ストレージ アカウントには通常の料金がかかります。</strong></td>
+                      <td><strong>[無効化]</strong></td>
                     </tr>
                   </tbody>
                 </table>
@@ -336,7 +336,7 @@
                   <tbody>
                     <tr>
                       <td>ブート診断</td>
-                      <td><strong>[マネージド ストレージ アカウントで有効にする (推奨)]<br>ℹ️ マネージド ストレージ アカウントには通常の料金がかかります。</strong></td>
+                      <td><strong>[無効化]</strong></td>
                     </tr>
                   </tbody>
                 </table>
@@ -356,6 +356,7 @@
         <li>完了を待ちます。</li>
       </ol>
 
+      
       <h2>タスク 2: 作成されたリソースの確認</h2>
       <p>仮想マシンだけでなく、仮想マシンに関連するリソースも同時に作成されていることを確認します。</p>
       <ol>
@@ -365,6 +366,7 @@
           <img src="./data/msazure/created-vmx2.png">
         </li>
       </ol>
+
 
       <h2>タスク 3: 作成されたリソースの確認</h2>
       <p>可用性セットに 仮想マシンが2台 関連付けされていることを確認します。</p>
@@ -376,6 +378,7 @@
           <img src="./data/msazure/avl-set-vmx2.png">
         </li>
       </ol>
+
 
       <h2>タスク 4: 作成されたリソースの確認</h2>
       <p>作成されたリソースがどのように関連付けされているかを確認します。</p>
@@ -390,24 +393,10 @@
         </li>
       </ol>
 
-      <h2>タスク 5: ブート診断の確認</h2>
-      <p>ブート診断を確認します。<br>ブート診断は、仮想マシンのブート(起動)時のスクリーンショットをストレージアカウントに保存して、ブート(起動)に問題がないか診断するための機能です。</p>
-      <ol>
-        <li>ポータルメニューから <strong>[リソース グループ]</strong> を選択します。</li>
-        <li><code>msaz-rg</code> を選択します。</li>
-        <li><code>msaz-vm-01</code> を選択します。</li>
-        <li>サービスメニューから ヘルプ ＞ <strong>[ブート診断]</strong> を選択します。</li>
-        <li>仮想マシンのブート(起動)時のスクリーンショットが表示されます。<br>仮想マシンのWindowsがブート(起動)したことが確認できます。
-          <img src="./data/msazure/boot-diagnostics.png">
-        </li>
-        取得中にエラーが発生しました。 と表示された場合は、少し時間をおいてから再度確認してください。<br>
-      </ol>
 
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
-
       <h4><br><a href="index.html">← 目次に戻る</a></h4>
-
     </main>
   </div>
 </body>

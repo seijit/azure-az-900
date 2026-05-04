@@ -15,7 +15,7 @@
       <p><strong>所要時間:</strong> 約 15 分</p>
 
       <h2>先行の演習</h2>
-      <p>この演習を始める前に <a href="msaz-nsg-0.html">ネットワークセキュリティグループを作成する</a> 
+      <p>この演習を始める前に <a href="msaz-nsg.html">ネットワークセキュリティグループを作成する</a> 
         <a href="msaz-publicip.html">パブリック IP アドレスを作成する</a> 
       を完了してください。
       </p>
@@ -36,7 +36,7 @@
         <li><strong>[＋ 作成]</strong> を選択します。</li>
         <li><strong>[仮想マシン]</strong> を選択します。</li>
         <li>使用する サブスクリプション を選択します。</li>
-        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
+        <li>リソース グループで <code>msaz-rg</code> を選択します。</li>
         <li>以下の設定値を入力または確認します。指定のない項目はデフォルトのままにします。
           <img src="./data/msazure/vm-tab.png">
           <div class="table-container">
@@ -82,11 +82,11 @@
                 </tr>
                 <tr>
                   <td>パスワード</td>
-                  <td><code>Password123!</code> など</td>
+                  <td>任意 (12文字以上 小文字・大文字・数字・特殊文字を含める)</td>
                 </tr>
                 <tr>
                   <td>パブリック受信ポート</td>
-                      <td><strong>[なし]</td>
+                  <td><strong>[なし]</strong></td>
                 </tr>
               </tbody>
             </table>
@@ -127,7 +127,7 @@
             <tbody>
               <tr>
                 <td rowspan="3">
-                  <strong>LRS<br> ローカル冗長ストレージ</strong><br>
+                  LRS<br> ローカル冗長ストレージ<br>
                   <small>(データは単一のデータセンター内でレプリケートされます)</small>
                 </td>
                 <td>Premium SSD</td>
@@ -143,7 +143,7 @@
               </tr>
               <tr>
                 <td rowspan="2">
-                  <strong>ZRS<br> ゾーン冗長ストレージ</strong><br>
+                  ZRS<br> ゾーン冗長ストレージ<br>
                   <small>(データは 3 つのゾーンにレプリケートされます)</small>
                 </td>
                 <td>Premium SSD</td>
@@ -173,22 +173,22 @@
               <tbody>
                 <tr>
                   <td>仮想ネットワーク</td>
-                  <td><strong>[msaz-vnet]</strong></td>
+                  <td><code>msaz-vm-vnet</code></td>
                 </tr>
                 <tr>
                   <td>サブネット</td>
-                  <td><strong>[subnet (10.0.1.0/24)]</strong></td>
+                  <td><code>subnet (10.0.1.0/24)</code></td>
                 </tr>
                 <tr>
                   <td>パブリック IP</td>
-                  <td><strong>[msaz-public-ip]</strong></td>
+                  <td><code>msaz-vm-ip</code></td>
                 </tr>
                 <tr>
                   <td>NIC ネットワーク セキュリティ グループ</td>
-                  <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-nsg' に関連付けられています。この仮想マシンへの接続の管理は、ここで新規のネットワーク セキュリティ グループを作成するのではなく、既存のネットワーク セキュリティ グループ経由で行うことをお勧めします。</td>
+                  <td><strong>[なし]</strong><br>ℹ️ 選択されたサブネット 'subnet (10.0.1.0/24)' は、既にネットワーク セキュリティ グループ 'msaz-vm-nsg' に関連付けられています。この仮想マシンへの接続の管理は、ここで新規のネットワーク セキュリティ グループを作成するのではなく、既存のネットワーク セキュリティ グループ経由で行うことをお勧めします。</td>
                 </tr>
                 <tr>
-                  <td>VM が削除されたときにパブリック IP と NIC を削除する</td>
+                  <td>VM が削除されたときに NIC を削除する</td>
                   <td><strong>[☑️]</strong></td>
                 </tr>
                 <tr>
@@ -237,6 +237,7 @@
         </li>
       </ol>
 
+      
       <h2>タスク 2: 作成されたリソースの確認</h2>
       <p>仮想マシンだけでなく、仮想マシンに関連するリソースも同時に作成されていることを確認します。</p>
       <ol>
@@ -254,16 +255,20 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><code>msaz-nsg</code></td>
-                  <td>ネットワーク セキュリティ グループ</td>
+                  <td><code>msaz-vm</code></td>
+                  <td>仮想マシン</td>
                 </tr>
                 <tr>
-                  <td><code>msaz-public-ip</code></td>
+                  <td><code>msaz-vm-ip</code></td>
                   <td>パブリック IP アドレス</td>
                 </tr>
                 <tr>
-                  <td><code>msaz-vm</code></td>
-                  <td>仮想マシン</td>
+                  <td><code>msaz-vm-nsg</code></td>
+                  <td>ネットワーク セキュリティ グループ</td>
+                </tr>
+                <tr>
+                  <td><code>msaz-vm-vnet</code></td>
+                  <td>仮想ネットワーク</td>
                 </tr>
                 <tr>
                   <td><code>msaz-vm18</code></td>
@@ -273,15 +278,12 @@
                   <td><code>msaz-vm_OsDisk_1_.....</code></td>
                   <td>ディスク</td>
                 </tr>
-                <tr>
-                  <td><code>msaz-vnet</code></td>
-                  <td>仮想ネットワーク</td>
-                </tr>
               </tbody>
             </table>
           </div>
         </li>
       </ol>
+
 
       <h2>タスク 3: リソースの関連付けの確認</h2>
       <p>作成されたリソースがどのように関連付けされているかを確認します。</p>
@@ -292,16 +294,18 @@
         <li>仮想マシンに関連する複数のリソースがどのように関連付けされているか確認します
           <img src="./data/msazure/vm-0-rv.png">
         </li>
-        <li>ネットワークセキュリティグループの関連付けは ネットワーク設計に応じていくつかのパターンに分類できます。ここでは、デフォルトのネットワークセキュリティグループがネットワークインターフェイスに関連付けされています。
+        <li>ネットワークセキュリティグループの関連付けは ネットワーク設計に応じていくつかのパターンに分類できます。ここでは、ネットワークセキュリティグループが仮想ネットワークに関連付けされています。
           <img src="./data/msazure/vnet-nsg-pattern.png">
         </li>
       </ol>
 
+
+      <h2>🎉ネットワークに関連付けて、仮想マシンを作成しました。🎉</h2>
+
+
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
-
       <h4><br><a href="index.html">← 目次に戻る</a></h4>
-
     </main>
   </div>
 </body>

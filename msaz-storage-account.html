@@ -10,7 +10,7 @@
   <div class="container">
     <main>
       <h1>Azure ポータル で ストレージ アカウント を作成する</h1>
-      <p><strong>適用対象:</strong> <span class="badge">✔️ ストレージ アカウント</span> <span class="badge">✔️ コンテナー</span></p>
+      <p><strong>適用対象:</strong> <span class="badge">✔️ スSトレージ アカウント</span> <span class="badge">✔️ コンテナー</span></p>
       <p>この演習では、Azure ポータル を使用して ストレージ アカウント と コンテナー を作成します。</p>
 
       <p><strong>所要時間:</strong> 約 15 分</p>
@@ -112,15 +112,15 @@
         <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
         <li><strong>[＋ 作成]</strong> を選択します。</li>
         <li>使用する サブスクリプション を選択します。</li>
-        <li>リソース グループで <strong>[msaz-rg]</strong> を選択します。</li>
+        <li>リソース グループで <code>msaz-rg</code> を選択します。</li>
         <li>ストレージ アカウント名に <code>storagev2msaz1</code> と入力します。<br>ストレージ アカウント名は既に使用されています。 と表示された場合は、任意の別の名前を入力してください。</li>
         <li>利用可能な リージョン を選択します。</li>
         <li>パフォーマンスで <strong>[Standard]</strong> を選択します。</li>
         <li>冗長性で <strong>[ゾーン冗長ストレージ (ZRS)]</strong> を選択します。</li>
         <li><strong>[次へ]</strong> を選択します。</li>
-        <li><strong>[詳細]</strong> タブで、設定項目を一通り確認します。
+        <li>詳細 タブで、設定項目を一通り確認します。
         </li>
-        <li><strong>個々のコンテナーで匿名アクセスの有効化を許可する</strong> が 無効 であることを確認します。<br>
+        <li>個々のコンテナーで匿名アクセスの有効化を許可する が 無効 であることを確認します。<br>
           この設定は、各コンテナーで 匿名アクセスを設定できるようにするかどうかを選択します。<br>
           ここでは 匿名アクセスを許可しない設定で進めます。
           <img src="./data/msazure/account-public-access-off.png">
@@ -140,6 +140,7 @@
         <li>完了を待ちます。</li>
       </ol>
 
+
       <h2>タスク 2: 作成されたリソースの確認</h2>
       <p>ストレージ アカウントが作成されていることを確認します。</p>
       <ol>
@@ -147,6 +148,7 @@
         <li><strong>[ストレージ アカウント]</strong> を選択します。</li>
         <li><code>storagev2msaz1</code> が存在することを確認します。</li>
       </ol>
+
 
       <h2>タスク 3: コンテナー の作成</h2>
       <p>コンテナー を作成します。</p>
@@ -227,12 +229,14 @@
         </table>
       </div>
 
+
       <h2>ストレージアカウント＋コンテナー 設定組み合わせ</h2>
       <p>ストレージアカウントの設定が コンテナーの設定よりも優先されます。<br>
         - ストレージアカウントが 匿名アクセス無効 の場合、すべてのコンテナーは 匿名アクセス無効<br>
         - ストレージアカウントが 匿名アクセス有効 の場合、コンテナーごとに 匿名アクセスレベルを選択可能<br>
       </p>
       <img src="./data/msazure/storage-account-container.png">
+
 
       <h2>タスク 4: 作成されたリソースの確認</h2>
       <p>ストレージ アカウントに コンテナー が作成されていることを確認します。</p>
@@ -244,11 +248,10 @@
         <li><code>storage-container</code> が存在することを確認します。</li>
       </ol>
 
+
       <h2>リソースをクリーンアップする場合</h2>
       <h3><a href="msaz-rg.html#cleanup">リソース グループを削除する</a></h3>
-
       <h4><br><a href="index.html">← 目次に戻る</a></h4>
-
     </main>
   </div>
 </body>
